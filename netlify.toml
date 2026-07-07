@@ -1,0 +1,29 @@
+[build]
+  command = "npm run build"
+  publish  = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# @netlify/plugin-nextjs wraps Next.js Route Handlers (/api/*) as Netlify
+# serverless functions and handles SSR/ISR. Required for this app — the
+# /api/checkout and /api/webhooks/payment routes will not work without it.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# ── Environment Variables ──────────────────────────────────────────────────────
+# Set these in the Netlify dashboard → Site → Environment Variables.
+# They are NOT read from .env.local in production — Netlify injects them at build
+# time and into the serverless function runtime.
+#
+# Required before first deploy:
+#   NEXT_PUBLIC_SITE_URL     https://yourdomain.com      ← baked into CSP at build
+#
+# Required once PaymentCloud approves your account:
+#   NMI_SECURITY_KEY         from NMI merchant portal → Settings → Security Keys
+#   NMI_WEBHOOK_SECRET       set here + register in NMI portal → Notification URL
+#   NMI_GATEWAY_URL          https://secure.networkmerchants.com/api/v2/three-step
+#   NMI_DIRECT_POST_URL      https://secure.networkmerchants.com/api/transact.php
+#
+# IMPORTANT: After setting NEXT_PUBLIC_SITE_URL, trigger a fresh deploy so the
+# Content-Security-Policy in next.config.ts is rebuilt with the real domain.
