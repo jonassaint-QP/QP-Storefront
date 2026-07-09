@@ -104,7 +104,7 @@ export default function BundlesPage() {
             <AddToCartButton
               id="bundle-sovereign-kit"
               slug="sovereign-maintenance-kit"
-              category="slings-anchors"
+              category="technical-toys"
               name="The Sovereign Maintenance Kit"
               price={BUNDLE_PRICE}
               label="Add Bundle to Cart"
@@ -263,7 +263,7 @@ export default function BundlesPage() {
             <AddToCartButton
               id="bundle-sovereign-kit"
               slug="sovereign-maintenance-kit"
-              category="slings-anchors"
+              category="technical-toys"
               name="The Sovereign Maintenance Kit"
               price={BUNDLE_PRICE}
               label="Add Bundle to Cart"

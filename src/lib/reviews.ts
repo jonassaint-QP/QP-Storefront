@@ -19,44 +19,12 @@ export type Review = {
 
 // Rating axes keyed by category — structural/functional language throughout
 export const RATING_AXES: Record<CategorySlug, string[]> = {
-  'slings-anchors': ['Load Tolerance', 'Hardware Integrity', 'Adjustability Range', 'Build Quality'],
   'technical-toys': ['Material Purity', 'Surface Finish', 'Sizing Accuracy', 'Build Quality'],
   'lubes':          ['Viscosity Consistency', 'Session Longevity', 'Texture Profile', 'Tissue Tolerance'],
-  'metabolic':      ['Effectiveness', 'Palatability', 'Predictability', 'Formulation Quality'],
 };
 
 // Mock community reviews — structural language, no personal identifiers
 export const MOCK_REVIEWS: Review[] = [
-  // ── slings-anchors ──────────────────────────────────────────────────────
-  {
-    id: 'r-a-01',
-    category: 'slings-anchors',
-    handle: 'TacticalPilot_847',
-    verifiedBuyer: true,
-    date: '2026-05-12',
-    ratings: [
-      { axis: 'Load Tolerance', score: 5 },
-      { axis: 'Hardware Integrity', score: 5 },
-      { axis: 'Adjustability Range', score: 4 },
-      { axis: 'Build Quality', score: 5 },
-    ],
-    body: 'Hardware arrived with zero flex at full load. Double-stitched seams held under sustained lateral pressure without any sign of delamination. Carabiner rating is not theoretical — you can feel the integrity in the hand. Adjustability range covers roughly 18" of vertical — adequate for most configurations. Ceiling hardware install was straightforward with the included anchor bolts.',
-  },
-  {
-    id: 'r-a-02',
-    category: 'slings-anchors',
-    handle: 'GroundedFrame_291',
-    verifiedBuyer: true,
-    date: '2026-04-30',
-    ratings: [
-      { axis: 'Load Tolerance', score: 4 },
-      { axis: 'Hardware Integrity', score: 5 },
-      { axis: 'Adjustability Range', score: 5 },
-      { axis: 'Build Quality', score: 4 },
-    ],
-    body: 'The stitching on the main body panel is heavy — noticeably heavier than comparable items I\'ve used. Pelvic alignment is correct with no compensatory tension required. Adjustability is the standout: three distinct anchor points let you dial in the height without tools. The leather vest has a break-in period of approximately 3–4 sessions before the grain softens to body contour.',
-  },
-
   // ── technical-toys ──────────────────────────────────────────────────────
   {
     id: 'r-b-01',
@@ -115,36 +83,6 @@ export const MOCK_REVIEWS: Review[] = [
       { axis: 'Tissue Tolerance', score: 5 },
     ],
     body: 'The silicone hybrid stays in place under sustained mechanical load — no migration or breakdown over a 3-hour session. Viscosity at room temperature is thick but pump-dispensable. Note: needs slight warming for optimal flow — 30 seconds of hand warmth is sufficient. Fully compatible with non-silicone toys confirmed through direct contact testing. No inflammatory response after repeated use.',
-  },
-
-  // ── metabolic ───────────────────────────────────────────────────────────
-  {
-    id: 'r-d-01',
-    category: 'metabolic',
-    handle: 'SomaticUnit_663',
-    verifiedBuyer: true,
-    date: '2026-05-18',
-    ratings: [
-      { axis: 'Effectiveness', score: 5 },
-      { axis: 'Palatability', score: 4 },
-      { axis: 'Predictability', score: 5 },
-      { axis: 'Formulation Quality', score: 5 },
-    ],
-    body: 'BOTTOM capsules produce a consistent, predictable output window at 4 caps daily. After 7 days of consistent use the timing is reliable within a 2-hour window — a significant improvement over bulk powder protocols. No cramping, no grit, no measuring. The capsule shell dissolves cleanly. Palatability of the recovery gummies is functional — not designed to be candy, does the job. Electrolyte tab dissolves in 3 minutes, taste is clean.',
-  },
-  {
-    id: 'r-d-02',
-    category: 'metabolic',
-    handle: 'DurableCore_289',
-    verifiedBuyer: true,
-    date: '2026-04-08',
-    ratings: [
-      { axis: 'Effectiveness', score: 4 },
-      { axis: 'Palatability', score: 5 },
-      { axis: 'Predictability', score: 4 },
-      { axis: 'Formulation Quality', score: 5 },
-    ],
-    body: 'Post-play crash management is noticeably improved with the recovery pack — the glucose-electrolyte combination addressed the low-energy window that typically extends 2–4 hours after a high-intensity session. The gummies have a mild flavor, not overwhelming. Predictability of the fiber capsules improves significantly after week 2 — the first week showed some variation which is consistent with the adaptation period noted in the instructions.',
   },
 ];
 

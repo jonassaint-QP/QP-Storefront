@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import {
   CATEGORIES,
@@ -70,15 +71,28 @@ export default async function ProductPage({ params }: PageProps) {
       <div className="border-b border-zinc-800 px-6 py-16 mx-auto w-full max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
-          {/* Left — product image placeholder */}
-          <div className="border border-zinc-800 aspect-square flex flex-col items-center justify-center gap-3 bg-zinc-950">
-            <p className="text-xs font-mono uppercase tracking-widest text-zinc-700">
-              {category.tag}
-            </p>
-            <p className="text-4xl font-black text-zinc-800 uppercase tracking-tight text-center px-8 leading-tight">
-              {product.name}
-            </p>
-          </div>
+          {/* Left — product image */}
+          {product.image ? (
+            <div className="relative border border-zinc-800 aspect-square overflow-hidden bg-zinc-950">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+          ) : (
+            <div className="border border-zinc-800 aspect-square flex flex-col items-center justify-center gap-3 bg-zinc-950">
+              <p className="text-xs font-mono uppercase tracking-widest text-zinc-700">
+                {category.tag}
+              </p>
+              <p className="text-4xl font-black text-zinc-800 uppercase tracking-tight text-center px-8 leading-tight">
+                {product.name}
+              </p>
+            </div>
+          )}
 
           {/* Right — details */}
           <div className="flex flex-col gap-8">
@@ -120,7 +134,7 @@ export default async function ProductPage({ params }: PageProps) {
               category={product.category as CategorySlug}
               name={product.name}
               price={product.price}
-              hasSizing={['a-03', 'b-04'].includes(product.id)}
+              hasSizing={false}
             />
           </div>
         </div>

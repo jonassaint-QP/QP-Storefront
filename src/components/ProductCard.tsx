@@ -1,24 +1,37 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Product } from '@/lib/products';
 import { formatPrice } from '@/lib/products';
 import AddToCartButton from './AddToCartButton';
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { id, slug, category, name, tagline, material, description, specs, price } = product;
+  const { id, slug, category, name, tagline, material, description, specs, price, image } = product;
 
   return (
     <article className="border border-zinc-800 bg-black flex flex-col group hover:border-zinc-600 transition-colors">
-      {/* Image placeholder */}
+      {/* Product image */}
       <Link
         href={`/shop/${category}/${slug}`}
         aria-hidden="true"
         tabIndex={-1}
-        className="aspect-[4/3] bg-zinc-950 border-b border-zinc-800 group-hover:border-zinc-600 transition-colors flex flex-col items-center justify-center gap-3"
+        className="relative aspect-[4/3] bg-zinc-950 border-b border-zinc-800 group-hover:border-zinc-600 transition-colors overflow-hidden flex flex-col items-center justify-center gap-3"
       >
-        <div className="w-10 h-10 border border-zinc-800 group-hover:border-zinc-700 transition-colors rotate-45" />
-        <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-zinc-800">
-          {id.toUpperCase()}
-        </span>
+        {image ? (
+          <Image
+            src={image}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <>
+            <div className="w-10 h-10 border border-zinc-800 group-hover:border-zinc-700 transition-colors rotate-45" />
+            <span className="text-[10px] font-mono uppercase tracking-[0.35em] text-zinc-800">
+              {id.toUpperCase()}
+            </span>
+          </>
+        )}
       </Link>
 
       {/* Header */}

@@ -1,8 +1,6 @@
 export type CategorySlug =
-  | 'slings-anchors'
   | 'technical-toys'
-  | 'lubes'
-  | 'metabolic';
+  | 'lubes';
 
 export type Category = {
   slug: CategorySlug;
@@ -22,17 +20,10 @@ export type Product = {
   description: string;
   specs: string[];
   price: number; // USD
+  image?: string; // path relative to /public
 };
 
 export const CATEGORIES: Category[] = [
-  {
-    slug: 'slings-anchors',
-    tag: 'Category A',
-    title: 'Slings & Anchors',
-    subtitle: 'Somatic Scaffolding',
-    description:
-      'Load-bearing infrastructure that builds a secure physical base — freeing the mind to explore without the distraction of physical vulnerability or bodily discomfort.',
-  },
   {
     slug: 'technical-toys',
     tag: 'Category B',
@@ -49,221 +40,196 @@ export const CATEGORIES: Category[] = [
     description:
       'Heavy-viscosity profiles that protect tissue and safely manage mechanical tension. Formulated for advanced play — no compromises, no guesswork.',
   },
-  {
-    slug: 'metabolic',
-    tag: 'Category D',
-    title: 'Metabolic Recovery',
-    subtitle: 'Maintenance & Recovery',
-    description:
-      'Targeting the exact point of performance where executive functions usually fail. Streamlined protocols that require zero lab-experiment overhead.',
-  },
 ];
 
 export const PRODUCTS: Product[] = [
-  // ── Category A ───────────────────────────────────────────────────────────
   {
-    id: 'a-01',
-    slug: 'ballistic-nylon-play-sling',
-    category: 'slings-anchors',
-    name: 'Ballistic Nylon Play Sling',
-    tagline: 'Absolute containment. Pelvic alignment. Repeatable function.',
-    material: 'Military-grade ballistic nylon / double-stitched',
-    description:
-      'Heavy-duty play sling engineered for absolute containment and pelvic alignment. Double-stitched seams and powder-coated steel hardware rated to withstand immense stress under real conditions.',
-    specs: [
-      '600 lb rated load capacity',
-      'Double-stitched reinforced seams',
-      'Adjustable multi-position straps',
-      'Powder-coated steel suspension hardware',
-      'Machine-washable nylon shell',
-    ],
-    price: 289,
-  },
-  {
-    id: 'a-02',
-    slug: 'industrial-hardware-anchor-kit',
-    category: 'slings-anchors',
-    name: 'Industrial Hardware Anchor Kit',
-    tagline: 'Mechanical clarity. Supported presence. Zero flex.',
-    material: 'Premium locking surgical steel / zinc-plated chain',
-    description:
-      'Premium ceiling-mount anchor system built for mechanical clarity and a supported presence. Locking carabiners, heavy-duty ceiling plate, and adjustable chain — everything needed to establish a fixed, load-bearing point.',
-    specs: [
-      '3× locking steel carabiners (5,000 lb rated each)',
-      'Heavy-duty ceiling mount plate with anchor bolts',
-      '6 ft adjustable steel chain with 3" links',
-      'Full installation hardware included',
-      'Compatible with standard joist and concrete anchor',
-    ],
-    price: 189,
-  },
-  {
-    id: 'a-03',
-    slug: 'heavy-leather-tactical-vest',
-    category: 'slings-anchors',
-    name: 'Heavy Leather Tactical Vest',
-    tagline: 'Pressure regulation. Concrete structural boundaries for the body.',
-    material: 'Full-grain cowhide leather / industrial riveted hardware',
-    description:
-      'Industrial heritage garment providing direct somatic feedback and pressure regulation. Hand-finished full-grain leather with front buckle closure and D-ring mounting points — a wearable somatic scaffold.',
-    specs: [
-      'Full-grain cowhide, 4–5 oz weight',
-      'Front buckle closure system',
-      '6× D-ring attachment points',
-      'Hand-finished and burnished edges',
-      'Sizes XS–3XL (size chart included)',
-    ],
-    price: 349,
-  },
-
-  // ── Category B ───────────────────────────────────────────────────────────
-  {
-    id: 'b-01',
-    slug: 'platinum-cured-silicone-expander-set',
+    id: 'b-05',
+    slug: 'h-style-flogger',
     category: 'technical-toys',
-    name: 'Platinum-Cured Silicone Expander Set',
-    tagline: 'Progressive sizing. Glass-smooth finish. Zero compromise.',
-    material: '100% platinum-cured body-safe silicone',
+    name: 'H-Style Flogger',
+    tagline: 'Short handle. Deep impact. Close-quarters regulation.',
+    material: 'Premium leather falls / leather-wrapped handle',
+    image: '/images/products/h-style-flogger.jpg',
     description:
-      'Seven-piece progressive sizing set ranging from entry-level profiles to advanced expanders. Flawless glass-smooth finish delivers uniform pressure tolerance at every size. Autoclave-safe, body-safe certified — the only acceptable standard.',
+      'Short handle. Deep impact. Built for close-quarters regulation when the internal courtroom won\'t shut up. A 16cm leather-wrapped grip anchors your hand, while 54cm leather falls deliver precise, grounding thud. It\'s not about punishment; it\'s about pulling your consciousness out of the executive archives and slamming it back into the present moment.',
     specs: [
-      '7 pieces, 1"–4.5" diameter progression',
-      '100% platinum-cured silicone — no fillers',
-      'Flared safety base on all pieces',
-      'Autoclave-safe and dishwasher-safe',
-      'Body-safe certified, phthalate-free',
+      '16cm leather-wrapped grip with wrist loop',
+      '54cm premium leather falls',
+      'Precise, grounding thud profile',
+      'Balanced weight for extended use',
     ],
-    price: 179,
+    price: 55,
   },
   {
-    id: 'b-02',
-    slug: 'surgical-steel-weighted-insertable',
+    id: 'b-06',
+    slug: 'spartacus-leather-cane-24',
     category: 'technical-toys',
-    name: 'Surgical Steel Weighted Insertable',
-    tagline: 'Distinct mechanical clarity. Direct sensory grounding.',
-    material: '316L surgical-grade stainless steel, mirror polish',
+    name: 'Spartacus 24" Leather Wrapped Cane',
+    tagline: 'Thud meets sting. Controlled, deliberate impact on your terms.',
+    material: 'Leather-wrapped firm core / 24-inch',
+    image: '/images/products/spartacus-leather-cane-24.jpg',
     description:
-      'High-density surgical steel insertable designed for distinct mechanical clarity and direct sensory grounding. Mirror-polished finish enables temperature play. The weight alone anchors the nervous system.',
+      'Thud meets sting. Twenty-four inches of controlled, deliberate impact wrapped in leather over a firm core. It lands heavier and softer than raw rattan, making it the perfect tool for building tolerance, processing somatic storage, and modulating sensory input on your own terms.',
     specs: [
-      '316L surgical-grade stainless steel',
-      'Mirror-polished smooth finish',
-      '480g high-density construction',
-      'Temperature play capable (hot and cold)',
-      'Flared safety base, dishwasher-safe',
-    ],
-    price: 119,
-  },
-  {
-    id: 'b-03',
-    slug: 'elk-hide-precision-flogger',
-    category: 'technical-toys',
-    name: 'Elk Hide Precision Flogger',
-    tagline: 'Hard-wearing somatic anchor. Interrupt executive loops.',
-    material: 'Premium elk hide / industrial rubber-wrapped handle',
-    description:
-      'Hand-cut premium elk hide tails on an industrial rubber-wrapped handle. Balanced for extended use — functions as a somatic anchor that interrupts executive loops and calibrates sensory intensity with precision.',
-    specs: [
-      '24 hand-cut elk hide tails',
-      '18" fall length, 12" rubber-wrapped handle',
-      'Balanced weight distribution for extended use',
-      'Stainless steel handle core',
-      'Individually hand-finished',
-    ],
-    price: 159,
-  },
-  {
-    id: 'b-04',
-    slug: 'latigo-leather-wrist-ankle-cuffs',
-    category: 'technical-toys',
-    name: 'Latigo Leather Wrist/Ankle Cuffs',
-    tagline: '1.75" Black Latigo. Industrial rubber grip. Somatic sovereignty.',
-    material: '1.75" Black Latigo leather / rubber-wrapped D-ring hardware',
-    description:
-      '1.75" Black Latigo leather cuffs with industrial rubber-wrapped handles — hard-wearing somatic anchors that establish concrete physical boundaries and regulate sensory intensity. Sold as a pair.',
-    specs: [
-      '1.75" Black Latigo full-grain leather',
-      'Adjustable 6"–10" circumference',
-      '3 adjustment positions',
-      'Locking D-ring closure, rubber-wrapped',
-      'Sold as a pair (2 cuffs)',
-    ],
-    price: 89,
-  },
-
-  // ── Category C ───────────────────────────────────────────────────────────
-  {
-    id: 'c-01',
-    slug: 'x-lube-water-soluble-concentrate',
-    category: 'lubes',
-    name: 'X-Lube Water-Soluble Concentrate',
-    tagline: 'Custom-mixed. Hyper-slick. Zero cognitive overhead.',
-    material: 'Water-soluble polymer — no glycerin, no parabens',
-    description:
-      'Powder-to-gel formulation that removes gritty textures and allows custom-mixed, hyper-slick slurries without toxic additives. One pouch makes up to 5 liters of gel at your chosen viscosity. No measuring cups required.',
-    specs: [
-      '250g powder, makes up to 5L of gel',
-      'Adjustable viscosity — thin to ultra-thick',
-      'pH-balanced (7.0–7.4)',
-      'Toy-safe and latex-safe',
-      'No glycerin, no parabens, no glycol',
-    ],
-    price: 39,
-  },
-  {
-    id: 'c-02',
-    slug: 'ultra-thick-silicone-hybrid-formula',
-    category: 'lubes',
-    name: 'Ultra-Thick Silicone Hybrid Formula',
-    tagline: 'Medical-grade. Long-lasting. A resilient, frictionless barrier.',
-    material: 'Medical-grade dimethicone / silicone-hybrid base',
-    description:
-      'Medical-grade long-lasting hybrid silicone formula that establishes a resilient, frictionless barrier. Heavy viscosity that stays where you put it. Compatible with non-silicone toys. Honoring the two-way street of consent and somatic presence.',
-    specs: [
-      '500ml pump bottle',
-      'Heavy viscosity — does not thin with use',
-      'Compatible with non-silicone toys',
-      'Heat stable to 150°C',
-      'No water-based degradation',
-    ],
-    price: 59,
-  },
-
-  // ── Category D ───────────────────────────────────────────────────────────
-  {
-    id: 'd-01',
-    slug: 'bottom-fiber-capsules',
-    category: 'metabolic',
-    name: 'BOTTOM Fiber Capsules',
-    tagline: 'Streamlined. Predictable. Zero lab-experiment overhead.',
-    material: 'Psyllium husk, flaxseed, inulin — Friend of Dorothy formula',
-    description:
-      'Pre-measured capsule line blending psyllium, flaxseed, and inulin that eliminates the messy, frustrating lab-experiment ritual of weighing bulk powders. Streamlined and predictable — four capsules, once daily.',
-    specs: [
-      '60-day supply (240 capsules)',
-      '4 capsules daily dose',
-      'Psyllium husk + flaxseed + inulin blend',
-      'No artificial additives or fillers',
-      'Travel-safe resealable packaging',
+      '24-inch leather-wrapped firm core',
+      'Heavier, softer impact profile than raw rattan',
+      'High control, versatile sensation',
+      'Wrist safety loop included',
     ],
     price: 49,
   },
   {
-    id: 'd-02',
-    slug: 'post-play-recovery-pack',
-    category: 'metabolic',
-    name: 'Post-Play Recovery Pack',
-    tagline: 'Cushion the nervous system drop. Clear the dopamine crash.',
-    material: 'Electrolyte complex / glucose recovery blend',
+    id: 'b-07',
+    slug: 'leather-ankle-cuffs-chain',
+    category: 'technical-toys',
+    name: 'Leather Ankle Cuffs w/ Chain',
+    tagline: 'All black. All business. Secure the perimeter. Adjourn the trial.',
+    material: 'Adjustable leather / detachable black chain hardware',
+    image: '/images/products/leather-ankle-cuffs-chain.jpg',
     description:
-      'Formulated electrolyte and glucose hydration packages explicitly designed to stabilize the system and clear the chemical malware of a post-play dopamine crash. Pre-portioned. No measuring. Open and consume.',
+      'All black. All business. Fully adjustable buckle straps mated to a detachable double-trigger hook chain. When your brain spends all day running a marathon of code-switching and task-paralysis, being completely locked in is the only way to finally let your guard down. Secure the perimeter. Adjourn the trial.',
     specs: [
-      '10-session supply per pack',
-      '10× electrolyte tabs (sodium, potassium, magnesium)',
-      '10× glucose gummy packs (20g fast-acting carbs)',
-      'Pedialyte-equivalent electrolyte profile',
-      'Travel-safe, individually sealed',
+      'Fully adjustable buckle strap closures',
+      'D-ring connections on each cuff',
+      'Detachable double-trigger hook chain',
+      'All-black hardware throughout',
     ],
-    price: 34,
+    price: 59,
+  },
+  {
+    id: 'b-08',
+    slug: 'master-series-pup-arsenal-set',
+    category: 'technical-toys',
+    name: 'Master Series Pup Arsenal Set',
+    tagline: 'Everything you need to surrender the crown. The ultimate cognitive off-ramp.',
+    material: 'Vegan leather / neoprene / nickel-free hardware',
+    image: '/images/products/master-series-pup-arsenal-set.jpg',
+    description:
+      'Everything you need to get on all fours and surrender the crown. For the visionary exhausted by executive function, this is the ultimate cognitive off-ramp. A complete neoprene hood with poseable ears, silicone bone gag, bulldog harness, mitts, and a wagging tail plug. No decisions to make. No boardroom to impress. Just pure, unadulterated, non-verbal play.',
+    specs: [
+      'Item XRAH275',
+      'Neoprene puppy hood with poseable ears',
+      'Silicone bone gag + bulldog harness',
+      'Padded paw mitts + tail anal plug',
+      'Vegan leather throughout, nickel-free hardware',
+    ],
+    price: 189,
+  },
+  {
+    id: 'b-09',
+    slug: 'spartacus-blown-large-realistic-glass',
+    category: 'technical-toys',
+    name: 'Spartacus Blown Large Realistic Glass',
+    tagline: 'Clear. Clean. Unyielding. Temperature-responsive total presence.',
+    material: 'Premium borosilicate glass — non-porous, temperature-responsive',
+    image: '/images/products/spartacus-blown-large-realistic-glass.jpg',
+    description:
+      'Clear. Clean. Unyielding. Borosilicate glass engineered to hold temperature — run it under hot water to thaw out somatic freeze, or chill it to shock a hyper-aroused nervous system back to baseline. A massive, realistic profile anchored by a 3.75\" harness-compatible suction base. Zero compromise, total presence.',
+    specs: [
+      'Item BSPG-B3C',
+      'Premium borosilicate glass — non-porous',
+      'Temperature-responsive (hot and cold play)',
+      '3.75" harness-compatible suction base',
+      'Realistic profile, dishwasher-safe',
+    ],
+    price: 69,
+  },
+  {
+    id: 'b-10',
+    slug: 'spartacus-blown-medium-realistic-glass',
+    category: 'technical-toys',
+    name: 'Spartacus Blown Medium Realistic Glass',
+    tagline: 'Raw grit. Flawless craft. Targeted, sustainable intensity.',
+    material: 'Premium borosilicate glass — non-porous, temperature-responsive',
+    image: '/images/products/spartacus-blown-medium-realistic-glass.jpg',
+    description:
+      'The same raw grit and flawless craftsmanship as its larger counterpart, scaled down for targeted, sustainable intensity. Built with a 2.5\" harness-compatible base, this medium borosilicate piece delivers the same temperature-shifting, non-porous grounding without overwhelming the system.',
+    specs: [
+      'Item BSPG-B4C',
+      'Premium borosilicate glass — non-porous',
+      'Temperature-responsive (hot and cold play)',
+      '2.5" harness-compatible suction base',
+      'Limited stock — immediate discrete dispatch',
+    ],
+    price: 59,
+  },
+  {
+    id: 'b-11',
+    slug: 'blush-au-naturel-daddy-14',
+    category: 'technical-toys',
+    name: 'Blush Au Naturel "Daddy" 14"',
+    tagline: 'Fourteen inches of dual-density authority. Stop running the world.',
+    material: 'Dual-density phthalate-free TPE with FlexiShaft™ technology',
+    image: '/images/products/blush-au-naturel-daddy-14.jpg',
+    description:
+      'Fourteen inches of dual-density authority. Engineered with Sensa Feel® layers — a soft, human-like exterior wrapped around an unyielding, rigid core. Complete with a tapered head and an iron-clad suction cup that anchors to any flat surface or locks into a harness. This is big, protective energy for when you need to stop running the world and let something else take control.',
+    specs: [
+      'Item BL26643',
+      '14" dual-density phthalate-free TPE',
+      'Sensa Feel® exterior / FlexiShaft™ rigid core',
+      'Tapered head for progressive entry',
+      'Iron-clad suction cup — flat surface and harness compatible',
+    ],
+    price: 79,
+  },
+
+  // ── Category C ───────────────────────────────────────────────────────────
+  {
+    id: 'c-03',
+    slug: 'spunk-lube-pure-silicone',
+    category: 'lubes',
+    name: 'SPUNK Lube Pure Silicone',
+    tagline: 'Zero sticky. Infinite shelf life. Medical-grade glide for sensory sensitivity.',
+    material: '100% pure silicone — paraben-free, glycerin-free, chemical-free',
+    image: '/images/products/spunk-lube-pure-silicone.jpg',
+    description:
+      'Zero sticky. Infinite shelf life. When your nervous system is constantly short-circuiting from cognitive friction, your bedroom shouldn\'t add to the drag. This is pure, low-stimulation, medical-grade glide designed for sensory sensitivity and endless endurance. No parabens, no glycerin, no chemical noise. Just a smooth, non-drying boundary that outlasts the longest day in the boardroom.',
+    specs: [
+      '16 fl oz / 473 ml',
+      '100% pure silicone — no parabens, no glycerin',
+      'Non-staining, non-drying formula',
+      'Safe with non-silicone toys',
+      'Made in USA',
+    ],
+    price: 28,
+  },
+  {
+    id: 'c-04',
+    slug: 'trojan-bareskin-raw',
+    category: 'lubes',
+    name: 'Trojan BareSkin Raw',
+    tagline: 'Maximum somatic feedback. Minimal interference. The thinnest safety net.',
+    material: 'Ultra-thin latex — natural rubber',
+    image: '/images/products/trojan-bareskin-raw.jpg',
+    description:
+      'The closest you can get without the noise. For the hyper-vigilant mind that overthinks every layer of separation, Raw strips away the armor while keeping the safety net intact. Maximum somatic feedback, minimal interference. Stop managing the friction and start feeling the impact.',
+    specs: [
+      'Thinnest latex protection Trojan makes',
+      'Ultra-sensitive natural rubber latex',
+      'Lubricated with reservoir tip',
+      'Secure, reliable protection',
+    ],
+    price: 14,
+  },
+  {
+    id: 'c-05',
+    slug: 'kama-sutra-sex-magnet-candle',
+    category: 'lubes',
+    name: 'Kama Sutra Sex Magnet Candle',
+    tagline: 'Light it. Melt it. Ground it. Pheromone-infused nervous system reset.',
+    material: 'Pheromone-infused body-safe massage oil wax — leather and cedar blend',
+    image: '/images/products/kama-sutra-sex-magnet-candle.jpg',
+    description:
+      'Light it. Melt it. Ground it. A pheromone-infused blend of leather and cedar that warms down into a body-safe massage oil. It adapts to your skin chemistry, shifting the atmosphere from high-alert performance to low-lighting intimacy. It\'s never too hot, always inviting, and deeply grounding for an exhausted nervous system.',
+    specs: [
+      'Item KS12084',
+      'Leather and cedar pheromone profile',
+      'Clean-melting body-safe massage oil formula',
+      'Never too hot — safe for direct skin contact',
+      'Custom pheromone blend adapts to skin chemistry',
+    ],
+    price: 24,
   },
 ];
 
