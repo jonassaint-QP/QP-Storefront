@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Stray Amazon thumbnail downloads
+public/**/*_AC_US40_*.jpg
+public/**/*_AC_SL*.jpg
+public/*_AC_US40_*.jpg
+public/*_AC_SL*.jpg
