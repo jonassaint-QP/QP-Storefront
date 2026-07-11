@@ -27,7 +27,7 @@ export default function SiteHeader() {
           className="flex flex-col leading-none group"
           aria-label="Queer Pathways — home"
         >
-          <span className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-600 group-hover:text-zinc-400 transition-colors">
+          <span className="text-xs tracking-[0.3em] font-mono uppercase text-[#4169E1] group-hover:text-[#6384e8] transition-colors">
             [ QP ]
           </span>
           <span className="text-sm font-black tracking-tight uppercase text-white group-hover:text-zinc-200 transition-colors">
