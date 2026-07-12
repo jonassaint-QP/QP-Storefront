@@ -62,7 +62,7 @@ export default async function CategoryPage({ params }: PageProps) {
           <p className="text-xs tracking-[0.35em] font-mono uppercase text-zinc-600">
             {cat.tag} — {cat.subtitle}
           </p>
-          <h1 className="text-5xl font-black tracking-tight uppercase leading-none text-white">
+          <h1 className={`text-5xl font-black tracking-tight uppercase leading-none ${cat.color}`}>
             {cat.title}
           </h1>
           <p className="text-sm font-mono text-zinc-500 leading-7 mt-2 max-w-lg">

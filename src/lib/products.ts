@@ -1,6 +1,8 @@
 export type CategorySlug =
   | 'technical-toys'
-  | 'lubes';
+  | 'lubes'
+  | 'internal-expansion'
+  | 'double-outsider';
 
 export type Category = {
   slug: CategorySlug;
@@ -8,6 +10,8 @@ export type Category = {
   title: string;
   subtitle: string;
   description: string;
+  /** Tailwind text-color class derived from the hanky code */
+  color: string;
 };
 
 export type Product = {
@@ -20,7 +24,11 @@ export type Product = {
   description: string;
   specs: string[];
   price: number; // USD
-  image?: string; // path relative to /public
+  image?: string;   // Main/Hero shot — path relative to /public
+  images?: string[]; // Full gallery list
+  sku?: string;
+  stock?: number;
+  protocol?: string;
 };
 
 export const CATEGORIES: Category[] = [
@@ -31,6 +39,7 @@ export const CATEGORIES: Category[] = [
     subtitle: 'Material Discipline',
     description:
       'Zero tolerance for porous, unsafe materials. Every piece is body-safe, premium-grade, and engineered to anchor the nervous system through grounded sensation.',
+    color: 'text-zinc-400', // grey hanky — bondage / SM
   },
   {
     slug: 'lubes',
@@ -39,6 +48,25 @@ export const CATEGORIES: Category[] = [
     subtitle: 'Specialized Lubes',
     description:
       'Heavy-viscosity profiles that protect tissue and safely manage mechanical tension. Formulated for advanced play — no compromises, no guesswork.',
+    color: 'text-blue-700', // dark navy hanky — anal / fucking
+  },
+  {
+    slug: 'internal-expansion',
+    tag: 'Category IX',
+    title: 'Internal Expansion',
+    subtitle: "Alex's Kit",
+    description:
+      'Heavy sensation and systematic training gear designed for capacity building and presence.',
+    color: 'text-purple-600', // purple hanky — piercing / heavy sensation / gaping
+  },
+  {
+    slug: 'double-outsider',
+    tag: 'Category III',
+    title: 'Double-Outsider Supply Co.',
+    subtitle: 'Identity & Hardware',
+    description:
+      'The essential uniform and technical hardware of the Sovereign Harbor.',
+    color: 'text-red-700', // red hanky — fisting / heavy duty
   },
 ];
 
@@ -105,6 +133,13 @@ export const PRODUCTS: Product[] = [
     tagline: 'Everything you need to surrender the crown. The ultimate cognitive off-ramp.',
     material: 'Vegan leather / neoprene / nickel-free hardware',
     image: '/images/products/master-series-pup-arsenal-set.jpg',
+    images: [
+      '/images/products/master-series-pup-arsenal-set.jpg',
+      '/images/products/XRAH275a___1699938258.jpg',
+      '/images/products/XRAH275b___1699938261.jpg',
+      '/images/products/XRAH275c___1699938264.jpg',
+      '/images/products/XRAH275d___1699938267.jpg',
+    ],
     description:
       'Everything you need to get on all fours and surrender the crown. For the visionary exhausted by executive function, this is the ultimate cognitive off-ramp. A complete neoprene hood with poseable ears, silicone bone gag, bulldog harness, mitts, and a wagging tail plug. No decisions to make. No boardroom to impress. Just pure, unadulterated, non-verbal play.',
     specs: [
@@ -143,6 +178,10 @@ export const PRODUCTS: Product[] = [
     tagline: 'Raw grit. Flawless craft. Targeted, sustainable intensity.',
     material: 'Premium borosilicate glass — non-porous, temperature-responsive',
     image: '/images/products/spartacus-blown-medium-realistic-glass.jpg',
+    images: [
+      '/images/products/spartacus-blown-medium-realistic-glass.jpg',
+      '/images/products/BSPG-B4Ca___1701493477.jpg',
+    ],
     description:
       'The same raw grit and flawless craftsmanship as its larger counterpart, scaled down for targeted, sustainable intensity. Built with a 2.5\" harness-compatible base, this medium borosilicate piece delivers the same temperature-shifting, non-porous grounding without overwhelming the system.',
     specs: [
@@ -162,6 +201,13 @@ export const PRODUCTS: Product[] = [
     tagline: 'Fourteen inches of dual-density authority. Stop running the world.',
     material: 'Dual-density phthalate-free TPE with FlexiShaft™ technology',
     image: '/images/products/blush-au-naturel-daddy-14.jpg',
+    images: [
+      '/images/products/blush-au-naturel-daddy-14.jpg',
+      '/images/products/BL26643a.jpg',
+      '/images/products/BL26643b.jpg',
+      '/images/products/BL26643c.jpg',
+      '/images/products/BL26643d.jpg',
+    ],
     description:
       'Fourteen inches of dual-density authority. Engineered with Sensa Feel® layers — a soft, human-like exterior wrapped around an unyielding, rigid core. Complete with a tapered head and an iron-clad suction cup that anchors to any flat surface or locks into a harness. This is big, protective energy for when you need to stop running the world and let something else take control.',
     specs: [
@@ -428,7 +474,11 @@ export const PRODUCTS: Product[] = [
     name: 'ID Millennium Silicone (2.2 oz)',
     tagline: 'High-Performance Barrier.',
     material: 'Pure silicone — non-absorbable, fragrance-free',
-    image: '/images/products/id-millennium-2-2oz.webp',
+    image: '/images/products/7315-01___1620702054.jpg',
+    images: [
+      '/images/products/7315-01___1620702054.jpg',
+      '/images/products/7315-01a___1619728756.jpg',
+    ],
     description:
       'The high-performance standard. Pure silicone that won\'t absorb or evaporate, perfect for water-based play or marathon solo work.',
     specs: [
@@ -496,6 +546,311 @@ export const PRODUCTS: Product[] = [
       'Toy-safe — compatible with most materials',
     ],
     price: 32.00,
+  },
+
+  // ── Category IX: Internal Expansion — Alex's Kit ──────────────────────────
+  {
+    id: 'c-21',
+    slug: 'belladonnas-bitch-fist',
+    category: 'internal-expansion',
+    name: "Belladonna's Bitch Fist",
+    tagline: 'The Fisting Curriculum, Step One.',
+    material: 'Body-safe Sil-A-Gel formula',
+    image: '/images/products/belladonnas-bitch-fist.jpg',
+    images: [
+      '/images/products/belladonnas-bitch-fist.jpg',
+      '/images/products/belladonnas-bitch-fist-a.jpg',
+      '/images/products/belladonnas-bitch-fist-b.jpg',
+    ],
+    description:
+      'The definitive fisting trainer. A graduated wedge shape that builds confidence and capacity through controlled, stepwise internal expansion. Molded directly from Belladonna.',
+    specs: [
+      '11.5" length',
+      'Harness-compatible base',
+      'Graduated wedge shape',
+    ],
+    price: 52.31,
+    sku: 'DJ5079-03',
+    stock: 12,
+  },
+  {
+    id: 'c-22',
+    slug: 'belladonnas-magic-hand',
+    category: 'internal-expansion',
+    name: "Belladonna's Magic Hand",
+    tagline: 'The Hand That Teaches Presence.',
+    material: 'Body-safe TPE',
+    image: '/images/products/belladonnas-magic-hand.jpg',
+    images: [
+      '/images/products/belladonnas-magic-hand.jpg',
+      '/images/products/belladonnas-magic-hand-a.jpg',
+      '/images/products/belladonnas-magic-hand-b.jpg',
+    ],
+    description:
+      'Fisting-specific geometry designed to simulate the hand shape entering the body. The knuckle-like contour and tapered wrist train the muscles for full-hand acceptance.',
+    specs: [
+      'Hand-configured shape',
+      'Flexible wrist',
+      'Suction base',
+    ],
+    price: 46.38,
+    sku: 'DJ5079-01',
+    stock: 8,
+  },
+  {
+    id: 'c-23',
+    slug: 'bvibe-fists-14-5',
+    category: 'internal-expansion',
+    name: 'b-Vibe Fists 14.5" Fist-Style Dildo',
+    tagline: 'Full Fist Geometry, Controlled Pace.',
+    material: 'Platinum-cured silicone',
+    image: '/images/products/bvibe-fists-14-5.jpg',
+    images: [
+      '/images/products/bvibe-fists-14-5.jpg',
+      '/images/products/bvibe-fists-14-5-a.jpg',
+      '/images/products/bvibe-fists-14-5-b.jpg',
+    ],
+    description:
+      'A full 14.5 inches of fist-style contour designed for deep internal mapping. Mimics the sensation of a fist opening inside the body.',
+    specs: [
+      '14.5" length',
+      'Fist-style bulbous head',
+      'Suction cup base',
+    ],
+    price: 47.50,
+    sku: 'BV-162',
+    stock: 15,
+  },
+  {
+    id: 'c-33',
+    slug: 'dick-rambone-cock',
+    category: 'internal-expansion',
+    name: 'Dick Rambone Cock',
+    tagline: '17 Inches of Grounded Reality.',
+    material: 'Phthalate-free vinyl',
+    image: '/images/products/dick-rambone-cock.jpg',
+    images: [
+      '/images/products/dick-rambone-cock.jpg',
+      '/images/products/dick-rambone-cock-a.jpg',
+      '/images/products/dick-rambone-cock-b.jpg',
+      '/images/products/dick-rambone-cock-c.jpg',
+    ],
+    description:
+      'Molded from the eponymous porn star, this 17-inch monster is the definitive tool for deep internal mapping. Heavy, veined, and uncompromising.',
+    specs: [
+      '15.75" total length',
+      '13.25" insertable',
+      '2.5" diameter',
+      '7.75" circumference',
+    ],
+    price: 73.40,
+    sku: 'DJ0268-00',
+    stock: 16,
+  },
+  {
+    id: 'c-52',
+    slug: 'bvibe-weighted-snug-plug-6-black',
+    category: 'internal-expansion',
+    name: 'b-Vibe Weighted Snug Plug 6 — 515g Black',
+    tagline: '515 Grams of Presence.',
+    material: 'Seamless silicone',
+    image: '/images/products/bvibe-snug-plug-6-black.jpg',
+    images: [
+      '/images/products/bvibe-snug-plug-6-black.jpg',
+      '/images/products/bvibe-snug-plug-6-black-a.jpg',
+      '/images/products/bvibe-snug-plug-6-black-b.jpg',
+    ],
+    description:
+      'The world\'s heaviest weighted butt plug. 515 grams of internal presence designed for total sensory grounding and extended wear.',
+    specs: [
+      '515g weight',
+      '2.2" diameter',
+      '6.3" insertable',
+      '1cm flexible neck',
+    ],
+    price: 85.50,
+    sku: 'BV-029BLK',
+    stock: 6,
+  },
+
+  // ── Category III: Double-Outsider Supply Co. ──────────────────────────────
+  {
+    id: 'c-49',
+    slug: 'lovense-ridge-bumpy-anal-plug',
+    category: 'double-outsider',
+    name: 'Lovense Ridge Bumpy Anal Plug — Black',
+    tagline: 'Tech-Enabled Depth.',
+    material: 'Premium Silicone',
+    image: '/images/products/lovense-ridge.jpg',
+    images: [
+      '/images/products/lovense-ridge.jpg',
+      '/images/products/lovense-ridge-a.jpg',
+      '/images/products/lovense-ridge-b.jpg',
+      '/images/products/lovense-ridge-c.jpg',
+      '/images/products/lovense-ridge-d.jpg',
+    ],
+    description:
+      'App-controlled rotating and vibrating anal beads. High-torque rotation meets precision vibration for local or long-distance presence.',
+    specs: [
+      'App-controlled',
+      'IPX7 waterproof',
+      'USB-C rechargeable',
+      '116 RPM rotation',
+    ],
+    price: 139.00,
+    sku: 'LOV0142',
+    stock: 48,
+  },
+  {
+    id: 'c-50',
+    slug: 'double-outsider-socks-black-white',
+    category: 'double-outsider',
+    name: 'Double-Outsider Signature Socks — Black/White',
+    tagline: 'Grounding From the Feet Up.',
+    material: 'Cotton/Nylon/Spandex Blend',
+    image: '/images/products/socks-black-white.jpg',
+    description:
+      'High-compression grounding socks. The sharp, minimalist aesthetic of the sovereignty-minded uniform.',
+    specs: [
+      'Crew length',
+      'Arch support',
+      'Cushioned sole',
+      'High-compression',
+    ],
+    price: 24.00,
+    sku: 'QP-SOCK-BW',
+    stock: 50,
+  },
+  {
+    id: 'c-51',
+    slug: 'double-outsider-socks-navy-white',
+    category: 'double-outsider',
+    name: 'Double-Outsider Signature Socks — Navy/White',
+    tagline: 'The Legacy Aesthetic.',
+    material: 'Cotton/Nylon/Spandex Blend',
+    image: '/images/products/socks-navy-white.jpg',
+    description:
+      'The original Queer Pathways classic. High-compression grounding with legacy clinical branding.',
+    specs: [
+      'Crew length',
+      'Arch support',
+      'Cushioned sole',
+      'High-compression',
+    ],
+    price: 24.00,
+    sku: 'QP-SOCK-NW',
+    stock: 35,
+  },
+
+  // ── Deep Forest Green Protocol — The Loop ─────────────────────────────────
+  {
+    id: 'c-53',
+    slug: 'loop-i-source',
+    category: 'lubes',
+    name: 'Loop I (Source) — Water-Based',
+    tagline: 'Primary Source. Zero Friction.',
+    material: 'Premium water-based formula',
+    image: '/images/products/loop-i-source.jpg',
+    images: ['/images/products/loop-i-source.jpg'],
+    description:
+      'The lightweight anchor. A high-fidelity, toy-safe water-based formula designed for daily presence and effortless cleanup. Roman Numeral I identifies the primary source of your somatic kit.',
+    specs: [
+      'Roman Numeral I',
+      'Deep Forest Green Protocol',
+      'Toy-safe',
+      'Discreet shipping',
+    ],
+    price: 24.00,
+    sku: 'LP-01-SRC',
+    stock: 100,
+    protocol: 'Deep Forest Green',
+  },
+  {
+    id: 'c-54',
+    slug: 'loop-ii-baseline',
+    category: 'lubes',
+    name: 'Loop II (Baseline) — Silicone',
+    tagline: 'The Baseline of Endurance.',
+    material: '100% Platinum-cured silicone',
+    image: '/images/products/loop-ii-baseline.jpg',
+    images: ['/images/products/loop-ii-baseline.jpg'],
+    description:
+      'The standard for extended presence. Our high-viscosity, platinum-cured silicone formula provides an unbreakable slick barrier for long-form exploration. Roman Numeral II marks the baseline of your arsenal.',
+    specs: [
+      'Roman Numeral II',
+      'Deep Forest Green Protocol',
+      'Waterproof',
+      'Discreet shipping',
+    ],
+    price: 48.00,
+    sku: 'LP-02-BSL',
+    stock: 100,
+    protocol: 'Deep Forest Green',
+  },
+  {
+    id: 'c-55',
+    slug: 'loop-iii-tension',
+    category: 'lubes',
+    name: 'Loop III (Tension) — Heavy Sensation',
+    tagline: 'Engineered for Tension.',
+    material: 'Ultra-viscous silicone blend',
+    image: '/images/products/loop-iii-tension.jpg',
+    images: ['/images/products/loop-iii-tension.jpg'],
+    description:
+      'Maximum cushion for high-tension work. A cushion-heavy, ultra-viscous silicone designed for internal expansion and fisting territory. Roman Numeral III is for when the work requires absolute structural support.',
+    specs: [
+      'Roman Numeral III',
+      'Deep Forest Green Protocol',
+      'Cushion-heavy',
+      'Discreet shipping',
+    ],
+    price: 72.00,
+    sku: 'LP-03-TNS',
+    stock: 50,
+    protocol: 'Deep Forest Green',
+  },
+  {
+    id: 'c-56',
+    slug: 'loop-x-composite',
+    category: 'lubes',
+    name: 'Loop X (Composite) — Hybrid',
+    tagline: 'The Composite Protocol.',
+    material: 'Water/Silicone Hybrid',
+    image: '/images/products/loop-x-composite.jpg',
+    images: ['/images/products/loop-x-composite.jpg'],
+    description:
+      'The tactical hybrid. A precision blend of water and silicone for those who demand the glide of the source with the endurance of the baseline. Roman Numeral X — the composite solution for the versatile practitioner.',
+    specs: [
+      'Roman Numeral X',
+      'Deep Forest Green Protocol',
+      'Versatile glide',
+      'Discreet shipping',
+    ],
+    price: 120.00,
+    sku: 'LP-10-CMP',
+    stock: 25,
+    protocol: 'Deep Forest Green',
+  },
+  {
+    id: 'c-57',
+    slug: 'cleanstream-relax-anal-lube-4oz',
+    category: 'lubes',
+    name: 'CleanStream Relax Desensitizing Anal Lube (4 oz)',
+    tagline: 'Lower the Signal. Unlock the Work.',
+    material: 'Water-based desensitizing formula',
+    image: '/images/products/XRAC323.jpg',
+    description:
+      'Discomfort is just interference on the line. Relax uses a targeted desensitizing agent to quiet the noise at the entry point so the rest of your nervous system can stay fully online. Four ounces of water-based formula that gives you permission to go further without fighting your own architecture.',
+    specs: [
+      '4 fl oz / 118 ml',
+      'Desensitizing water-based formula',
+      'Anal-specific — designed for entry-point tension',
+      'Toy-safe',
+      'Easy water-based cleanup',
+    ],
+    price: 14.49,
+    sku: 'XRAC323',
+    stock: 38,
   },
 ];
 

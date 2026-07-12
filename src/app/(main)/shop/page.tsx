@@ -65,7 +65,7 @@ export default function ShopPage() {
                   <p className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-600">
                     {cat.tag} — {cat.subtitle}
                   </p>
-                  <h2 className="text-3xl font-black tracking-tight uppercase text-white">
+                  <h2 className={`text-3xl font-black tracking-tight uppercase ${cat.color}`}>
                     {cat.title}
                   </h2>
                   <p className="text-sm font-mono text-zinc-500 leading-7 max-w-lg mt-1">

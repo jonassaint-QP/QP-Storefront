@@ -1,14 +1,30 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Product } from '@/lib/products';
-import { formatPrice } from '@/lib/products';
+import { formatPrice, getCategoryBySlug } from '@/lib/products';
 import AddToCartButton from './AddToCartButton';
 
 export default function ProductCard({ product }: { product: Product }) {
   const { id, slug, category, name, tagline, material, description, specs, price, image } = product;
+  const cat = getCategoryBySlug(category);
+  const headerColor = cat?.color ?? 'text-white';
 
   return (
     <article className="border border-zinc-800 bg-black flex flex-col group hover:border-zinc-600 transition-colors">
+      {/* Header — name */}
+      <Link
+        href={`/shop/${category}/${slug}`}
+        className="border-b border-zinc-800 group-hover:border-zinc-600 transition-colors p-6 flex flex-col gap-2"
+      >
+        <p className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-700">
+          {material}
+        </p>
+        <h3 className={`text-lg font-black tracking-tight uppercase leading-tight transition-colors ${headerColor} group-hover:opacity-80`}>
+          {name}
+        </h3>
+        <p className="text-xs font-mono text-zinc-500 leading-5">{tagline}</p>
+      </Link>
+
       {/* Product image */}
       <Link
         href={`/shop/${category}/${slug}`}
@@ -34,21 +50,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
       </Link>
 
-      {/* Header */}
-      <Link
-        href={`/shop/${category}/${slug}`}
-        className="border-b border-zinc-800 group-hover:border-zinc-600 transition-colors p-6 flex flex-col gap-2"
-      >
-        <p className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-700">
-          {material}
-        </p>
-        <h3 className="text-lg font-black tracking-tight uppercase text-white leading-tight group-hover:text-zinc-200 transition-colors">
-          {name}
-        </h3>
-        <p className="text-xs font-mono text-zinc-500 leading-5">{tagline}</p>
-      </Link>
-
-      {/* Body */}
+      {/* Body — description */}
       <div className="p-6 flex flex-col gap-5 flex-1">
         <p className="text-sm font-mono text-zinc-500 leading-7">{description}</p>
 

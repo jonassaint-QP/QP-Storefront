@@ -71,28 +71,50 @@ export default async function ProductPage({ params }: PageProps) {
       <div className="border-b border-zinc-800 px-6 py-16 mx-auto w-full max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
-          {/* Left — product image */}
-          {product.image ? (
-            <div className="relative border border-zinc-800 aspect-square overflow-hidden bg-zinc-950">
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-                priority
-              />
-            </div>
-          ) : (
-            <div className="border border-zinc-800 aspect-square flex flex-col items-center justify-center gap-3 bg-zinc-950">
-              <p className="text-xs font-mono uppercase tracking-widest text-zinc-700">
-                {category.tag}
-              </p>
-              <p className="text-4xl font-black text-zinc-800 uppercase tracking-tight text-center px-8 leading-tight">
-                {product.name}
-              </p>
-            </div>
-          )}
+          {/* Left — product image + gallery */}
+          <div className="space-y-4">
+            {/* The Big Hero Shot */}
+            {product.image ? (
+              <div className="relative border border-zinc-800 aspect-square overflow-hidden bg-zinc-950">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            ) : (
+              <div className="border border-zinc-800 aspect-square flex flex-col items-center justify-center gap-3 bg-zinc-950">
+                <p className="text-xs font-mono uppercase tracking-widest text-zinc-700">
+                  {category.tag}
+                </p>
+                <p className="text-4xl font-black text-zinc-800 uppercase tracking-tight text-center px-8 leading-tight">
+                  {product.name}
+                </p>
+              </div>
+            )}
+
+            {/* The "No-Reading-Required" Gallery Grid */}
+            {product.images && product.images.length > 0 && (
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                {product.images.map((img, idx) => (
+                  <div
+                    key={idx}
+                    className="relative h-20 w-20 flex-shrink-0 cursor-pointer overflow-hidden rounded-md border-2 border-transparent hover:border-[#CBB26A] transition-all"
+                  >
+                    <Image
+                      src={img}
+                      alt={`${product.name} angle ${idx + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Right — details */}
           <div className="flex flex-col gap-8">

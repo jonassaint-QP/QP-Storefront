@@ -19,8 +19,10 @@ export type Review = {
 
 // Rating axes keyed by category — structural/functional language throughout
 export const RATING_AXES: Record<CategorySlug, string[]> = {
-  'technical-toys': ['Material Purity', 'Surface Finish', 'Sizing Accuracy', 'Build Quality'],
-  'lubes':          ['Viscosity Consistency', 'Session Longevity', 'Texture Profile', 'Tissue Tolerance'],
+  'technical-toys':    ['Material Purity', 'Surface Finish', 'Sizing Accuracy', 'Build Quality'],
+  'lubes':             ['Viscosity Consistency', 'Session Longevity', 'Texture Profile', 'Tissue Tolerance'],
+  'internal-expansion': ['Material Purity', 'Sizing Accuracy', 'Capacity Progression', 'Base Security'],
+  'double-outsider':   ['Build Quality', 'Comfort', 'Durability', 'Aesthetic Accuracy'],
 };
 
 // Mock community reviews — structural language, no personal identifiers
