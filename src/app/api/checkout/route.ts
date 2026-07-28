@@ -118,7 +118,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     body.address2 ? `    <address2>${escapeXml(body.address2)}</address2>` : '',
     `    <city>${escapeXml(body.city)}</city>`,
     `    <state>${escapeXml(body.state)}</state>`,
-    `    <zip>${escapeXml(body.zip)}</zip>`,
+    `    <postal>${escapeXml(body.zip)}</postal>`,
     `    <country>${escapeXml(body.country)}</country>`,
     `  </billing>`,
     `</sale>`,
