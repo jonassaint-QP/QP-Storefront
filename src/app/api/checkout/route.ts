@@ -105,7 +105,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const nmiXml = [
     `<?xml version="1.0" encoding="UTF-8"?>`,
     `<sale>`,
-    `  <security-key>${NMI_SECURITY_KEY}</security-key>`,
+    `  <api-key>${NMI_SECURITY_KEY}</api-key>`,
     `  <redirect-url>${SITE_URL}/api/webhooks/payment</redirect-url>`,
     `  <amount>${orderTotal}</amount>`,
     `  <currency>USD</currency>`,
