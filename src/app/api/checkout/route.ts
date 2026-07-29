@@ -6,9 +6,14 @@
  * typically assigns to high-risk merchants.
  *
  * NMI Three-Step Redirect flow:
- * Step 1 — POST here with order details → NMI returns a form-url redirect token
- * Step 2 — Browser is redirected to NMI hosted payment page (card entry)
- * Step 3 — NMI POSTs token-id back to /api/webhooks/payment → charge is completed
+ * Step 1 — POST here with order details → NMI returns a one-time <form-url>
+ * Step 2 — The BROWSER POSTs the card fields directly to that form-url. This is
+ *          not a hosted payment page and must not be navigated to with a GET:
+ *          form-url is a POST target. Navigating to it without card fields makes
+ *          the gateway reply "The ccnumber field is required". The card data goes
+ *          straight from the browser to NMI and never touches this server.
+ * Step 3 — NMI redirects the browser back to /api/webhooks/payment?token-id=…
+ *          which completes the charge via <complete-action>.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -118,7 +123,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   console.log('[checkout] Sending NMI Step-1 request');
 
   // 5. POST to NMI Step-1 endpoint
-  let nmiRedirectUrl: string;
+  let nmiFormUrl: string;
   try {
     const nmiRes = await fetch(NMI_ENDPOINT, {
       method: 'POST',
@@ -134,15 +139,15 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
 
     // Parse the response — NMI returns result=1 for success
-    nmiRedirectUrl = parseNmiRedirectUrl(nmiText);
+    nmiFormUrl = parseNmiFormUrl(nmiText);
   } catch (err) {
     console.error('[checkout] NMI fetch failed', err);
     return NextResponse.json({ error: 'Could not reach payment gateway' }, { status: 502 });
   }
 
-  // 6. Return redirect URL to the client
-  console.log('[checkout] Success, redirecting to:', nmiRedirectUrl);
-  return NextResponse.json({ redirectUrl: nmiRedirectUrl }, { status: 200 });
+  // 6. Hand the one-time form-url to the client, which POSTs the card fields to it
+  console.log('[checkout] Step-1 OK, form-url issued');
+  return NextResponse.json({ formUrl: nmiFormUrl }, { status: 200 });
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
@@ -157,7 +162,7 @@ function escapeXml(str: string): string {
 }
 
 /** Extract <form-url> from NMI XML response */
-function parseNmiRedirectUrl(xml: string): string {
+function parseNmiFormUrl(xml: string): string {
   const match = xml.match(/<form-url>([^<]+)<\/form-url>/);
   if (!match) {
     console.error('[checkout] NMI response XML:', xml.slice(0, 500));

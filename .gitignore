@@ -45,3 +45,6 @@ public/**/*_AC_US40_*.jpg
 public/**/*_AC_SL*.jpg
 public/*_AC_US40_*.jpg
 public/*_AC_SL*.jpg
+
+# Local Netlify folder
+.netlify

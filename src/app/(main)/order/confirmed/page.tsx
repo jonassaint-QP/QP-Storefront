@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import ClearCartOnConfirm from './ClearCartOnConfirm';
 
 export const metadata: Metadata = {
   title: 'Order Confirmed — Queer Pathways',
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function OrderConfirmedPage() {
   return (
     <div className="flex flex-col">
+      <ClearCartOnConfirm />
       <div className="mx-auto w-full max-w-7xl px-6 py-32 flex flex-col items-center text-center gap-10">
 
         <div className="flex flex-col gap-3">
