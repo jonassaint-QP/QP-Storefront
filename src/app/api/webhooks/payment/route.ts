@@ -1,47 +1,18 @@
-/**
- * POST /api/webhooks/payment
- *
- * NMI Three-Step Redirect — Step 3 completion handler.
- *
- * After the customer enters card details on NMI's hosted page, NMI POSTs a
- * token-id to this endpoint. We use it to complete the charge via NMI's
- * Direct Post API, then redirect the browser to /order/confirmed.
- *
- * NMI also sends transaction-result webhooks (Notification URLs) for async
- * events — this handler accepts those too and verifies the HMAC signature.
- *
- * TODO: Set NMI_WEBHOOK_SECRET and NMI_SECURITY_KEY in production .env
- */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { createHmac, timingSafeEqual } from 'crypto';
 
 const NMI_SECURITY_KEY = process.env.NMI_SECURITY_KEY ?? '';
-const NMI_WEBHOOK_SECRET = process.env.NMI_WEBHOOK_SECRET ?? '';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://yourdomain.com';
-
-const NMI_GATEWAY_URL =
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://queerpathways.com';
+// PaymentCloud uses their own branded gateway URL — do not hardcode secure.networkmerchants.com
+const NMI_THREE_STEP =
   process.env.NMI_GATEWAY_URL ?? 'https://secure.networkmerchants.com/api/v2/three-step';
-
-// ── Step-3 redirect handler (browser GET/POST from NMI hosted page) ────────────
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   return handleStep3(req);
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const contentType = req.headers.get('content-type') ?? '';
-
-  // NMI transaction-result webhooks send JSON with an HMAC signature header
-  if (contentType.includes('application/json')) {
-    return handleWebhook(req);
-  }
-
-  // Step-3 form POST from NMI hosted page
   return handleStep3(req);
 }
-
-// ── Step-3: complete the charge ───────────────────────────────────────────────
 
 async function handleStep3(req: NextRequest): Promise<NextResponse> {
   const url = new URL(req.url);
@@ -53,95 +24,45 @@ async function handleStep3(req: NextRequest): Promise<NextResponse> {
   }
 
   if (!NMI_SECURITY_KEY) {
-    console.error('[webhook] NMI_SECURITY_KEY not configured');
+    console.error('[webhook] NMI_SECURITY_KEY not set');
     return NextResponse.redirect(`${SITE_URL}/checkout?error=gateway_error`);
   }
 
   try {
-    // Step-3 completion: send token-id back to the Three-Step endpoint via XML.
-    // <complete-action> is the correct root element for Step-3 (not <sale>).
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<complete-action>
-  <api-key>${NMI_SECURITY_KEY}</api-key>
-  <token-id>${tokenId}</token-id>
-</complete-action>`;
+    const nmiXml = [
+      `<?xml version="1.0" encoding="UTF-8"?>`,
+      `<complete-action>`,
+      `  <api-key>${NMI_SECURITY_KEY}</api-key>`,
+      `  <token-id>${tokenId}</token-id>`,
+      `</complete-action>`,
+    ].join('\n');
 
-    const res = await fetch(NMI_GATEWAY_URL, {
+    const res = await fetch(NMI_THREE_STEP, {
       method: 'POST',
       headers: { 'Content-Type': 'text/xml' },
-      body: xml,
+      body: nmiXml,
     });
 
     const text = await res.text();
     console.info('[webhook] NMI Step-3 response:', text.slice(0, 300));
 
-    // NMI returns <result>1</result> for approved, 2 for declined, 3 for error
-    const resultMatch = text.match(/<result>(\d+)<\/result>/);
+    const resultMatch = text.match(/<result>([^<]+)<\/result>/);
     const resultTextMatch = text.match(/<result-text>([^<]+)<\/result-text>/);
-    const transactionIdMatch = text.match(/<transaction-id>([^<]+)<\/transaction-id>/);
 
-    const resultCode = resultMatch?.[1];
-    const resultText = resultTextMatch?.[1] ?? 'Unknown response';
-    const transactionId = transactionIdMatch?.[1];
-
-    if (resultCode === '1') {
-      console.info('[webhook] NMI charge approved', { transactionId });
+    if (resultMatch && resultMatch[1] === '1') {
+      console.info('[webhook] Charge approved');
       return NextResponse.redirect(`${SITE_URL}/order/confirmed`, { status: 303 });
     } else {
-      console.warn('[webhook] NMI charge declined/error', { resultCode, resultText });
-      const msg = encodeURIComponent(resultText);
-      return NextResponse.redirect(`${SITE_URL}/checkout?error=${msg}`, { status: 303 });
+      const errorMsg = resultTextMatch ? resultTextMatch[1] : 'Payment declined';
+      console.warn('[webhook] Charge declined:', errorMsg);
+      return NextResponse.redirect(
+        `${SITE_URL}/checkout?error=${encodeURIComponent(errorMsg)}`,
+        { status: 303 },
+      );
     }
   } catch (err) {
-    console.error('[webhook] Step-3 charge failed', err);
+    console.error('[webhook] Step-3 failed', err);
     return NextResponse.redirect(`${SITE_URL}/checkout?error=gateway_error`, { status: 303 });
   }
 }
 
-// ── Async webhook: NMI transaction-result notification ────────────────────────
-
-async function handleWebhook(req: NextRequest): Promise<NextResponse> {
-  // Verify HMAC-SHA256 signature if the secret is configured
-  if (NMI_WEBHOOK_SECRET) {
-    const signature = req.headers.get('x-webhook-signature') ?? '';
-    const rawBody = await req.text();
-
-    const expected = createHmac('sha256', NMI_WEBHOOK_SECRET)
-      .update(rawBody)
-      .digest('hex');
-
-    const sigBuf = Buffer.from(signature);
-    const expBuf = Buffer.from(expected);
-
-    if (
-      sigBuf.length !== expBuf.length ||
-      !timingSafeEqual(sigBuf, expBuf)
-    ) {
-      console.warn('[webhook] Invalid signature — rejected');
-      return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
-    }
-
-    // TODO: parse rawBody JSON, update order status in your database / send email
-    console.info('[webhook] NMI notification verified');
-    return NextResponse.json({ received: true });
-  }
-
-  // Secret not configured yet — accept but log a warning
-  console.warn('[webhook] NMI_WEBHOOK_SECRET not set; skipping signature check');
-  return NextResponse.json({ received: true });
-}
-
-// ── Helpers ────────────────────────────────────────────────────────────────────
-
-/** Parse NMI Direct Post key=value response */
-function parseDirectPostResponse(text: string): Record<string, string> {
-  return Object.fromEntries(
-    text.split('&').map((pair) => {
-      const idx = pair.indexOf('=');
-      return [
-        decodeURIComponent(pair.slice(0, idx)),
-        decodeURIComponent(pair.slice(idx + 1)),
-      ];
-    })
-  );
-}
