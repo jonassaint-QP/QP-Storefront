@@ -276,6 +276,33 @@ export const PRODUCTS: Product[] = [
     ],
     price: 1749.28,
   },
+  {
+    id: 'b-15',
+    slug: 'milker-automatic-deluxe-stroker',
+    category: 'technical-toys',
+    name: 'The Milker Automatic Deluxe Stroker Machine',
+    tagline: 'Pneumatic authority. 110V pneumatic pump architecture.',
+    material: 'Industrial-grade plastic / pneumatic pump / 110V',
+    image: '/images/products/milker-deluxe-stroker.jpg',
+    images: [
+      '/images/products/milker-deluxe-stroker.jpg',
+      '/images/products/milker-deluxe-stroker-b.jpg',
+      '/images/products/milker-deluxe-stroker-c.jpg',
+      '/images/products/milker-deluxe-stroker-d.jpg',
+      '/images/products/milker-deluxe-stroker-e.jpg',
+      '/images/products/milker-deluxe-stroker-box.jpg',
+    ],
+    description:
+      'Pneumatic authority for the North American practitioner. This is the Deluxe Milker — a high-capacity, 110V automatic stroker machine built around a dual-cylinder pneumatic pump system. Designed for extended somatic training and radical surrender, it delivers a relentless, systematic rhythm that bypasses executive overthinking and forces a total physiological reset. Includes a lockable travel case for secure, sovereign storage.',
+    specs: [
+      'SKU: AE371',
+      'Industrial-grade pneumatic pump system',
+      'Dual-cylinder architecture',
+      '110V only (US/Canada voltage)',
+      'Includes lockable travel case',
+    ],
+    price: 1569.95,
+  },
 
   // ── Category C ───────────────────────────────────────────────────────────
   {
