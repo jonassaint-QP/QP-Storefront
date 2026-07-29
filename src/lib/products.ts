@@ -219,6 +219,63 @@ export const PRODUCTS: Product[] = [
     ],
     price: 79,
   },
+  {
+    id: 'b-12',
+    slug: 'king-size-dungeon-bed-canopy',
+    category: 'technical-toys',
+    name: 'King Size Dungeon Bed w/ Suspension Canopy',
+    tagline: 'Structural sovereignty. The ultimate anchor for the Harbor.',
+    material: 'Industrial-grade powder-coated steel / reinforced slats',
+    image: '/images/products/king-size-dungeon-bed.jpg',
+    description:
+      'The ultimate structural anchor for the Sovereign Harbor. This King Size steel frame features an integrated suspension canopy and reinforced slats designed for zero-deflection play. It is not a bed; it is a modular laboratory for testing the limits of authority and surrender. Matte black finish, industrial-grade hardware, and infinite anchor points for total containment and somatic reset.',
+    specs: [
+      'SKU: AJ098',
+      'Integrated suspension canopy with 8 anchor points',
+      'Heavy-duty steel construction (94 lbs)',
+      'Reinforced slats for zero-deflection play',
+      'Matte black industrial finish',
+    ],
+    price: 5995,
+  },
+  {
+    id: 'b-13',
+    slug: 'ultimate-obedience-chair-sex-machine',
+    category: 'technical-toys',
+    name: 'Ultimate Obedience Chair with Sex Machine',
+    tagline: 'Mechanical precision. Cognitive off-ramp.',
+    material: 'Steel frame / vegan leather padding / 110V motor',
+    image: '/images/products/ultimate-obedience-chair.jpg',
+    description:
+      'Cognitive off-ramp through mechanical precision. This integrated station pairs a heavy-duty restraint chair with a 110V sex machine, creating a closed-loop environment where the only task is presence. Designed for submissive tie-down and systematic penetration, it eliminates the noise of the outside world and forces a complete nervous system reset via mechanical authority.',
+    specs: [
+      'SKU: AH155',
+      'Integrated 110V sex machine with variable speed',
+      '4-point restraint system included',
+      'Adjustable seat and headrest height',
+      'Wipe-clean vegan leather upholstery',
+    ],
+    price: 1969.95,
+  },
+  {
+    id: 'b-14',
+    slug: 'obedience-bench-sex-machine',
+    category: 'technical-toys',
+    name: 'Obedience Bench with Sex Machine',
+    tagline: 'High-capacity utility. Adjourn the trial.',
+    material: 'Reinforced steel / high-density foam / 110V motor',
+    image: '/images/products/obedience-bench.jpg',
+    description:
+      'Dungeon-grade utility. A reinforced bondage bench equipped with an integrated sex machine and modular restraint points. Built for the practitioner who requires stable, heavy-duty hardware to manage mechanical tension and sensory overload. All black, all business, and engineered for high-capacity endurance during extended somatic work.',
+    specs: [
+      'SKU: AH298',
+      'Integrated heavy-duty sex machine',
+      'Multiple modular D-ring anchor points',
+      'High-density foam padding for extended play',
+      'All-black industrial aesthetic',
+    ],
+    price: 1749.28,
+  },
 
   // ── Category C ───────────────────────────────────────────────────────────
   {
