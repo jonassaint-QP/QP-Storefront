@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const NMI_SECURITY_KEY = process.env.NMI_SECURITY_KEY ?? '';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://queerpathways.com';
-// PaymentCloud uses their own branded gateway URL — do not hardcode secure.networkmerchants.com
-const NMI_THREE_STEP =
-  process.env.NMI_GATEWAY_URL ?? 'https://secure.networkmerchants.com/api/v2/three-step';
+const NMI_GATEWAY_URL = process.env.NMI_GATEWAY_URL ?? 'https://paymentcloud.transactiongateway.com/api/v2/three-step';
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   return handleStep3(req);
@@ -37,14 +35,16 @@ async function handleStep3(req: NextRequest): Promise<NextResponse> {
       `</complete-action>`,
     ].join('\n');
 
-    const res = await fetch(NMI_THREE_STEP, {
+    console.info('[webhook] Completing Step-3 for token:', tokenId);
+
+    const res = await fetch(NMI_GATEWAY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/xml' },
       body: nmiXml,
     });
 
     const text = await res.text();
-    console.info('[webhook] NMI Step-3 response:', text.slice(0, 300));
+    console.log('[webhook] NMI Step-3 response:', text);
 
     const resultMatch = text.match(/<result>([^<]+)<\/result>/);
     const resultTextMatch = text.match(/<result-text>([^<]+)<\/result-text>/);
