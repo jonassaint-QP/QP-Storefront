@@ -6,12 +6,26 @@
  * typically assigns to high-risk merchants.
  *
  * NMI Three-Step Redirect flow:
- * Step 1 — POST here with order details → NMI returns a form-url redirect token
- * Step 2 — Browser is redirected to NMI hosted payment page (card entry)
- * Step 3 — NMI POSTs token-id back to /api/webhooks/payment → charge is completed
+ * Step 1 — POST here with order details → NMI returns a one-time <form-url>
+ * Step 2 — The BROWSER POSTs the card fields directly to that form-url, named
+ *          exactly ccnumber / ccexp / cvv. This is not a hosted payment page and
+ *          must not be navigated to with a GET: form-url is a POST target.
+ *          Reaching it without those fields makes the gateway reply
+ *          "The ccnumber field is required". The card data goes straight from the
+ *          browser to NMI and never touches this server.
+ * Step 3 — NMI redirects the browser back to /api/webhooks/payment?token-id=…
+ *          which completes the charge and flips the order to 'paid'.
+ *
+ * The order row is written here, as 'pending', before the gateway is contacted,
+ * so an order always exists to reconcile against even if the customer abandons
+ * the card step or the callback never arrives. Its id is handed to NMI as
+ * <orderid>, which is what ties the gateway transaction back to our record.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { eq } from 'drizzle-orm';
+import { getDb } from '../../../../db';
+import { storeOrders } from '../../../../db/schema';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -92,16 +106,53 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Payment gateway not configured' }, { status: 503 });
   }
 
-  // 3. Calculate order total (cents → dollars for NMI)
-  const orderTotal = body.items
-    .reduce((sum, item) => sum + item.price * item.quantity, 0)
-    .toFixed(2);
+  // 3. Calculate order total. Catalogue prices are whole USD; cents is the unit
+  //    we store, dollars-with-decimals is the unit NMI expects.
+  const amountCents = body.items.reduce(
+    (sum, item) => sum + Math.round(item.price * 100) * item.quantity,
+    0,
+  );
+  const orderTotal = (amountCents / 100).toFixed(2);
 
-  // 4. Build NMI Step-1 request — <sale> is the correct root element
   const orderDescription = body.items
     .map((i) => `${i.quantity}x ${i.name}`)
     .join(', ');
 
+  // 4. Record the order as 'pending' before any money is involved. If this
+  //    fails we stop here rather than take a payment we cannot account for.
+  let orderId: number;
+  try {
+    const [order] = await getDb()
+      .insert(storeOrders)
+      .values({
+        status: 'pending',
+        email: body.email.trim(),
+        firstName: body.firstName.trim(),
+        lastName: body.lastName.trim(),
+        address1: body.address1.trim(),
+        address2: body.address2?.trim() ?? '',
+        city: body.city.trim(),
+        state: body.state,
+        zip: body.zip.trim(),
+        country: body.country,
+        items: body.items,
+        amountCents,
+        currency: 'USD',
+      })
+      .returning({ id: storeOrders.id });
+
+    orderId = order.id;
+    console.log('[checkout] Pending order recorded:', orderId);
+  } catch (err) {
+    console.error('[checkout] Could not record pending order', err);
+    return NextResponse.json(
+      { error: 'Could not start checkout. Please try again.' },
+      { status: 503 },
+    );
+  }
+
+  // 5. Build NMI Step-1 request — <sale> is the correct root element. <orderid>
+  //    carries our order id so the callback can find the row to settle.
   const nmiXml = [
     `<?xml version="1.0" encoding="UTF-8"?>`,
     `<sale>`,
@@ -109,6 +160,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     `  <redirect-url>${SITE_URL}/api/webhooks/payment</redirect-url>`,
     `  <amount>${orderTotal}</amount>`,
     `  <currency>USD</currency>`,
+    `  <orderid>${orderId}</orderid>`,
     `  <order-description>${escapeXml(orderDescription)}</order-description>`,
     `</sale>`,
   ]
@@ -117,8 +169,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   console.log('[checkout] Sending NMI Step-1 request');
 
-  // 5. POST to NMI Step-1 endpoint
-  let nmiRedirectUrl: string;
+  // 6. POST to NMI Step-1 endpoint
+  let nmiFormUrl: string;
   try {
     const nmiRes = await fetch(NMI_ENDPOINT, {
       method: 'POST',
@@ -130,22 +182,39 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     if (!nmiRes.ok) {
       console.error('[checkout] NMI HTTP error', nmiRes.status, nmiText);
+      await markOrderFailed(orderId, `Gateway HTTP ${nmiRes.status}`);
       return NextResponse.json({ error: 'Payment gateway error' }, { status: 502 });
     }
 
     // Parse the response — NMI returns result=1 for success
-    nmiRedirectUrl = parseNmiRedirectUrl(nmiText);
+    nmiFormUrl = parseNmiFormUrl(nmiText);
   } catch (err) {
     console.error('[checkout] NMI fetch failed', err);
+    await markOrderFailed(orderId, 'Could not reach payment gateway');
     return NextResponse.json({ error: 'Could not reach payment gateway' }, { status: 502 });
   }
 
-  // 6. Return redirect URL to the client
-  console.log('[checkout] Success, redirecting to:', nmiRedirectUrl);
-  return NextResponse.json({ redirectUrl: nmiRedirectUrl }, { status: 200 });
+  // 7. Hand the one-time form-url to the client, which POSTs the card fields to it
+  console.log('[checkout] Step-1 OK, form-url issued');
+  return NextResponse.json({ formUrl: nmiFormUrl }, { status: 200 });
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
+
+/**
+ * Closes out a pending order the gateway never accepted. Best-effort: a failure
+ * here must not mask the gateway error the caller is already reporting.
+ */
+async function markOrderFailed(orderId: number, reason: string): Promise<void> {
+  try {
+    await getDb()
+      .update(storeOrders)
+      .set({ status: 'failed', gatewayMessage: reason, updatedAt: new Date() })
+      .where(eq(storeOrders.id, orderId));
+  } catch (err) {
+    console.error('[checkout] Could not mark order failed', orderId, err);
+  }
+}
 
 function escapeXml(str: string): string {
   return str
@@ -157,7 +226,7 @@ function escapeXml(str: string): string {
 }
 
 /** Extract <form-url> from NMI XML response */
-function parseNmiRedirectUrl(xml: string): string {
+function parseNmiFormUrl(xml: string): string {
   const match = xml.match(/<form-url>([^<]+)<\/form-url>/);
   if (!match) {
     console.error('[checkout] NMI response XML:', xml.slice(0, 500));

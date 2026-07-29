@@ -4,6 +4,7 @@ import { useState, useId } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/lib/cart';
 import { formatPrice } from '@/lib/products';
+import NmiCardForm from './NmiCardForm';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
@@ -52,11 +53,13 @@ const SELECT_CLASS =
 
 export default function CheckoutPage() {
   const formId = useId();
-  const { items, totalItems, totalPrice, clearCart } = useCart();
+  const { items, totalItems, totalPrice } = useCart();
   const [form, setForm] = useState<ShippingForm>(EMPTY_FORM);
   const [errors, setErrors] = useState<Partial<ShippingForm>>({});
   const [submitting, setSubmitting] = useState(false);
   const [gatewayError, setGatewayError] = useState<string | null>(null);
+  // Step-2 POST target issued by NMI Step 1. Once set, the card form is shown.
+  const [formUrl, setFormUrl] = useState<string | null>(null);
 
   function set(field: keyof ShippingForm, value: string) {
     setForm((f) => ({ ...f, [field]: value }));
@@ -92,22 +95,23 @@ export default function CheckoutPage() {
           items: items.map(({ id, name, price, quantity }) => ({ id, name, price, quantity })),
         }),
       });
-      const data = await res.json() as { redirectUrl?: string; error?: string };
-      if (!res.ok || !data.redirectUrl) {
+      const data = await res.json() as { formUrl?: string; error?: string };
+      if (!res.ok || !data.formUrl) {
         setGatewayError(data.error ?? 'Payment gateway unavailable. Please try again.');
         setSubmitting(false);
         return;
       }
-      // Clear cart before leaving — the webhook will handle order confirmation
-      clearCart();
-      window.location.assign(data.redirectUrl);
+      // Step 1 done. Reveal the card form, which POSTs straight to NMI.
+      // The cart is deliberately NOT cleared here — payment has not happened yet.
+      setFormUrl(data.formUrl);
+      setSubmitting(false);
     } catch {
       setGatewayError('Network error. Please check your connection and try again.');
       setSubmitting(false);
     }
   }
 
-  if (items.length === 0) {
+  if (items.length === 0 && !formUrl) {
     return (
       <div className="mx-auto w-full max-w-7xl px-6 py-32 flex flex-col items-center text-center gap-6">
         <p className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-700">
@@ -142,7 +146,15 @@ export default function CheckoutPage() {
       <div className="mx-auto w-full max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-16 items-start">
 
-          {/* Shipping form */}
+          {/* Step 1 collects shipping; Step 2 POSTs card fields straight to NMI */}
+          {formUrl ? (
+            <NmiCardForm
+              formUrl={formUrl}
+              billing={form}
+              total={totalPrice}
+              onBack={() => setFormUrl(null)}
+            />
+          ) : (
           <form id={formId} onSubmit={handleSubmit} noValidate className="flex flex-col gap-10">
 
             {/* Contact */}
@@ -304,9 +316,8 @@ export default function CheckoutPage() {
               <p className="text-sm font-mono text-zinc-500 leading-7">
                 Payment is processed securely via{' '}
                 <strong className="text-zinc-300">PaymentCloud</strong> — a PCI-DSS
-                compliant high-risk payment processor. You will be redirected to their
-                secure hosted payment page after submitting your shipping information.
-                Your card data is never stored on our servers.
+                compliant high-risk payment processor. Card details are entered on
+                the next step and submitted directly to them, never to our servers.
               </p>
             </div>
 
@@ -320,7 +331,7 @@ export default function CheckoutPage() {
                   : 'bg-white text-black hover:bg-zinc-100',
               ].join(' ')}
             >
-              {submitting ? 'Redirecting to Payment…' : 'Continue to Payment →'}
+              {submitting ? 'Preparing Payment…' : 'Continue to Payment →'}
             </button>
 
             {gatewayError && (
@@ -329,6 +340,7 @@ export default function CheckoutPage() {
               </p>
             )}
           </form>
+          )}
 
           {/* Order summary */}
           <div className="border border-zinc-800 p-8 flex flex-col gap-6 sticky top-20">

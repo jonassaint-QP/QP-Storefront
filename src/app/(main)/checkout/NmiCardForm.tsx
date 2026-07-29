@@ -1,0 +1,175 @@
+'use client';
+
+/**
+ * NMI Three-Step Redirect — Step 2.
+ *
+ * `formUrl` is the one-time POST target returned by Step 1. It is NOT a hosted
+ * payment page: the browser has to POST the card fields to it as a normal HTML
+ * form submission. Navigating there with a GET (e.g. window.location.assign)
+ * arrives with no card number and the gateway answers
+ * "The ccnumber field is required".
+ *
+ * Three deliberate constraints:
+ *  - The card field names are exactly `ccnumber`, `ccexp` and `cvv`. NMI matches
+ *    these verbatim and ignores anything else (cc_number, cardNumber,
+ *    billing-cc-number), which is what produces the "ccnumber field is required"
+ *    rejection. `ccexp` must be MMYY, e.g. 1132.
+ *  - This is a plain lowercase <form>, not next/form. With a string `action`,
+ *    next/form forces a GET and ignores `method`, which is exactly the bug.
+ *  - The submit button is never disabled and the card inputs hold no React
+ *    state. The submission is a cross-origin browser navigation, so re-rendering
+ *    or disabling controls mid-submit can cancel the hand-off before it leaves
+ *    the browser. Values go straight from the DOM to NMI, so the card number
+ *    never enters application state, our server, or any log.
+ *
+ * On success NMI redirects the browser to the Step-1 <redirect-url>
+ * (/api/webhooks/payment?token-id=…), which completes the charge.
+ */
+
+export type BillingInfo = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  address1: string;
+  address2: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+};
+
+const INPUT_CLASS =
+  'h-10 bg-zinc-950 border border-zinc-800 px-4 text-sm font-mono text-white placeholder-zinc-700 focus:outline-none focus:border-zinc-500 transition-colors';
+
+/**
+ * Strips everything but digits, in the DOM only. Keeps browser autofill
+ * ("4111 1111 1111 1111", "11 / 32") from reaching NMI with separators.
+ */
+function digitsOnly(e: React.FormEvent<HTMLInputElement>) {
+  const el = e.currentTarget;
+  const cleaned = el.value.replace(/\D/g, '');
+  if (cleaned !== el.value) el.value = cleaned;
+}
+
+function Field({
+  id, label, children,
+}: {
+  id: string; label: string; children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label htmlFor={id} className="text-xs font-mono uppercase tracking-widest text-zinc-600">
+        {label}<span className="text-zinc-700 ml-1">*</span>
+      </label>
+      {children}
+    </div>
+  );
+}
+
+export default function NmiCardForm({
+  formUrl, billing, total, onBack,
+}: {
+  formUrl: string;
+  billing: BillingInfo;
+  total: string;
+  onBack: () => void;
+}) {
+  return (
+    <form action={formUrl} method="post" className="flex flex-col gap-10">
+      {/*
+        Billing details for AVS/CVV matching, mirrored from the shipping step.
+        Step-1 XML carries no <billing> block, so NMI takes it here instead.
+      */}
+      <input type="hidden" name="billing-first-name" value={billing.firstName} />
+      <input type="hidden" name="billing-last-name" value={billing.lastName} />
+      <input type="hidden" name="billing-address1" value={billing.address1} />
+      <input type="hidden" name="billing-address2" value={billing.address2} />
+      <input type="hidden" name="billing-city" value={billing.city} />
+      <input type="hidden" name="billing-state" value={billing.state} />
+      <input type="hidden" name="billing-postal" value={billing.zip} />
+      <input type="hidden" name="billing-country" value={billing.country} />
+      <input type="hidden" name="billing-email" value={billing.email} />
+
+      <div className="flex flex-col gap-5">
+        <p className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-600 border-b border-zinc-800 pb-3">
+          Card Details
+        </p>
+
+        <Field id="cc-number" label="Card Number">
+          <input
+            id="cc-number"
+            name="ccnumber"
+            type="text"
+            inputMode="numeric"
+            autoComplete="cc-number"
+            required
+            maxLength={19}
+            pattern="[0-9]{13,19}"
+            placeholder="4111111111111111"
+            onInput={digitsOnly}
+            className={INPUT_CLASS}
+          />
+        </Field>
+
+        <div className="grid grid-cols-2 gap-4">
+          <Field id="cc-exp" label="Expiry (MMYY)">
+            <input
+              id="cc-exp"
+              name="ccexp"
+              type="text"
+              inputMode="numeric"
+              autoComplete="cc-exp"
+              required
+              maxLength={4}
+              pattern="(0[1-9]|1[0-2])[0-9]{2}"
+              placeholder="1132"
+              onInput={digitsOnly}
+              className={INPUT_CLASS}
+            />
+          </Field>
+          <Field id="cc-cvv" label="CVV">
+            <input
+              id="cc-cvv"
+              name="cvv"
+              type="text"
+              inputMode="numeric"
+              autoComplete="cc-csc"
+              required
+              maxLength={4}
+              pattern="[0-9]{3,4}"
+              placeholder="123"
+              onInput={digitsOnly}
+              className={INPUT_CLASS}
+            />
+          </Field>
+        </div>
+      </div>
+
+      <div className="border border-zinc-800 p-6 flex flex-col gap-3">
+        <p className="text-xs tracking-[0.25em] font-mono uppercase text-zinc-600">
+          [ Secure Transmission ]
+        </p>
+        <p className="text-sm font-mono text-zinc-500 leading-7">
+          Your card details are submitted directly to{' '}
+          <strong className="text-zinc-300">PaymentCloud</strong>, a PCI-DSS
+          compliant processor. They are never sent to or stored on our servers.
+        </p>
+      </div>
+
+      <button
+        type="submit"
+        className="h-12 px-8 w-full text-xs font-bold tracking-[0.2em] uppercase transition-colors bg-white text-black hover:bg-zinc-100"
+      >
+        {`Pay ${total} →`}
+      </button>
+
+      <button
+        type="button"
+        onClick={onBack}
+        className="text-xs font-mono uppercase tracking-[0.15em] text-zinc-700 hover:text-zinc-400 transition-colors text-center"
+      >
+        ← Edit Shipping Details
+      </button>
+    </form>
+  );
+}
