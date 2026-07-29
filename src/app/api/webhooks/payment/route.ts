@@ -59,7 +59,7 @@ async function handleStep3(req: NextRequest): Promise<NextResponse> {
 
   try {
     const body = new URLSearchParams({
-      'security-key': NMI_SECURITY_KEY,
+      'security_key': NMI_SECURITY_KEY,
       'token-id': tokenId,
     });
 
