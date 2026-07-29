@@ -20,8 +20,8 @@ const NMI_SECURITY_KEY = process.env.NMI_SECURITY_KEY ?? '';
 const NMI_WEBHOOK_SECRET = process.env.NMI_WEBHOOK_SECRET ?? '';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://yourdomain.com';
 
-const NMI_DIRECT_POST =
-  process.env.NMI_DIRECT_POST_URL ?? 'https://secure.networkmerchants.com/api/transact.php';
+const NMI_GATEWAY_URL =
+  process.env.NMI_GATEWAY_URL ?? 'https://secure.networkmerchants.com/api/v2/three-step';
 
 // ── Step-3 redirect handler (browser GET/POST from NMI hosted page) ────────────
 
@@ -58,27 +58,38 @@ async function handleStep3(req: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const body = new URLSearchParams({
-      'security_key': NMI_SECURITY_KEY,
-      'token-id': tokenId,
-    });
+    // Step-3 completion: send token-id back to the Three-Step endpoint via XML.
+    // <complete-action> is the correct root element for Step-3 (not <sale>).
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<complete-action>
+  <api-key>${NMI_SECURITY_KEY}</api-key>
+  <token-id>${tokenId}</token-id>
+</complete-action>`;
 
-    const res = await fetch(NMI_DIRECT_POST, {
+    const res = await fetch(NMI_GATEWAY_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: body.toString(),
+      headers: { 'Content-Type': 'text/xml' },
+      body: xml,
     });
 
     const text = await res.text();
-    const result = parseDirectPostResponse(text);
+    console.info('[webhook] NMI Step-3 response:', text.slice(0, 300));
 
-    if (result.response === '1') {
-      // Approved
-      console.info('[webhook] NMI charge approved', { transactionId: result.transactionid });
+    // NMI returns <result>1</result> for approved, 2 for declined, 3 for error
+    const resultMatch = text.match(/<result>(\d+)<\/result>/);
+    const resultTextMatch = text.match(/<result-text>([^<]+)<\/result-text>/);
+    const transactionIdMatch = text.match(/<transaction-id>([^<]+)<\/transaction-id>/);
+
+    const resultCode = resultMatch?.[1];
+    const resultText = resultTextMatch?.[1] ?? 'Unknown response';
+    const transactionId = transactionIdMatch?.[1];
+
+    if (resultCode === '1') {
+      console.info('[webhook] NMI charge approved', { transactionId });
       return NextResponse.redirect(`${SITE_URL}/order/confirmed`, { status: 303 });
     } else {
-      console.warn('[webhook] NMI charge declined', { responsetext: result.responsetext });
-      const msg = encodeURIComponent(result.responsetext ?? 'Payment declined');
+      console.warn('[webhook] NMI charge declined/error', { resultCode, resultText });
+      const msg = encodeURIComponent(resultText);
       return NextResponse.redirect(`${SITE_URL}/checkout?error=${msg}`, { status: 303 });
     }
   } catch (err) {
