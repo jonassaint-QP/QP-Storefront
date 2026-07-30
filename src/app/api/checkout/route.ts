@@ -93,8 +93,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ formUrl: formUrlMatch[1], orderId: newOrder.id });
 
   } catch (error) {
-    console.error('Checkout Initialization Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    const errMessage = error instanceof Error ? error.message : String(error);
+    const errStack = error instanceof Error ? error.stack : undefined;
+    console.error('Checkout Initialization Error:', { message: errMessage, stack: errStack });
+    return NextResponse.json(
+      {
+        error: 'Internal Server Error',
+        details: errMessage,
+      },
+      { status: 500 },
+    );
   }
 }
 

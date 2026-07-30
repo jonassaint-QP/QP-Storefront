@@ -6,10 +6,11 @@ let dbInstance: ReturnType<typeof drizzle<typeof schema>> | null = null;
 
 export function getDb() {
   if (!dbInstance) {
-    if (!process.env.DATABASE_URL) {
-      throw new Error('CRITICAL: DATABASE_URL is missing during runtime execution.');
+    const url = process.env.DATABASE_URL?.trim();
+    if (!url) {
+      throw new Error('CRITICAL: DATABASE_URL is missing or empty during runtime execution.');
     }
-    dbInstance = drizzle(neon(process.env.DATABASE_URL), { schema });
+    dbInstance = drizzle(neon(url), { schema });
   }
   return dbInstance;
 }
