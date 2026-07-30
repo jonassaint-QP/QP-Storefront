@@ -116,6 +116,7 @@ export default function CurationWidget() {
   // Countdown tick
   useEffect(() => {
     if (!timerRunning || timeLeft <= 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (timeLeft <= 0) setTimerRunning(false);
       return;
     }
@@ -125,7 +126,9 @@ export default function CurationWidget() {
 
   // Reset timer on step change
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTimeLeft(STEPS[currentStep].duration);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTimerRunning(false);
   }, [currentStep]);
 

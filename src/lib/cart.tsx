@@ -108,6 +108,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // Corrupt storage — ignore
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, []);
 
