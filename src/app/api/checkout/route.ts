@@ -10,10 +10,10 @@ const WARNING_THRESHOLD = MONTHLY_VOLUME_LIMIT * 0.85; // $21,250
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { cartItems, customerInfo } = body;
+    const { cartItems, customerInfo, currency = 'USD' } = body;
 
     // 1. Calculate final total server-side to prevent tampering
-    const amount = calculateTotal(cartItems);
+    const amount = calculateTotal(cartItems, currency);
     const numericAmount = parseFloat(amount);
 
     // 2. Velocity check: rolling 30-day paid volume
@@ -107,9 +107,17 @@ async function triggerAdminAlert(projectedVolume: number): Promise<void> {
   });
 }
 
-function calculateTotal(items: { price: number; quantity: number }[]): string {
+function calculateTotal(
+  items: { price: number; quantity: number }[] | undefined,
+  currency: string,
+): string {
   // TODO: replace with DB-backed pricing lookup to prevent price injection
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  return total.toFixed(2);
+  if (!items || !Array.isArray(items)) {
+    console.warn('[Checkout Warning] calculateTotal received undefined or invalid cartItems.');
+    return '0.00';
+  }
+  const baseUSD = items.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0);
+  // 1 USD = 1.38 CAD
+  return (currency === 'CAD' ? baseUSD * 1.38 : baseUSD).toFixed(2);
 }
 

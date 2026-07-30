@@ -88,19 +88,20 @@ export default function CheckoutPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...form,
-          items: items.map(({ id, name, price, quantity }) => ({ id, name, price, quantity })),
+          cartItems: items.map(({ id, name, price, quantity }) => ({ id, name, price, quantity })),
+          customerInfo: { name: `${form.firstName} ${form.lastName}`, email: form.email },
+          currency: 'USD',
         }),
       });
-      const data = await res.json() as { redirectUrl?: string; error?: string };
-      if (!res.ok || !data.redirectUrl) {
+      const data = await res.json() as { formUrl?: string; error?: string };
+      if (!res.ok || !data.formUrl) {
         setGatewayError(data.error ?? 'Payment gateway unavailable. Please try again.');
         setSubmitting(false);
         return;
       }
       // Clear cart before leaving — the webhook will handle order confirmation
       clearCart();
-      window.location.assign(data.redirectUrl);
+      window.location.assign(data.formUrl);
     } catch {
       setGatewayError('Network error. Please check your connection and try again.');
       setSubmitting(false);
