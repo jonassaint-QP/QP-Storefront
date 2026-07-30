@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { db } from '@/db';
+import { after, NextResponse } from 'next/server';
+import { getDb } from '@/db';
 import { store_orders } from '@/db/schema';
 import { eq, gte, and, sql } from 'drizzle-orm';
 
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-    const volumeResult = await db
+    const volumeResult = await getDb()
       .select({ totalVolume: sql<number>`sum(${store_orders.totalAmount})` })
       .from(store_orders)
       .where(
@@ -42,15 +42,19 @@ export async function POST(request: Request) {
       );
     }
 
-    // 4. Soft warning alert (85%) — fire-and-forget, must not block checkout
+    // 4. Soft warning alert (85%) — runs after response via context.waitUntil()
     if (projectedVolume >= WARNING_THRESHOLD) {
-      triggerAdminAlert(projectedVolume).catch(err =>
-        console.error('Failed to send admin velocity alert:', err)
-      );
+      after(async () => {
+        try {
+          await triggerAdminAlert(projectedVolume);
+        } catch (err) {
+          console.error('Failed to send admin velocity alert:', err);
+        }
+      });
     }
 
     // 5. Persist pending order via Drizzle
-    const [newOrder] = await db.insert(store_orders).values({
+    const [newOrder] = await getDb().insert(store_orders).values({
       customerName: customerInfo.name,
       email: customerInfo.email,
       totalAmount: String(numericAmount),
@@ -60,7 +64,9 @@ export async function POST(request: Request) {
 
     // 4. Step 1 of NMI Three-Step Redirect — server-to-server only
     const nmiSecurityKey = process.env.NMI_SECURITY_KEY;
-    const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/webhooks/payment`;
+    // DEPLOY_PRIME_URL is set by Netlify in preview/branch deploys; falls back to production
+    const baseUrl = process.env.DEPLOY_PRIME_URL || process.env.NEXT_PUBLIC_SITE_URL;
+    const redirectUrl = `${baseUrl}/api/webhooks/payment`;
 
     const xmlPayload = `<?xml version="1.0" encoding="UTF-8"?>
       <sale>

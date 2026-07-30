@@ -1,33 +1,32 @@
 import Link from 'next/link';
 
-export default async function CheckoutSuccessPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ order?: string }>;
-}) {
-  const { order } = await searchParams;
-  const orderId = order || 'Unknown';
+interface SuccessPageProps {
+  searchParams: Promise<{ orderId?: string }>;
+}
+
+export default async function CheckoutSuccessPage({ searchParams }: SuccessPageProps) {
+  const { orderId } = await searchParams;
 
   return (
-    <div className="max-w-md mx-auto p-8 mt-12 bg-white rounded-lg shadow-md border border-gray-200 text-center">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Payment Secured</h1>
+    <div className="max-w-2xl mx-auto p-8 mt-12 text-center border border-gray-200 rounded shadow-sm">
+      <h1 className="text-3xl font-bold text-green-700 mb-4">Payment Successful</h1>
+      <p className="mb-6 text-lg">Thank you. Your transaction has been securely processed and your somatic gear is being prepared.</p>
 
-      <p className="text-gray-600 mb-6">
-        Your order has been successfully processed. Your reference number is <strong>#{orderId}</strong>.
-      </p>
+      {orderId && (
+        <div className="bg-gray-50 p-4 rounded mb-8 inline-block mx-auto">
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Order Reference</p>
+          <p className="font-mono font-medium">{orderId}</p>
+        </div>
+      )}
 
-      <div className="p-4 bg-gray-50 rounded-md mb-8 border border-gray-100">
-        <p className="text-sm text-gray-700">
-          As promised, all items will be shipped in plain, unbranded packaging with a non-descript return address to protect your privacy.
-        </p>
+      <div>
+        <Link
+          href="/shop"
+          className="bg-[#46287a] text-white px-8 py-3 rounded font-bold hover:bg-[#de7e0d] transition-colors inline-block"
+        >
+          Return to Storefront
+        </Link>
       </div>
-
-      <Link
-        href="/shop"
-        className="inline-block bg-[#46287a] text-white font-bold py-3 px-8 rounded hover:opacity-90 transition-opacity"
-      >
-        Return to Store
-      </Link>
     </div>
   );
 }
