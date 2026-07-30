@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { store_orders } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
@@ -35,27 +35,26 @@ export async function GET(request: Request) {
     const resultMatch = nmiXmlResponse.match(/<result>(.*?)<\/result>/);
     const orderIdMatch = nmiXmlResponse.match(/<order-id>(.*?)<\/order-id>/);
     const resultTextMatch = nmiXmlResponse.match(/<result-text>(.*?)<\/result-text>/);
+    const transactionIdMatch = nmiXmlResponse.match(/<transaction-id>(.*?)<\/transaction-id>/);
 
-    const result = resultMatch ? resultMatch[1] : null;
+    const result = resultMatch ? resultMatch[1] : '3';
     const orderId = orderIdMatch ? parseInt(orderIdMatch[1], 10) : null;
+    const transactionId = transactionIdMatch ? transactionIdMatch[1] : null;
 
     if (!orderId) {
       console.error('NMI Webhook Error: Missing order-id in final response', nmiXmlResponse);
       return NextResponse.redirect(new URL('/checkout/error?reason=gateway_error', request.url));
     }
 
-    // 4. Update order status in Postgres via Drizzle
+    const paymentStatus = result === '1' ? 'paid' : 'failed';
+
+    await getDb().update(store_orders)
+      .set({ status: paymentStatus, transactionId, updatedAt: new Date() })
+      .where(eq(store_orders.id, orderId));
+
     if (result === '1') {
-      await db.update(store_orders)
-        .set({ status: 'paid', updatedAt: new Date() })
-        .where(eq(store_orders.id, orderId));
-
-      return NextResponse.redirect(new URL(`/checkout/success?order=${orderId}`, request.url));
+      return NextResponse.redirect(new URL(`/checkout/success?orderId=${orderId}`, request.url));
     } else {
-      await db.update(store_orders)
-        .set({ status: 'failed', updatedAt: new Date() })
-        .where(eq(store_orders.id, orderId));
-
       const reason = resultTextMatch ? encodeURIComponent(resultTextMatch[1]) : 'declined';
       return NextResponse.redirect(new URL(`/checkout/error?reason=${reason}`, request.url));
     }

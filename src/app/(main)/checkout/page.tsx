@@ -4,6 +4,7 @@ import { useState, useId } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/lib/cart';
 import { formatPrice } from '@/lib/products';
+import PaymentForm from '@/components/checkout/PaymentForm';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
@@ -57,6 +58,7 @@ export default function CheckoutPage() {
   const [errors, setErrors] = useState<Partial<ShippingForm>>({});
   const [submitting, setSubmitting] = useState(false);
   const [gatewayError, setGatewayError] = useState<string | null>(null);
+  const [formUrl, setFormUrl] = useState<string | null>(null);
 
   function set(field: keyof ShippingForm, value: string) {
     setForm((f) => ({ ...f, [field]: value }));
@@ -99,13 +101,30 @@ export default function CheckoutPage() {
         setSubmitting(false);
         return;
       }
-      // Clear cart before leaving — the webhook will handle order confirmation
+      // Cart cleared before handoff; NMI redirect handles order confirmation
       clearCart();
-      window.location.assign(data.formUrl);
+      setFormUrl(data.formUrl);
     } catch {
       setGatewayError('Network error. Please check your connection and try again.');
       setSubmitting(false);
     }
+  }
+
+  if (formUrl) {
+    return (
+      <div className="mx-auto w-full max-w-7xl px-6 py-16 flex flex-col gap-8">
+        <div className="flex flex-col gap-2">
+          <p className="text-xs tracking-[0.35em] font-mono uppercase text-zinc-600">[ Payment ]</p>
+          <h1 className="text-4xl font-black tracking-tight uppercase leading-none text-white">
+            Card Details
+          </h1>
+          <p className="text-xs font-mono text-zinc-600 mt-1">
+            Your card data is sent directly to the secure payment processor — it never touches our server.
+          </p>
+        </div>
+        <PaymentForm formUrl={formUrl} />
+      </div>
+    );
   }
 
   if (items.length === 0) {

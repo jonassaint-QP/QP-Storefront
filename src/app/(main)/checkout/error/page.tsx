@@ -1,35 +1,41 @@
 import Link from 'next/link';
 
-export default async function CheckoutErrorPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ reason?: string }>;
-}) {
-  // Next.js decodes query params before passing them — no decodeURIComponent needed
-  const { reason } = await searchParams;
-  const message = reason || 'An unknown gateway error occurred';
+interface ErrorPageProps {
+  searchParams: Promise<{ orderId?: string; reason?: string }>;
+}
+
+function getErrorMessage(code?: string): string {
+  switch (code) {
+    case 'missing_token':
+      return 'We lost the secure connection to the payment gateway. Your card was not charged.';
+    case 'internal_error':
+      return 'A system error interrupted your transaction before it could complete. Please try again.';
+    case 'gateway_error':
+      return 'The payment gateway did not return a valid response. Your card was not charged.';
+    default:
+      return code
+        ? code // pass NMI result-text directly (e.g. "Insufficient Funds")
+        : 'Your payment was declined. Please verify your details or try a different card.';
+  }
+}
+
+export default async function CheckoutErrorPage({ searchParams }: ErrorPageProps) {
+  const { orderId, reason } = await searchParams;
 
   return (
-    <div className="max-w-md mx-auto p-8 mt-12 bg-white rounded-lg shadow-md border border-red-100 text-center">
-      <h1 className="text-3xl font-bold text-red-600 mb-4">Payment Failed</h1>
+    <div className="max-w-2xl mx-auto p-8 mt-12 text-center border-t-4 border-red-600 bg-white shadow-sm rounded">
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">Checkout Incomplete</h1>
+      <p className="mb-6 text-gray-700 text-lg">{getErrorMessage(reason)}</p>
 
-      <p className="text-gray-600 mb-4">
-        We could not process your transaction. The secure gateway reported:
-      </p>
-
-      <div className="p-3 bg-red-50 text-red-800 rounded-md mb-6 font-medium">
-        {message}
-      </div>
-
-      <p className="text-sm text-gray-500 mb-8">
-        No charges have been made to your account. Your order remains pending in our system.
-      </p>
+      {orderId && (
+        <p className="text-sm text-gray-400 mb-8">Reference: {orderId}</p>
+      )}
 
       <Link
-        href="/checkout"
-        className="inline-block bg-[#de7e0d] text-white font-bold py-3 px-8 rounded hover:opacity-90 transition-opacity"
+        href="/cart"
+        className="bg-gray-800 text-white px-8 py-3 rounded font-bold hover:bg-gray-700 transition-colors inline-block"
       >
-        Try Another Card
+        Return to Cart
       </Link>
     </div>
   );

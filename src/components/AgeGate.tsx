@@ -111,11 +111,9 @@ export default function AgeGate({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const stored = localStorage.getItem(AGE_GATE_KEY);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVerified(stored === 'true');
     } catch {
       // localStorage blocked (private browsing restrictions in some browsers)
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setVerified(false);
     }
   }, []);
