@@ -1,8 +1,11 @@
 export type CategorySlug =
-  | 'technical-toys'
-  | 'lubes'
-  | 'internal-expansion'
-  | 'double-outsider';
+  | 'black-sm'
+  | 'blue-dark-anal'
+  | 'blue-light-oral'
+  | 'green-hustler-sugar'
+  | 'grey-bondage'
+  | 'red-fisting'
+  | 'yellow-watersports';
 
 export type Category = {
   slug: CategorySlug;
@@ -33,40 +36,67 @@ export type Product = {
 
 export const CATEGORIES: Category[] = [
   {
-    slug: 'technical-toys',
-    tag: 'Category B',
-    title: 'Technical Toys',
-    subtitle: 'Material Discipline',
+    slug: 'black-sm',
+    tag: 'Hanky: Black',
+    title: 'Black / S&M',
+    subtitle: 'Sadomasochism & Heavy Discipline',
     description:
-      'Zero tolerance for porous, unsafe materials. Every piece is body-safe, premium-grade, and engineered to anchor the nervous system through grounded sensation.',
-    color: 'text-zinc-400', // grey hanky — bondage / SM
+      'Heavy impact gear, whips, canes, and S&M hardware engineered for intense sensation and physical discipline.',
+    color: 'text-zinc-100', // Black hanky
   },
   {
-    slug: 'lubes',
-    tag: 'Category C',
-    title: 'The Frictionless Suite',
-    subtitle: 'Specialized Lubes',
+    slug: 'blue-dark-anal',
+    tag: 'Hanky: Dark Blue',
+    title: 'Blue (Dark) / Anal Sex',
+    subtitle: 'Anal Play & Specialized Lubes',
     description:
-      'Heavy-viscosity profiles that protect tissue and safely manage mechanical tension. Formulated for advanced play — no compromises, no guesswork.',
-    color: 'text-blue-700', // dark navy hanky — anal / fucking
+      'Heavy-viscosity lubricants, plugs, probes, and specialized gear designed for safe anal exploration.',
+    color: 'text-blue-700', // Dark Blue hanky
   },
   {
-    slug: 'internal-expansion',
-    tag: 'Category IX',
-    title: 'Internal Expansion',
-    subtitle: "Alex's Kit",
+    slug: 'blue-light-oral',
+    tag: 'Hanky: Light Blue',
+    title: 'Blue (Light) / Oral Sex',
+    subtitle: 'Oral Play & Enhancement',
     description:
-      'Heavy sensation and systematic training gear designed for capacity building and presence.',
-    color: 'text-purple-600', // purple hanky — piercing / heavy sensation / gaping
+      'Flavored lubricants, oral stimulation tools, dams, and accessories for heightened oral play.',
+    color: 'text-sky-400', // Light Blue hanky
   },
   {
-    slug: 'double-outsider',
-    tag: 'Category III',
-    title: 'Double-Outsider Supply Co.',
-    subtitle: 'Identity & Hardware',
+    slug: 'green-hustler-sugar',
+    tag: 'Hanky: Green',
+    title: 'Green / Hustler / Sugar',
+    subtitle: 'Financial & Power Play',
     description:
-      'The essential uniform and technical hardware of the Sovereign Harbor.',
-    color: 'text-red-700', // red hanky — fisting / heavy duty
+      'Gear, hardware, and accessories curated for commercial, hustler, and sugar dynamics.',
+    color: 'text-emerald-500', // Green hanky
+  },
+  {
+    slug: 'grey-bondage',
+    tag: 'Hanky: Grey',
+    title: 'Grey / Bondage',
+    subtitle: 'Restraint & Control',
+    description:
+      'Cuffs, ropes, harnesses, and body restraints engineered to secure the perimeter and anchor control.',
+    color: 'text-zinc-400', // Grey hanky
+  },
+  {
+    slug: 'red-fisting',
+    tag: 'Hanky: Red',
+    title: 'Red / Fisting',
+    subtitle: 'Heavy Sensation & Dilators',
+    description:
+      'High-viscosity sling lubes, heavy-capacity dilators, gloves, and expansion hardware.',
+    color: 'text-red-700', // Red hanky
+  },
+  {
+    slug: 'yellow-watersports',
+    tag: 'Hanky: Yellow',
+    title: 'Yellow / Watersports',
+    subtitle: 'Urolagnia & Waterproof Hardware',
+    description:
+      'Waterproof sheets, catheters, play suits, and specialized hardware for watersports.',
+    color: 'text-yellow-400', // Yellow hanky
   },
 ];
 
@@ -74,7 +104,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-05',
     slug: 'h-style-flogger',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'H-Style Flogger',
     tagline: 'Short handle. Deep impact. Close-quarters regulation.',
     material: 'Premium leather falls / leather-wrapped handle',
@@ -92,7 +122,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-06',
     slug: 'spartacus-leather-cane-24',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'Spartacus 24" Leather Wrapped Cane',
     tagline: 'Thud meets sting. Controlled, deliberate impact on your terms.',
     material: 'Leather-wrapped firm core / 24-inch',
@@ -110,7 +140,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-07',
     slug: 'leather-ankle-cuffs-chain',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'Leather Ankle Cuffs w/ Chain',
     tagline: 'All black. All business. Secure the perimeter. Adjourn the trial.',
     material: 'Adjustable leather / detachable black chain hardware',
@@ -128,7 +158,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-08',
     slug: 'master-series-pup-arsenal-set',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'Master Series Pup Arsenal Set',
     tagline: 'Everything you need to surrender the crown. The ultimate cognitive off-ramp.',
     material: 'Vegan leather / neoprene / nickel-free hardware',
@@ -154,7 +184,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-09',
     slug: 'spartacus-blown-large-realistic-glass',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'Spartacus Blown Large Realistic Glass',
     tagline: 'Clear. Clean. Unyielding. Temperature-responsive total presence.',
     material: 'Premium borosilicate glass — non-porous, temperature-responsive',
@@ -173,7 +203,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-10',
     slug: 'spartacus-blown-medium-realistic-glass',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'Spartacus Blown Medium Realistic Glass',
     tagline: 'Raw grit. Flawless craft. Targeted, sustainable intensity.',
     material: 'Premium borosilicate glass — non-porous, temperature-responsive',
@@ -196,7 +226,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-11',
     slug: 'blush-au-naturel-daddy-14',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'Blush Au Naturel "Daddy" 14"',
     tagline: 'Fourteen inches of dual-density authority. Stop running the world.',
     material: 'Dual-density phthalate-free TPE with FlexiShaft™ technology',
@@ -222,7 +252,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-12',
     slug: 'king-size-dungeon-bed-canopy',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'King Size Dungeon Bed w/ Suspension Canopy',
     tagline: 'Structural sovereignty. The ultimate anchor for the Harbor.',
     material: 'Industrial-grade powder-coated steel / reinforced slats',
@@ -241,7 +271,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-13',
     slug: 'ultimate-obedience-chair-sex-machine',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'Ultimate Obedience Chair with Sex Machine',
     tagline: 'Mechanical precision. Cognitive off-ramp.',
     material: 'Steel frame / vegan leather padding / 110V motor',
@@ -260,7 +290,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-14',
     slug: 'obedience-bench-sex-machine',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'Obedience Bench with Sex Machine',
     tagline: 'High-capacity utility. Adjourn the trial.',
     material: 'Reinforced steel / high-density foam / 110V motor',
@@ -279,7 +309,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'b-15',
     slug: 'milker-automatic-deluxe-stroker',
-    category: 'technical-toys',
+    category: 'black-sm',
     name: 'The Milker Automatic Deluxe Stroker Machine',
     tagline: 'Pneumatic authority. 110V pneumatic pump architecture.',
     material: 'Industrial-grade plastic / pneumatic pump / 110V',
@@ -308,7 +338,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-03',
     slug: 'spunk-lube-pure-silicone',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'SPUNK Lube Pure Silicone',
     tagline: 'Zero sticky. Infinite shelf life. Medical-grade glide for sensory sensitivity.',
     material: '100% pure silicone — paraben-free, glycerin-free, chemical-free',
@@ -327,7 +357,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-04',
     slug: 'trojan-bareskin-raw',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Trojan BareSkin Raw',
     tagline: 'Maximum somatic feedback. Minimal interference. The thinnest safety net.',
     material: 'Ultra-thin latex — natural rubber',
@@ -345,7 +375,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-05',
     slug: 'kama-sutra-sex-magnet-candle',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Kama Sutra Sex Magnet Candle',
     tagline: 'Light it. Melt it. Ground it. Pheromone-infused nervous system reset.',
     material: 'Pheromone-infused body-safe massage oil wax — leather and cedar blend',
@@ -364,7 +394,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-06',
     slug: 'wet-platinum-3oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Wet Platinum Silicone Lube (3.0 oz)',
     tagline: 'The gold standard for long-haul sessions. Pure silicone that never quits.',
     material: '100% medical-grade pure silicone — paraben-free, fragrance-free',
@@ -383,7 +413,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-07',
     slug: 'wet-gold-hybrid-3oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Wet Gold Hybrid Lube (3.0 oz)',
     tagline: 'The Best of Both Worlds protocol. Silicone glide, water-based cleanup.',
     material: 'Silicone-water hybrid blend — paraben-free, glycerin-free',
@@ -402,7 +432,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-08',
     slug: 'wet-hybrid-3-1oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Wet Hybrid Lube (3.1 oz)',
     tagline: 'Light-touch architecture. Silky, water-forward, completely toy-safe.',
     material: 'Water and silicone hybrid blend — pH-balanced, fragrance-free',
@@ -421,7 +451,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-09',
     slug: 'wet-platinum-gallon',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Wet Platinum Silicone Lube (1 Gallon)',
     tagline: 'The Gallon Gap: Professional Bulk Infrastructure.',
     material: '100% medical-grade pure silicone — paraben-free, fragrance-free',
@@ -440,7 +470,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-10',
     slug: 'wet-original-gallon',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Wet Original Water-Based Lube (1 Gallon)',
     tagline: 'High-Capacity Somatic Glide.',
     material: 'Premium water-based formula — condom-compatible, toy-safe',
@@ -459,7 +489,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-11',
     slug: 'swiss-navy-silicone-32oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Swiss Navy Silicone Lubricant (32 oz)',
     tagline: 'The Professional Standard.',
     material: 'Highest-grade pure silicone — non-absorbable, fragrance-free',
@@ -478,7 +508,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-13',
     slug: 'swiss-navy-silicone-16oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Swiss Navy Silicone Lubricant (16 oz)',
     tagline: 'Reliable. Slick. Unstoppable.',
     material: 'Highest-grade pure silicone — non-absorbable, fragrance-free',
@@ -497,7 +527,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-14',
     slug: 'swiss-navy-silicone-gallon',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Swiss Navy Silicone Lubricant (1 Gallon)',
     tagline: 'The Gallon Gap: Maximum Infrastructure.',
     material: 'Highest-grade pure silicone — non-absorbable, fragrance-free',
@@ -516,7 +546,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-15',
     slug: 'intimate-earth-velvet-2oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Intimate Earth Velvet Touch Silicone (2 oz)',
     tagline: 'Silk-Smooth Presence.',
     material: 'Pure silicone enriched with organic extracts — paraben-free, glycerin-free',
@@ -535,7 +565,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-16',
     slug: 'wicked-hybrid-jelle-4oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Wicked Simply Hybrid Jelle (4 oz)',
     tagline: 'The High-Intensity Cushion.',
     material: 'Water and silicone hybrid — thick jelle formula, paraben-free',
@@ -554,7 +584,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-17',
     slug: 'id-millennium-2-2oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'ID Millennium Silicone (2.2 oz)',
     tagline: 'High-Performance Barrier.',
     material: 'Pure silicone — non-absorbable, fragrance-free',
@@ -577,7 +607,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-18',
     slug: 'body-action-xtreme-4-8oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Body Action Xtreme Silicone (4.8 oz)',
     tagline: 'Maximum Barrier. Zero Friction.',
     material: 'Concentrated high-viscosity silicone — heavy-duty formula',
@@ -596,7 +626,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-19',
     slug: 'jo-h2o-personal-lube-8oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Jo H2O Personal Lube (8 oz)',
     tagline: 'The Clean Slate Standard.',
     material: 'Water-based — glycerin-free, paraben-free',
@@ -615,7 +645,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-20',
     slug: 'intimate-earth-moonbloom-8oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Intimate Earth Moonbloom Hybrid (8 oz)',
     tagline: 'Calming. Natural. High-Anxiety Approved.',
     material: 'Hybrid formula with Moonbloom botanical extracts — paraben-free',
@@ -636,7 +666,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-21',
     slug: 'belladonnas-bitch-fist',
-    category: 'internal-expansion',
+    category: 'blue-dark-anal',
     name: "Belladonna's Bitch Fist",
     tagline: 'The Fisting Curriculum, Step One.',
     material: 'Body-safe Sil-A-Gel formula',
@@ -660,7 +690,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-22',
     slug: 'belladonnas-magic-hand',
-    category: 'internal-expansion',
+    category: 'blue-dark-anal',
     name: "Belladonna's Magic Hand",
     tagline: 'The Hand That Teaches Presence.',
     material: 'Body-safe TPE',
@@ -684,7 +714,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-23',
     slug: 'bvibe-fists-14-5',
-    category: 'internal-expansion',
+    category: 'blue-dark-anal',
     name: 'b-Vibe Fists 14.5" Fist-Style Dildo',
     tagline: 'Full Fist Geometry, Controlled Pace.',
     material: 'Platinum-cured silicone',
@@ -708,7 +738,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-33',
     slug: 'dick-rambone-cock',
-    category: 'internal-expansion',
+    category: 'blue-dark-anal',
     name: 'Dick Rambone Cock',
     tagline: '17 Inches of Grounded Reality.',
     material: 'Phthalate-free vinyl',
@@ -734,7 +764,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-52',
     slug: 'bvibe-weighted-snug-plug-6-black',
-    category: 'internal-expansion',
+    category: 'blue-dark-anal',
     name: 'b-Vibe Weighted Snug Plug 6 — 515g Black',
     tagline: '515 Grams of Presence.',
     material: 'Seamless silicone',
@@ -761,7 +791,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-49',
     slug: 'lovense-ridge-bumpy-anal-plug',
-    category: 'double-outsider',
+    category: 'grey-bondage',
     name: 'Lovense Ridge Bumpy Anal Plug — Black',
     tagline: 'Tech-Enabled Depth.',
     material: 'Premium Silicone',
@@ -788,7 +818,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-50',
     slug: 'double-outsider-socks-black-white',
-    category: 'double-outsider',
+    category: 'grey-bondage',
     name: 'Double-Outsider Signature Socks — Black/White',
     tagline: 'Grounding From the Feet Up.',
     material: 'Cotton/Nylon/Spandex Blend',
@@ -808,7 +838,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-51',
     slug: 'double-outsider-socks-navy-white',
-    category: 'double-outsider',
+    category: 'grey-bondage',
     name: 'Double-Outsider Signature Socks — Navy/White',
     tagline: 'The Legacy Aesthetic.',
     material: 'Cotton/Nylon/Spandex Blend',
@@ -830,7 +860,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-53',
     slug: 'loop-i-source',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Loop I (Source) — Water-Based',
     tagline: 'Primary Source. Zero Friction.',
     material: 'Premium water-based formula',
@@ -852,7 +882,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-54',
     slug: 'loop-ii-baseline',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Loop II (Baseline) — Silicone',
     tagline: 'The Baseline of Endurance.',
     material: '100% Platinum-cured silicone',
@@ -874,7 +904,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-55',
     slug: 'loop-iii-tension',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Loop III (Tension) — Heavy Sensation',
     tagline: 'Engineered for Tension.',
     material: 'Ultra-viscous silicone blend',
@@ -896,7 +926,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-56',
     slug: 'loop-x-composite',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'Loop X (Composite) — Hybrid',
     tagline: 'The Composite Protocol.',
     material: 'Water/Silicone Hybrid',
@@ -918,7 +948,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-57',
     slug: 'cleanstream-relax-anal-lube-4oz',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     name: 'CleanStream Relax Desensitizing Anal Lube (4 oz)',
     tagline: 'Lower the Signal. Unlock the Work.',
     material: 'Water-based desensitizing formula',

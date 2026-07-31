@@ -4,7 +4,7 @@ import path from 'path';
 export type IncomingRawProduct = {
   sku: string;
   name: string;
-  categorySlug: 'technical-toys' | 'lubes' | 'internal-expansion' | 'double-outsider';
+  categorySlug: 'black-sm' | 'blue-dark-anal' | 'blue-light-oral' | 'green-hustler-sugar' | 'grey-bondage' | 'red-fisting' | 'yellow-watersports';
   costPrice: number;
   description?: string;
   material?: string;
@@ -67,7 +67,7 @@ export function parseFeedFile(filePath: string): IncomingRawProduct[] {
     products.push({
       sku,
       name,
-      categorySlug: 'technical-toys', // Default category
+      categorySlug: 'black-sm', // Default category
       costPrice,
       description: row['description'] || row['body'] || '',
       material: row['material'] || 'Body-safe material',

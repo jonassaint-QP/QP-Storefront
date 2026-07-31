@@ -19,18 +19,21 @@ export type Review = {
 
 // Rating axes keyed by category — structural/functional language throughout
 export const RATING_AXES: Record<CategorySlug, string[]> = {
-  'technical-toys':    ['Material Purity', 'Surface Finish', 'Sizing Accuracy', 'Build Quality'],
-  'lubes':             ['Viscosity Consistency', 'Session Longevity', 'Texture Profile', 'Tissue Tolerance'],
-  'internal-expansion': ['Material Purity', 'Sizing Accuracy', 'Capacity Progression', 'Base Security'],
-  'double-outsider':   ['Build Quality', 'Comfort', 'Durability', 'Aesthetic Accuracy'],
+  'black-sm':            ['Material Purity', 'Surface Finish', 'Sizing Accuracy', 'Build Quality'],
+  'blue-dark-anal':      ['Viscosity Consistency', 'Session Longevity', 'Texture Profile', 'Tissue Tolerance'],
+  'blue-light-oral':     ['Texture Profile', 'Flavor Profile', 'Session Longevity', 'Tissue Tolerance'],
+  'green-hustler-sugar': ['Build Quality', 'Durability', 'Aesthetic Accuracy', 'Comfort'],
+  'grey-bondage':        ['Material Purity', 'Sizing Accuracy', 'Base Security', 'Build Quality'],
+  'red-fisting':         ['Viscosity Consistency', 'Session Longevity', 'Capacity Progression', 'Tissue Tolerance'],
+  'yellow-watersports':  ['Waterproof Seal', 'Durability', 'Cleaning Ease', 'Comfort'],
 };
 
 // Mock community reviews — structural language, no personal identifiers
 export const MOCK_REVIEWS: Review[] = [
-  // ── technical-toys ──────────────────────────────────────────────────────
+  // ── black-sm ──────────────────────────────────────────────────────
   {
     id: 'r-b-01',
-    category: 'technical-toys',
+    category: 'black-sm',
     handle: 'SteelOperator_562',
     verifiedBuyer: true,
     date: '2026-05-20',
@@ -44,7 +47,7 @@ export const MOCK_REVIEWS: Review[] = [
   },
   {
     id: 'r-b-02',
-    category: 'technical-toys',
+    category: 'black-sm',
     handle: 'CalibratedLoad_114',
     verifiedBuyer: true,
     date: '2026-05-03',
@@ -57,10 +60,10 @@ export const MOCK_REVIEWS: Review[] = [
     body: 'Silicone set: each piece passes the flame test (no drip, chars rather than melts). The glass-smooth finish is accurate from piece 1 through piece 5 — pieces 6 and 7 show a slightly more matte finish, still within body-safe spec but worth noting. Progressive sizing increments are well-calibrated — no disproportionate jumps between steps. The cuffs have correct tensile hold with no hardware slippage under sustained pull.',
   },
 
-  // ── lubes ───────────────────────────────────────────────────────────────
+  // ── blue-dark-anal ───────────────────────────────────────────────────────
   {
     id: 'r-c-01',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     handle: 'AnchoredVector_738',
     verifiedBuyer: true,
     date: '2026-05-25',
@@ -74,7 +77,7 @@ export const MOCK_REVIEWS: Review[] = [
   },
   {
     id: 'r-c-02',
-    category: 'lubes',
+    category: 'blue-dark-anal',
     handle: 'PrecisionBase_405',
     verifiedBuyer: true,
     date: '2026-04-18',
