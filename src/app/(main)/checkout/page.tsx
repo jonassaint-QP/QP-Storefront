@@ -90,8 +90,15 @@ export default function CheckoutPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          cartItems: items.map(({ id, name, price, quantity }) => ({ id, name, price, quantity })),
+          cartItems: items.map(({ id, name, price, quantity, sku }) => ({ id, name, price, quantity, sku })),
           customerInfo: { name: `${form.firstName} ${form.lastName}`, email: form.email },
+          shippingAddress: {
+            street: form.address2 ? `${form.address1}, ${form.address2}` : form.address1,
+            city: form.city,
+            state: form.state,
+            postalCode: form.zip,
+            country: form.country || 'US',
+          },
           currency: 'USD',
         }),
       });

@@ -20,6 +20,7 @@ export type CartItem = {
   name: string;
   price: number;
   quantity: number;
+  sku?: string;
 };
 
 type CartState = {

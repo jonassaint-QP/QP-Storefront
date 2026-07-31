@@ -10,7 +10,7 @@ const WARNING_THRESHOLD = MONTHLY_VOLUME_LIMIT * 0.85; // $21,250
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { cartItems, customerInfo, currency = 'USD' } = body;
+    const { cartItems, customerInfo, shippingAddress, currency = 'USD' } = body;
 
     // 1. Calculate final total server-side to prevent tampering
     const amount = calculateTotal(cartItems, currency);
@@ -59,6 +59,8 @@ export async function POST(request: Request) {
       email: customerInfo.email,
       totalAmount: String(numericAmount),
       status: 'pending',
+      shippingAddress: shippingAddress || null,
+      items: cartItems || null,
       createdAt: new Date(),
     }).returning({ id: store_orders.id });
 

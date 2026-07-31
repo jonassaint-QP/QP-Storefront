@@ -1,7 +1,8 @@
-import { NextResponse } from 'next/server';
+import { after, NextResponse } from 'next/server';
 import { getDb } from '@/db';
 import { store_orders } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import { processFulfillmentDispatch } from '@/lib/fulfillment';
 
 export async function GET(request: Request) {
   // 1. Extract token-id appended by the NMI gateway redirect
@@ -48,11 +49,17 @@ export async function GET(request: Request) {
 
     const paymentStatus = result === '1' ? 'paid' : 'failed';
 
-    await getDb().update(store_orders)
+    const [updatedOrder] = await getDb().update(store_orders)
       .set({ status: paymentStatus, transactionId, updatedAt: new Date() })
-      .where(eq(store_orders.id, orderId));
+      .where(eq(store_orders.id, orderId))
+      .returning();
 
-    if (result === '1') {
+    if (result === '1' && updatedOrder) {
+      // Background non-blocking execution using Next.js after()
+      after(async () => {
+        await processFulfillmentDispatch(updatedOrder);
+      });
+
       return NextResponse.redirect(new URL(`/checkout/success?orderId=${orderId}`, request.url));
     } else {
       const reason = resultTextMatch ? encodeURIComponent(resultTextMatch[1]) : 'declined';
