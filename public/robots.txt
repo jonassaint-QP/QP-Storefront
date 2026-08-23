@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
 
-# This site contains adult content and requires age verification.
-# All pages are marked noindex. Crawling is disallowed site-wide.
+Sitemap:  https://queerpathways.com/sitemap.xml
