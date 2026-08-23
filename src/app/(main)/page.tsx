@@ -5,7 +5,6 @@ export const metadata: Metadata = {
   title: 'Queer Pathways — High-Fidelity Kink Infrastructure',
   description:
     'Industrial-grade gear, somatic scaffolding, and tactical kink infrastructure for the queer, gay, trans, and neurodivergent communities.',
-  robots: { index: false, follow: false },
 };
 
 const CATEGORIES = [

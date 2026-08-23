@@ -6,7 +6,6 @@ import ProductCard from '@/components/ProductCard';
 export const metadata: Metadata = {
   title: 'Shop — Queer Pathways',
   description: 'High-fidelity kink infrastructure across four categories: somatic scaffolding, material discipline, the frictionless suite, and metabolic recovery.',
-  robots: { index: false, follow: false },
 };
 
 export default function ShopPage() {

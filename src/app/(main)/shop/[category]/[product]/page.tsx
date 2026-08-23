@@ -30,7 +30,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${product.name} — Queer Pathways`,
     description: product.description,
-    robots: { index: false, follow: false },
   };
 }
 

@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   title: 'The Sovereign Maintenance Kit — Queer Pathways',
   description:
     'A high-fidelity product bundle engineered to eliminate the ADHD Tax during post-play transitions. Pre-packed on a high-dopamine day. Ready when you need it most.',
-  robots: { index: false, follow: false },
 };
 
 const BUNDLE_PRICE = 299;

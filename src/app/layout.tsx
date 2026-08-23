@@ -17,10 +17,6 @@ export const metadata: Metadata = {
   title: "Queer Pathways — High-Fidelity Kink Infrastructure",
   description:
     "A dedicated, identity-fluent digital commerce ecosystem built for the queer, gay, trans, and neurodivergent kink communities.",
-  robots: {
-    index: false,
-    follow: false,
-  },
 };
 
 export default function RootLayout({

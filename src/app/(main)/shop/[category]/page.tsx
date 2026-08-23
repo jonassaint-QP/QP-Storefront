@@ -25,7 +25,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${cat.title} — Queer Pathways`,
     description: cat.description,
-    robots: { index: false, follow: false },
   };
 }
 

@@ -5,7 +5,6 @@ export const metadata: Metadata = {
   title: 'Prepare — Queer Pathways',
   description:
     'The 5-Minute Curation Widget. A tactical pause bridge to transition from screen fatigue into high-fidelity play states.',
-  robots: { index: false, follow: false },
 };
 
 export default function PreparePage() {

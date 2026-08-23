@@ -5,7 +5,6 @@ export const metadata: Metadata = {
   title: 'About — Queer Pathways',
   description:
     'Queer Pathways is a dedicated, identity-fluent digital commerce ecosystem built for the queer, gay, trans, and neurodivergent kink communities.',
-  robots: { index: false, follow: false },
 };
 
 const DIRECTIVES = [

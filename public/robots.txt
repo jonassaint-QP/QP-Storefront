@@ -1,4 +1,27 @@
+# AI crawler and LLM scraping guardrails
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+# Search engine crawler rules
 User-agent: *
 Allow: /
 
-Sitemap:  https://queerpathways.com/sitemap.xml
+Sitemap: https://queerpathways.com/sitemap.xml
