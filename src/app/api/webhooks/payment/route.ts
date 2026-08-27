@@ -5,13 +5,14 @@ import { eq } from 'drizzle-orm';
 import { processFulfillmentDispatch } from '@/lib/fulfillment';
 
 export async function GET(request: Request) {
+  const canonicalBase = process.env.NEXT_PUBLIC_SITE_URL || "https://queerpathways.com";  
   // 1. Extract token-id appended by the NMI gateway redirect
   const { searchParams } = new URL(request.url);
   const tokenId = searchParams.get('token-id');
 
   if (!tokenId) {
     console.error('NMI Webhook Error: Missing token-id');
-    return NextResponse.redirect(new URL('/checkout/error?reason=missing_token', request.url));
+    return NextResponse.redirect(new URL('/checkout/error?reason=missing_token', canonicalBase));
   }
 
   try {
@@ -44,7 +45,7 @@ export async function GET(request: Request) {
 
     if (!orderId) {
       console.error('NMI Webhook Error: Missing order-id in final response', nmiXmlResponse);
-      return NextResponse.redirect(new URL('/checkout/error?reason=gateway_error', request.url));
+      return NextResponse.redirect(new URL('/checkout/error?reason=gateway_error', canonicalBase));
     }
 
     const paymentStatus = result === '1' ? 'paid' : 'failed';
@@ -60,15 +61,15 @@ export async function GET(request: Request) {
         await processFulfillmentDispatch(updatedOrder);
       });
 
-      return NextResponse.redirect(new URL(`/checkout/success?orderId=${orderId}`, request.url));
+      return NextResponse.redirect(new URL(`/checkout/success?orderId=${orderId}`, canonicalBase));
     } else {
       const reason = resultTextMatch ? encodeURIComponent(resultTextMatch[1]) : 'declined';
-      return NextResponse.redirect(new URL(`/checkout/error?reason=${reason}`, request.url));
+      return NextResponse.redirect(new URL(`/checkout/error?reason=${reason}`, canonicalBase));
     }
 
   } catch (error) {
     console.error('Finalization Execution Error:', error);
-    return NextResponse.redirect(new URL('/checkout/error?reason=internal_error', request.url));
+    return NextResponse.redirect(new URL('/checkout/error?reason=internal_error', canonicalBase));
   }
 }
 

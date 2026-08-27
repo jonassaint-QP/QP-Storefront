@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     // 4. Step 1 of NMI Three-Step Redirect — server-to-server only
     const nmiSecurityKey = process.env.NMI_SECURITY_KEY;
     // DEPLOY_PRIME_URL is set by Netlify in preview/branch deploys; falls back to production
-    const baseUrl = process.env.DEPLOY_PRIME_URL || process.env.NEXT_PUBLIC_SITE_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.DEPLOY_PRIME_URL || "https://queerpathways.com";
     const redirectUrl = `${baseUrl}/api/webhooks/payment`;
 
     const xmlPayload = `<?xml version="1.0" encoding="UTF-8"?>
