@@ -11,6 +11,21 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { cartItems, customerInfo, shippingAddress, currency = 'USD' } = body;
+// Guard: customer identity is required before any pricing or persistence  
+if (!customerInfo?.name || !customerInfo?.email) {  
+return NextResponse.json(  
+{ error: 'Customer name and email are required.' },  
+{ status: 400 }  
+);  
+}
+
+// Guard: nothing to check out  
+if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {  
+return NextResponse.json(  
+{ error: 'Cart is empty.' },  
+{ status: 400 }  
+);  
+}  
 
     // 1. Calculate final total server-side to prevent tampering
     const amount = calculateTotal(cartItems, currency);
