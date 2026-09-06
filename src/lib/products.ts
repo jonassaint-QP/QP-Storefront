@@ -398,6 +398,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'c-11',
+    sku: 'SNSL32',
     slug: 'swiss-navy-silicone-32oz',
     category: 'blue-dark-anal',
     name: 'Swiss Navy Silicone Lubricant (32 oz)',
