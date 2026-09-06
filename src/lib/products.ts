@@ -340,25 +340,6 @@ export const PRODUCTS: Product[] = [
     price: 24,
   },
   {
-    id: 'c-06',
-    slug: 'wet-platinum-3oz',
-    category: 'blue-dark-anal',
-    name: 'Wet Platinum Silicone Lube (3.0 oz)',
-    tagline: 'The gold standard for long-haul sessions. Pure silicone that never quits.',
-    material: '100% medical-grade pure silicone — paraben-free, fragrance-free',
-    image: '/images/products/wet-platinum-3oz.jpg',
-    description:
-      'The gold standard for long-haul sessions. This is pure, medical-grade silicone that doesn\'t evaporate, doesn\'t migrate, and doesn\'t quit. Waterproof, non-sticky, and designed for those who need their glide to last longer than the conversation about it.',
-    specs: [
-      '3.0 fl oz / 89 ml',
-      '100% pure medical-grade silicone',
-      'Waterproof — safe for water-based play',
-      'Non-sticky, non-staining formula',
-      'Not safe with silicone toys',
-    ],
-    price: 13.30,
-  },
-  {
     id: 'c-07',
     slug: 'wet-gold-hybrid-3oz',
     category: 'blue-dark-anal',
@@ -868,6 +849,25 @@ export const SHELVED_PRODUCTS: Product[] = [
       'Bonus 2 oz travel bottle',
     ],
     price: 259.95,
+  },
+  {
+    id: 'c-06',
+    slug: 'wet-platinum-3oz',
+    category: 'blue-dark-anal',
+    name: 'Wet Platinum Silicone Lube (3.0 oz)',
+    tagline: 'The gold standard for long-haul sessions. Pure silicone that never quits.',
+    material: '100% medical-grade pure silicone — paraben-free, fragrance-free',
+    image: '/images/products/wet-platinum-3oz.jpg',
+    description:
+      'The gold standard for long-haul sessions. This is pure, medical-grade silicone that doesn\'t evaporate, doesn\'t migrate, and doesn\'t quit. Waterproof, non-sticky, and designed for those who need their glide to last longer than the conversation about it.',
+    specs: [
+      '3.0 fl oz / 89 ml',
+      '100% pure medical-grade silicone',
+      'Waterproof — safe for water-based play',
+      'Non-sticky, non-staining formula',
+      'Not safe with silicone toys',
+    ],
+    price: 13.30,
   },
 ];
 
