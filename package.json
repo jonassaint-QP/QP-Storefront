@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "db:push": "drizzle-kit push",
-    "sync-catalog": "tsx scripts/syncCatalog.ts"
+    "sync-catalog": "tsx scripts/syncCatalog.ts",
+    "validate:catalog": "tsx scripts/validateCatalog.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
