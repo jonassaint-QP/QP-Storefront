@@ -102,6 +102,39 @@ export const CATEGORIES: Category[] = [
 
 export const PRODUCTS: Product[] = [
   {
+    id: 'ec720',
+    slug: 'strict-leather-two-strap-dildo-harness',
+    category: 'grey-bondage',
+    name: 'The Strict Leather Two-Strap Dildo Harness',
+    tagline: 'Attuned pacing. Adjustable structure. Command the room.',
+    material: 'Leather, metal, and rubber',
+    image: '/images/products/ec720-1.jpg',
+    images: [
+      '/images/products/ec720-1.jpg',
+      '/images/products/ec720-2.jpg',
+      '/images/products/ec720-3.jpg',
+    ],
+    description:
+      'Jasper does not wear gear for decoration. He chooses pieces that give intention a physical shape: clear boundaries, deliberate pacing, and enough structure to stay present without surrendering control. The Strict Leather Two-Strap Dildo Harness is the launch piece of the Jasper collection, built around that principle. Its open-crotch, two-strap leather front creates a direct, adjustable foundation for strap-on play, while the snap-in ring system lets the wearer select the fit that matches the moment.\n\nThree stretchy rubber O-rings are included in 1-inch, 1.5-inch, and 1.75-inch diameters. Think of them as a practical sensory menu: a way to choose compatible equipment and adjust the experience with intention rather than forcing one fixed setup. Adjustable side and back straps support a more personal fit for waists up to 44 inches, giving Jasper’s Armor Architect a piece of hardware that can move with the body and respect its boundaries.\n\nThis is Gear, Not Medicine. The Strict Leather Two-Strap Dildo Harness is for consensual adult exploration, attuned pacing, and sovereign boundary control, not medical or therapeutic treatment. Dildo not included. Ships discreetly in a plain brown box.',
+    specs: [
+      'SKU: EC720',
+      'UPC: 848518001542',
+      'Brand: Strict Leather / XR Brands',
+      'Open-crotch two-strap soft leather front',
+      'Snap-in O-ring system',
+      'Three stretchy rubber O-rings: 1 inch, 1.5 inches, and 1.75 inches',
+      'Adjustable side and back straps',
+      'Fits waists up to 44 inches',
+      'Care: wipe clean only; do not machine-wash',
+      'Dildo not included',
+      'Fulfillment: Sex Toy Distributing / STD Manual Portal',
+      'Discreet plain-brown-box shipping',
+    ],
+    price: 94.95,
+    sku: 'EC720',
+    stock: 27,
+  },
+  {
     id: 'b-05',
     slug: 'h-style-flogger',
     category: 'black-sm',
