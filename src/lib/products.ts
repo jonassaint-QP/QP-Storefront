@@ -282,91 +282,6 @@ export const PRODUCTS: Product[] = [
     ],
     price: 79,
   },
-  {
-    id: 'b-12',
-    slug: 'king-size-dungeon-bed-canopy',
-    category: 'black-sm',
-    name: 'King Size Dungeon Bed w/ Suspension Canopy',
-    tagline: 'Structural sovereignty. The ultimate anchor for the Harbor.',
-    material: 'Industrial-grade powder-coated steel / reinforced slats',
-    image: '/images/products/king-size-dungeon-bed.jpg',
-    description:
-      'The ultimate structural anchor for the Sovereign Harbor. This King Size steel frame features an integrated suspension canopy and reinforced slats designed for zero-deflection play. It is not a bed; it is a modular laboratory for testing the limits of authority and surrender. Matte black finish, industrial-grade hardware, and infinite anchor points for total containment and somatic reset.',
-    specs: [
-      'SKU: AJ098',
-      'Integrated suspension canopy with 8 anchor points',
-      'Heavy-duty steel construction (94 lbs)',
-      'Reinforced slats for zero-deflection play',
-      'Matte black industrial finish',
-    ],
-    price: 5995,
-  },
-  {
-    id: 'b-13',
-    slug: 'ultimate-obedience-chair-sex-machine',
-    category: 'black-sm',
-    name: 'Ultimate Obedience Chair with Sex Machine',
-    tagline: 'Mechanical precision. Cognitive off-ramp.',
-    material: 'Steel frame / vegan leather padding / 110V motor',
-    image: '/images/products/ultimate-obedience-chair.jpg',
-    description:
-      'Cognitive off-ramp through mechanical precision. This integrated station pairs a heavy-duty restraint chair with a 110V sex machine, creating a closed-loop environment where the only task is presence. Designed for submissive tie-down and systematic penetration, it eliminates the noise of the outside world and forces a complete nervous system reset via mechanical authority.',
-    specs: [
-      'SKU: AH155',
-      'Integrated 110V sex machine with variable speed',
-      '4-point restraint system included',
-      'Adjustable seat and headrest height',
-      'Wipe-clean vegan leather upholstery',
-    ],
-    price: 1969.95,
-  },
-  {
-    id: 'b-14',
-    slug: 'obedience-bench-sex-machine',
-    category: 'black-sm',
-    name: 'Obedience Bench with Sex Machine',
-    tagline: 'High-capacity utility. Adjourn the trial.',
-    material: 'Reinforced steel / high-density foam / 110V motor',
-    image: '/images/products/obedience-bench.jpg',
-    description:
-      'Dungeon-grade utility. A reinforced bondage bench equipped with an integrated sex machine and modular restraint points. Built for the practitioner who requires stable, heavy-duty hardware to manage mechanical tension and sensory overload. All black, all business, and engineered for high-capacity endurance during extended somatic work.',
-    specs: [
-      'SKU: AH298',
-      'Integrated heavy-duty sex machine',
-      'Multiple modular D-ring anchor points',
-      'High-density foam padding for extended play',
-      'All-black industrial aesthetic',
-    ],
-    price: 1749.28,
-  },
-  {
-    id: 'b-15',
-    slug: 'milker-automatic-deluxe-stroker',
-    category: 'black-sm',
-    name: 'The Milker Automatic Deluxe Stroker Machine',
-    tagline: 'Pneumatic authority. 110V pneumatic pump architecture.',
-    material: 'Industrial-grade plastic / pneumatic pump / 110V',
-    image: '/images/products/milker-deluxe-stroker.jpg',
-    images: [
-      '/images/products/milker-deluxe-stroker.jpg',
-      '/images/products/milker-deluxe-stroker-b.jpg',
-      '/images/products/milker-deluxe-stroker-c.jpg',
-      '/images/products/milker-deluxe-stroker-d.jpg',
-      '/images/products/milker-deluxe-stroker-e.jpg',
-      '/images/products/milker-deluxe-stroker-box.jpg',
-    ],
-    description:
-      'Pneumatic authority for the North American practitioner. This is the Deluxe Milker — a high-capacity, 110V automatic stroker machine built around a dual-cylinder pneumatic pump system. Designed for extended somatic training and radical surrender, it delivers a relentless, systematic rhythm that bypasses executive overthinking and forces a total physiological reset. Includes a lockable travel case for secure, sovereign storage.',
-    specs: [
-      'SKU: AE371',
-      'Industrial-grade pneumatic pump system',
-      'Dual-cylinder architecture',
-      '110V only (US/Canada voltage)',
-      'Includes lockable travel case',
-    ],
-    price: 1569.95,
-  },
-
   // ── Category C ───────────────────────────────────────────────────────────
   {
     id: 'c-03',
@@ -482,25 +397,6 @@ export const PRODUCTS: Product[] = [
     price: 13.30,
   },
   {
-    id: 'c-09',
-    slug: 'wet-platinum-gallon',
-    category: 'blue-dark-anal',
-    name: 'Wet Platinum Silicone Lube (1 Gallon)',
-    tagline: 'The Gallon Gap: Professional Bulk Infrastructure.',
-    material: '100% medical-grade pure silicone — paraben-free, fragrance-free',
-    image: '/images/products/wet-platinum-gallon.webp',
-    description:
-      'The ultimate bulk infrastructure. One full gallon (128 oz) of pure, medical-grade silicone. This is the heavy-duty anchor for high-volume environments where "running out" is not an option. Pure glide, zero noise, total sovereignty.',
-    specs: [
-      '128 fl oz / 3.78 L (1 gallon)',
-      '100% pure medical-grade silicone',
-      'Waterproof — safe for water-based play',
-      'Non-sticky, non-staining, non-drying',
-      'Not safe with silicone toys',
-    ],
-    price: 259.95,
-  },
-  {
     id: 'c-10',
     slug: 'wet-original-gallon',
     category: 'blue-dark-anal',
@@ -556,25 +452,6 @@ export const PRODUCTS: Product[] = [
       'Not safe with silicone toys',
     ],
     price: 44.99,
-  },
-  {
-    id: 'c-14',
-    slug: 'swiss-navy-silicone-gallon',
-    category: 'blue-dark-anal',
-    name: 'Swiss Navy Silicone Lubricant (1 Gallon)',
-    tagline: 'The Gallon Gap: Maximum Infrastructure.',
-    material: 'Highest-grade pure silicone — non-absorbable, fragrance-free',
-    image: '/images/products/SwissNavySiliconeGallon.webp',
-    description:
-      '128 ounces of pure silicone for high-volume operations. The gold-standard Swiss Navy formula scaled to full gallon capacity. Includes a bonus 2 oz travel bottle.',
-    specs: [
-      '128 fl oz / 3.8 L (1 gallon)',
-      'Highest-grade silicone formula',
-      'Satiny smooth, non-absorbable glide',
-      'Pump dispenser included',
-      'Bonus 2 oz travel bottle',
-    ],
-    price: 259.95,
   },
   {
     id: 'c-15',
@@ -848,6 +725,149 @@ export const PRODUCTS: Product[] = [
     price: 14.49,
     sku: 'XRAC323',
     stock: 38,
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────
+// SHELVED PRODUCTS — NOT PUBLIC
+//
+// These records are intentionally withheld from the public `PRODUCTS`
+// catalog above and are NOT rendered on the storefront, included in
+// `getProductsByCategory`/`getProductBySlug` lookups, sitemap generation,
+// or `scripts/validateCatalog.ts` (which only scans `PRODUCTS`).
+//
+// Full product data, image references, and specs are preserved verbatim
+// here — untouched — for provenance/history. Nothing was deleted: no
+// image files, no SKU registry entries. Do not merge these into
+// `PRODUCTS` without re-running `npm run validate:catalog`.
+//
+// Shelved 2026-09-05: b-12, b-13, b-14 priced above the $224 storefront
+// ceiling (Big Ticket / dungeon furniture + machines); b-15 likewise
+// above the ceiling; c-09 and c-14 were bulk-gallon lube SKUs priced
+// above the ceiling as well.
+// ─────────────────────────────────────────────────────────────────────────
+export const SHELVED_PRODUCTS: Product[] = [
+  {
+    id: 'b-12',
+    slug: 'king-size-dungeon-bed-canopy',
+    category: 'black-sm',
+    name: 'King Size Dungeon Bed w/ Suspension Canopy',
+    tagline: 'Structural sovereignty. The ultimate anchor for the Harbor.',
+    material: 'Industrial-grade powder-coated steel / reinforced slats',
+    image: '/images/products/king-size-dungeon-bed.jpg',
+    description:
+      'The ultimate structural anchor for the Sovereign Harbor. This King Size steel frame features an integrated suspension canopy and reinforced slats designed for zero-deflection play. It is not a bed; it is a modular laboratory for testing the limits of authority and surrender. Matte black finish, industrial-grade hardware, and infinite anchor points for total containment and somatic reset.',
+    specs: [
+      'SKU: AJ098',
+      'Integrated suspension canopy with 8 anchor points',
+      'Heavy-duty steel construction (94 lbs)',
+      'Reinforced slats for zero-deflection play',
+      'Matte black industrial finish',
+    ],
+    price: 5995,
+  },
+  {
+    id: 'b-13',
+    slug: 'ultimate-obedience-chair-sex-machine',
+    category: 'black-sm',
+    name: 'Ultimate Obedience Chair with Sex Machine',
+    tagline: 'Mechanical precision. Cognitive off-ramp.',
+    material: 'Steel frame / vegan leather padding / 110V motor',
+    image: '/images/products/ultimate-obedience-chair.jpg',
+    description:
+      'Cognitive off-ramp through mechanical precision. This integrated station pairs a heavy-duty restraint chair with a 110V sex machine, creating a closed-loop environment where the only task is presence. Designed for submissive tie-down and systematic penetration, it eliminates the noise of the outside world and forces a complete nervous system reset via mechanical authority.',
+    specs: [
+      'SKU: AH155',
+      'Integrated 110V sex machine with variable speed',
+      '4-point restraint system included',
+      'Adjustable seat and headrest height',
+      'Wipe-clean vegan leather upholstery',
+    ],
+    price: 1969.95,
+  },
+  {
+    id: 'b-14',
+    slug: 'obedience-bench-sex-machine',
+    category: 'black-sm',
+    name: 'Obedience Bench with Sex Machine',
+    tagline: 'High-capacity utility. Adjourn the trial.',
+    material: 'Reinforced steel / high-density foam / 110V motor',
+    image: '/images/products/obedience-bench.jpg',
+    description:
+      'Dungeon-grade utility. A reinforced bondage bench equipped with an integrated sex machine and modular restraint points. Built for the practitioner who requires stable, heavy-duty hardware to manage mechanical tension and sensory overload. All black, all business, and engineered for high-capacity endurance during extended somatic work.',
+    specs: [
+      'SKU: AH298',
+      'Integrated heavy-duty sex machine',
+      'Multiple modular D-ring anchor points',
+      'High-density foam padding for extended play',
+      'All-black industrial aesthetic',
+    ],
+    price: 1749.28,
+  },
+  {
+    id: 'b-15',
+    slug: 'milker-automatic-deluxe-stroker',
+    category: 'black-sm',
+    name: 'The Milker Automatic Deluxe Stroker Machine',
+    tagline: 'Pneumatic authority. 110V pneumatic pump architecture.',
+    material: 'Industrial-grade plastic / pneumatic pump / 110V',
+    image: '/images/products/milker-deluxe-stroker.jpg',
+    images: [
+      '/images/products/milker-deluxe-stroker.jpg',
+      '/images/products/milker-deluxe-stroker-b.jpg',
+      '/images/products/milker-deluxe-stroker-c.jpg',
+      '/images/products/milker-deluxe-stroker-d.jpg',
+      '/images/products/milker-deluxe-stroker-e.jpg',
+      '/images/products/milker-deluxe-stroker-box.jpg',
+    ],
+    description:
+      'Pneumatic authority for the North American practitioner. This is the Deluxe Milker — a high-capacity, 110V automatic stroker machine built around a dual-cylinder pneumatic pump system. Designed for extended somatic training and radical surrender, it delivers a relentless, systematic rhythm that bypasses executive overthinking and forces a total physiological reset. Includes a lockable travel case for secure, sovereign storage.',
+    specs: [
+      'SKU: AE371',
+      'Industrial-grade pneumatic pump system',
+      'Dual-cylinder architecture',
+      '110V only (US/Canada voltage)',
+      'Includes lockable travel case',
+    ],
+    price: 1569.95,
+  },
+  {
+    id: 'c-09',
+    slug: 'wet-platinum-gallon',
+    category: 'blue-dark-anal',
+    name: 'Wet Platinum Silicone Lube (1 Gallon)',
+    tagline: 'The Gallon Gap: Professional Bulk Infrastructure.',
+    material: '100% medical-grade pure silicone — paraben-free, fragrance-free',
+    image: '/images/products/wet-platinum-gallon.webp',
+    description:
+      'The ultimate bulk infrastructure. One full gallon (128 oz) of pure, medical-grade silicone. This is the heavy-duty anchor for high-volume environments where "running out" is not an option. Pure glide, zero noise, total sovereignty.',
+    specs: [
+      '128 fl oz / 3.78 L (1 gallon)',
+      '100% pure medical-grade silicone',
+      'Waterproof — safe for water-based play',
+      'Non-sticky, non-staining, non-drying',
+      'Not safe with silicone toys',
+    ],
+    price: 259.95,
+  },
+  {
+    id: 'c-14',
+    slug: 'swiss-navy-silicone-gallon',
+    category: 'blue-dark-anal',
+    name: 'Swiss Navy Silicone Lubricant (1 Gallon)',
+    tagline: 'The Gallon Gap: Maximum Infrastructure.',
+    material: 'Highest-grade pure silicone — non-absorbable, fragrance-free',
+    image: '/images/products/SwissNavySiliconeGallon.webp',
+    description:
+      '128 ounces of pure silicone for high-volume operations. The gold-standard Swiss Navy formula scaled to full gallon capacity. Includes a bonus 2 oz travel bottle.',
+    specs: [
+      '128 fl oz / 3.8 L (1 gallon)',
+      'Highest-grade silicone formula',
+      'Satiny smooth, non-absorbable glide',
+      'Pump dispenser included',
+      'Bonus 2 oz travel bottle',
+    ],
+    price: 259.95,
   },
 ];
 
