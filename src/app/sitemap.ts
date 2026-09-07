@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { CATEGORIES, PRODUCTS } from '@/lib/products';
+import { PRODUCTS, STOREFRONT_ROUTES, getStorefrontRouteForProduct } from '@/lib/products';
 
 const SITE_URL = 'https://queerpathways.com';
 
@@ -12,17 +12,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/about`, changeFrequency: 'monthly', priority: 0.6 },
   ];
 
-  const categoryRoutes: MetadataRoute.Sitemap = CATEGORIES.map((category) => ({
-    url: `${SITE_URL}/shop/${category.slug}`,
+  const routeRoutes: MetadataRoute.Sitemap = STOREFRONT_ROUTES.map((route) => ({
+    url: `${SITE_URL}/shop/${route.slug}`,
     changeFrequency: 'weekly',
     priority: 0.8,
   }));
 
   const productRoutes: MetadataRoute.Sitemap = PRODUCTS.map((product) => ({
-    url: `${SITE_URL}/shop/${product.category}/${product.slug}`,
+    url: `${SITE_URL}/shop/${getStorefrontRouteForProduct(product)}/${product.slug}`,
     changeFrequency: 'weekly',
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes];
+  return [...staticRoutes, ...routeRoutes, ...productRoutes];
 }

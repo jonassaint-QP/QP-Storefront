@@ -3,13 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import {
-  CATEGORIES,
   PRODUCTS,
-  getCategoryBySlug,
   getProductBySlug,
-  getProductsByCategory,
+  getStorefrontRouteBySlug,
+  getStorefrontRouteForProduct,
+  getProductsByStorefrontRoute,
   formatPrice,
-  type CategorySlug,
 } from '@/lib/products';
 import ProductActions from '@/components/ProductActions';
 import ReviewSection from '@/components/ReviewSection';
@@ -19,14 +18,18 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  return PRODUCTS.map((p) => ({ category: p.category, product: p.slug }));
+  return PRODUCTS.map((p) => ({
+    category: getStorefrontRouteForProduct(p),
+    product: p.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { product: productSlug, category: categorySlug } = await params;
   const product = getProductBySlug(productSlug);
-  const category = getCategoryBySlug(categorySlug);
-  if (!product || !category) return { title: 'Not Found' };
+  if (!product || getStorefrontRouteForProduct(product) !== categorySlug) {
+    return { title: 'Not Found' };
+  }
   return {
     title: `${product.name} — Queer Pathways`,
     description: product.description,
@@ -36,12 +39,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProductPage({ params }: PageProps) {
   const { product: productSlug, category: categorySlug } = await params;
   const product = getProductBySlug(productSlug);
-  const category = getCategoryBySlug(categorySlug);
 
-  if (!product || !category || product.category !== categorySlug) notFound();
+  if (!product) notFound();
 
-  // Related products — same category, different product
-  const related = getProductsByCategory(product.category as CategorySlug).filter(
+  // Validate against the product's owner route, not the raw internal
+  // category — a product's public URL segment is always its owning
+  // storefront route (e.g. `loop` or `anal-sex`, never `blue-dark-anal`).
+  const ownerRouteSlug = getStorefrontRouteForProduct(product);
+  if (ownerRouteSlug !== categorySlug) notFound();
+
+  const route = getStorefrontRouteBySlug(ownerRouteSlug)!;
+
+  // Related products — same owning public route, different product
+  const related = getProductsByStorefrontRoute(route.slug).filter(
     (p) => p.id !== product.id
   );
 
@@ -56,10 +66,10 @@ export default async function ProductPage({ params }: PageProps) {
           </Link>
           <span className="text-zinc-800">›</span>
           <Link
-            href={`/shop/${category.slug}`}
+            href={`/shop/${route.slug}`}
             className="text-zinc-600 hover:text-zinc-400 transition-colors"
           >
-            {category.title}
+            {route.title}
           </Link>
           <span className="text-zinc-800">›</span>
           <span className="text-zinc-500">{product.name}</span>
@@ -87,7 +97,7 @@ export default async function ProductPage({ params }: PageProps) {
             ) : (
               <div className="border border-zinc-800 aspect-square flex flex-col items-center justify-center gap-3 bg-zinc-950">
                 <p className="text-xs font-mono uppercase tracking-widest text-zinc-700">
-                  {category.tag}
+                  {route.descriptor}
                 </p>
                 <p className="text-4xl font-black text-zinc-800 uppercase tracking-tight text-center px-8 leading-tight">
                   {product.name}
@@ -119,7 +129,7 @@ export default async function ProductPage({ params }: PageProps) {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3">
               <p className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-600">
-                {category.tag} — {category.subtitle}
+                {route.descriptor}
               </p>
               <h1 className="text-4xl font-black tracking-tight uppercase leading-none text-white">
                 {product.name}
@@ -152,7 +162,7 @@ export default async function ProductPage({ params }: PageProps) {
             <ProductActions
               id={product.id}
               slug={product.slug}
-              category={product.category as CategorySlug}
+              category={route.slug}
               name={product.name}
               price={product.price}
               hasSizing={false}
@@ -163,7 +173,7 @@ export default async function ProductPage({ params }: PageProps) {
 
       {/* Reviews */}
       <div className="mx-auto w-full max-w-7xl px-6">
-        <ReviewSection category={product.category as CategorySlug} />
+        <ReviewSection category={product.category} />
       </div>
 
       {/* Related products */}
@@ -181,7 +191,7 @@ export default async function ProductPage({ params }: PageProps) {
             {related.map((p) => (
               <Link
                 key={p.id}
-                href={`/shop/${p.category}/${p.slug}`}
+                href={`/shop/${getStorefrontRouteForProduct(p)}/${p.slug}`}
                 className="bg-black p-6 flex flex-col gap-2 group hover:bg-zinc-950 transition-colors"
               >
                 <p className="text-xs font-mono uppercase tracking-widest text-zinc-700">

@@ -1,19 +1,20 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Product } from '@/lib/products';
-import { formatPrice, getCategoryBySlug } from '@/lib/products';
+import { formatPrice, getStorefrontRouteBySlug, getStorefrontRouteForProduct } from '@/lib/products';
 import AddToCartButton from './AddToCartButton';
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { id, slug, category, name, tagline, material, description, specs, price, image } = product;
-  const cat = getCategoryBySlug(category);
-  const headerColor = cat?.color ?? 'text-[#CBB26A]';
+  const { id, slug, name, tagline, material, description, specs, price, image } = product;
+  const route = getStorefrontRouteForProduct(product);
+  const routeConfig = getStorefrontRouteBySlug(route);
+  const headerColor = routeConfig?.color ?? 'text-[#CBB26A]';
 
   return (
     <article className="border border-[#153009] bg-[#020501] flex flex-col group hover:border-[#CBB26A] transition-colors">
       {/* Header — name */}
       <Link
-        href={`/shop/${category}/${slug}`}
+        href={`/shop/${route}/${slug}`}
         className="border-b border-[#153009] group-hover:border-[#CBB26A] transition-colors p-6 flex flex-col gap-2"
       >
         <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#CBB26A]/50">
@@ -27,7 +28,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
       {/* Product image */}
       <Link
-        href={`/shop/${category}/${slug}`}
+        href={`/shop/${route}/${slug}`}
         aria-hidden="true"
         tabIndex={-1}
         className="relative aspect-[4/3] bg-[#020501] border-b border-[#153009] group-hover:border-[#CBB26A] transition-colors overflow-hidden flex flex-col items-center justify-center gap-3"
@@ -73,7 +74,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <span className="text-xl font-black text-[#D3B127] tabular-nums">
           {formatPrice(price)}
         </span>
-        <AddToCartButton id={id} slug={slug} category={category} name={name} price={price} />
+        <AddToCartButton id={id} slug={slug} category={route} name={name} price={price} />
       </div>
     </article>
   );

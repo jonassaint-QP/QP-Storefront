@@ -4,13 +4,13 @@ import { useState } from 'react';
 import Link from 'next/link';
 import SizeSelector from './SizeSelector';
 import AddToCartButton from './AddToCartButton';
-import type { CategorySlug } from '@/lib/products';
+import type { StorefrontRouteSlug } from '@/lib/products';
 import { formatPrice } from '@/lib/products';
 
 type Props = {
   id: string;
   slug: string;
-  category: CategorySlug;
+  category: StorefrontRouteSlug;
   name: string;
   price: number;
   hasSizing: boolean;

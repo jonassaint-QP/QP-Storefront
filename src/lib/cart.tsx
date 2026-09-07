@@ -8,15 +8,15 @@ import {
   useReducer,
   useState,
 } from 'react';
-import type { CategorySlug } from './products';
-import { formatPrice } from './products';
+import type { StorefrontRouteSlug } from './products';
+import { formatPrice, getProductBySlug, getStorefrontRouteForProduct } from './products';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
 export type CartItem = {
   id: string;
   slug: string;
-  category: CategorySlug;
+  category: StorefrontRouteSlug;
   name: string;
   price: number;
   quantity: number;
@@ -103,7 +103,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (stored) {
         const parsed = JSON.parse(stored) as CartItem[];
         if (Array.isArray(parsed)) {
-          dispatch({ type: 'HYDRATE', items: parsed });
+          const items = parsed.map((item) => {
+            if ((item.category as string) !== 'blue-dark-anal') return item;
+            const product = getProductBySlug(item.slug);
+            return product
+              ? { ...item, category: getStorefrontRouteForProduct(product) }
+              : item;
+          });
+          dispatch({ type: 'HYDRATE', items });
         }
       }
     } catch {

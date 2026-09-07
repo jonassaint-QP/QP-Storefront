@@ -100,6 +100,221 @@ export const CATEGORIES: Category[] = [
   },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────
+// Public storefront routing layer
+//
+// `CategorySlug`/`Category`/`CATEGORIES` above (and `Product.category`)
+// remain the internal taxonomy — including the internal `blue-dark-anal`
+// hanky-coded category. They are never rendered to customers directly.
+//
+// `StorefrontRouteSlug`/`StorefrontRoute`/`STOREFRONT_ROUTES` are the
+// customer-facing routing layer. The former public `blue-dark-anal`
+// route is split into two public routes — `loop` (the in-house/partner
+// lube line) and `anal-sex` (everything else formerly under
+// `blue-dark-anal`) — plus a separate, non-buyable `loop-subscription`
+// route. Every other internal category maps 1:1 to a public route of
+// the same slug. No route config below carries a "Hanky: …" tag or a
+// literal color-name label — `color` is a Tailwind text-color utility
+// class used purely for styling, never rendered as text.
+// ─────────────────────────────────────────────────────────────────────────
+
+export type StorefrontRouteSlug =
+  | 'loop'
+  | 'anal-sex'
+  | 'loop-subscription'
+  | 'black-sm'
+  | 'blue-light-oral'
+  | 'green-hustler-sugar'
+  | 'grey-bondage'
+  | 'red-fisting'
+  | 'yellow-watersports';
+
+export type StorefrontRoute = {
+  slug: StorefrontRouteSlug;
+  /** Short functional label — never a hanky reference or color name. */
+  descriptor: string;
+  title: string;
+  description: string;
+  /** Optional Tailwind text-color class for the route's heading. Omitted where a distinct color would be redundant. */
+  color?: string;
+};
+
+export const STOREFRONT_ROUTES: StorefrontRoute[] = [
+  {
+    slug: 'loop',
+    descriptor: 'Lube',
+    title: 'Loop',
+    description:
+      'In-house and partner lubricant formulas — water-based, silicone, and hybrid — engineered for zero-friction, toy-safe sessions.',
+    color: 'text-blue-700',
+  },
+  {
+    slug: 'anal-sex',
+    descriptor: 'Anal Sex',
+    title: 'Anal Sex',
+    description:
+      'Plugs, probes, dildos, and specialized gear designed for safe, structured anal exploration and expansion.',
+    color: 'text-blue-700',
+  },
+  {
+    slug: 'loop-subscription',
+    descriptor: 'Lube Subscription',
+    title: 'Sovereign Body Lube Club',
+    description:
+      'A recurring lube resupply track for members who do not want to manage restocking manually. Enrollment, billing, renewal, and cancellation terms are pending attorney review — checkout is not yet available.',
+    color: 'text-green-800',
+  },
+  {
+    slug: 'black-sm',
+    descriptor: 'S&M Hardware',
+    title: 'Heavy Impact & Discipline',
+    description:
+      'Heavy impact gear, whips, canes, and S&M hardware engineered for intense sensation and physical discipline.',
+    color: 'text-zinc-100',
+  },
+  {
+    slug: 'blue-light-oral',
+    descriptor: 'Oral Play',
+    title: 'Flavored Play & Enhancement',
+    description:
+      'Flavored lubricants, oral stimulation tools, dams, and accessories for heightened oral play.',
+    color: 'text-sky-400',
+  },
+  {
+    slug: 'green-hustler-sugar',
+    descriptor: 'Power Dynamics',
+    title: 'Commercial & Power Dynamics',
+    description:
+      'Gear, hardware, and accessories curated for commercial, hustler, and sugar dynamics.',
+    color: 'text-emerald-500',
+  },
+  {
+    slug: 'grey-bondage',
+    descriptor: 'Bondage',
+    title: 'Restraint & Control',
+    description:
+      'Cuffs, ropes, harnesses, and body restraints engineered to secure the perimeter and anchor control.',
+    color: 'text-zinc-400',
+  },
+  {
+    slug: 'red-fisting',
+    descriptor: 'Fisting',
+    title: 'Heavy Sensation & Dilators',
+    description:
+      'High-viscosity sling lubes, heavy-capacity dilators, gloves, and expansion hardware.',
+    color: 'text-red-700',
+  },
+  {
+    slug: 'yellow-watersports',
+    descriptor: 'Watersports',
+    title: 'Waterproof & Specialty Hardware',
+    description:
+      'Waterproof sheets, catheters, play suits, and specialized hardware for watersports.',
+    color: 'text-yellow-400',
+  },
+];
+
+const LOOP_PRODUCT_SKUS = new Set<string>([
+  'LP-01-SRC',
+  'LP-02-BSL',
+  'LP-03-TNS',
+  'LP-10-CMP',
+  'SNSL1',
+  'SNSL4',
+  'SNSL8',
+  'SNWL2',
+  'SNWL4',
+  'SNWL8',
+  'SNWL16',
+  'SPSNK2PS',
+  'SKSPNK4PS',
+  'SK1434',
+  'SKSLPS16',
+  'BBL060-03',
+]);
+
+const LOOP_EXCLUDED_SKUS = new Set<string>(['SNSL16', 'SNSL32']);
+
+function isLoopOwnedProduct(product: Product): boolean {
+  if (product.category !== 'blue-dark-anal') return false;
+  return product.sku !== undefined && LOOP_PRODUCT_SKUS.has(product.sku);
+}
+
+export function getStorefrontRouteBySlug(slug: string): StorefrontRoute | undefined {
+  return STOREFRONT_ROUTES.find((r) => r.slug === slug);
+}
+
+/** Deterministic owner-route lookup for a single product. Never guesses: every `blue-dark-anal` product resolves to exactly `loop` or `anal-sex`; every other product resolves to the public route matching its internal category. */
+export function getStorefrontRouteForProduct(product: Product): StorefrontRouteSlug {
+  if (product.category === 'blue-dark-anal') {
+    return isLoopOwnedProduct(product) ? 'loop' : 'anal-sex';
+  }
+  return product.category;
+}
+
+/** All storefront products owned by a given public route. `loop-subscription` always returns an empty list — it is a non-buyable membership panel, not a product-backed route. */
+export function getProductsByStorefrontRoute(route: StorefrontRouteSlug): Product[] {
+  if (route === 'loop-subscription') return [];
+  return PRODUCTS.filter((p) => getStorefrontRouteForProduct(p) === route);
+}
+
+/**
+ * Deterministic ownership validation, run at module load.
+ *
+ * Guarantees, for every build/render:
+ *  - Every product resolves to exactly one storefront route (no product is
+ *    silently dropped or double-counted across route sections).
+ *  - `loop` and `anal-sex` together account for the entire internal
+ *    `blue-dark-anal` category — no overlap, no gaps.
+ *  - `loop-subscription` never accidentally picks up a product record.
+ *  - The registry-only membership SKUs (SNSL16/SNSL32) never appear as
+ *    `Product` records.
+ */
+function validateStorefrontRouteOwnership(): void {
+  const errors: string[] = [];
+  const ownerById = new Map<string, StorefrontRouteSlug>();
+
+  for (const product of PRODUCTS) {
+    const route = getStorefrontRouteForProduct(product);
+    if (ownerById.has(product.id)) {
+      errors.push(`Duplicate product id in PRODUCTS: ${product.id}`);
+    }
+    ownerById.set(product.id, route);
+    if (product.sku && LOOP_EXCLUDED_SKUS.has(product.sku)) {
+      errors.push(
+        `Registry-only membership SKU ${product.sku} must not exist as a Product record (id: ${product.id})`
+      );
+    }
+  }
+
+  const blueDarkAnalIds = new Set(
+    PRODUCTS.filter((p) => p.category === 'blue-dark-anal').map((p) => p.id)
+  );
+  const loopIds = new Set(getProductsByStorefrontRoute('loop').map((p) => p.id));
+  const analSexIds = new Set(getProductsByStorefrontRoute('anal-sex').map((p) => p.id));
+
+  for (const id of loopIds) {
+    if (analSexIds.has(id)) errors.push(`Product ${id} owned by both loop and anal-sex`);
+    if (!blueDarkAnalIds.has(id)) errors.push(`Loop-owned product ${id} is not category blue-dark-anal`);
+  }
+  for (const id of analSexIds) {
+    if (!blueDarkAnalIds.has(id)) errors.push(`Anal-sex-owned product ${id} is not category blue-dark-anal`);
+  }
+  if (loopIds.size + analSexIds.size !== blueDarkAnalIds.size) {
+    errors.push(
+      `loop (${loopIds.size}) + anal-sex (${analSexIds.size}) does not equal blue-dark-anal total (${blueDarkAnalIds.size})`
+    );
+  }
+
+  if (getProductsByStorefrontRoute('loop-subscription').length !== 0) {
+    errors.push('loop-subscription must own zero products');
+  }
+
+  if (errors.length > 0) {
+    throw new Error(`Storefront route ownership validation failed:\n${errors.join('\n')}`);
+  }
+}
+
 export const PRODUCTS: Product[] = [
   {
     id: 'ec720',
@@ -1235,7 +1450,91 @@ export const PRODUCTS: Product[] = [
     price: 32.99,
     sku: 'BBL060-03',
   },
+
+  // ── Loop Protocol — In-House Formula Line ─────────────────────────────
+  {
+    id: 'c-53',
+    slug: 'loop-i-source',
+    category: 'blue-dark-anal',
+    name: 'Loop I (Source) — Water-Based',
+    tagline: 'Primary Source. Zero Friction.',
+    material: 'Premium water-based formula',
+    description:
+      'The lightweight anchor. A high-fidelity, toy-safe water-based formula designed for daily presence and effortless cleanup. Roman Numeral I identifies the primary source of your somatic kit.',
+    specs: [
+      'Roman Numeral I',
+      'Deep Forest Green Protocol',
+      'Toy-safe',
+      'Discreet shipping',
+    ],
+    price: 24.00,
+    sku: 'LP-01-SRC',
+    stock: 100,
+    protocol: 'Deep Forest Green',
+  },
+  {
+    id: 'c-54',
+    slug: 'loop-ii-baseline',
+    category: 'blue-dark-anal',
+    name: 'Loop II (Baseline) — Silicone',
+    tagline: 'The Baseline of Endurance.',
+    material: '100% Platinum-cured silicone',
+    description:
+      'The standard for extended presence. Our high-viscosity, platinum-cured silicone formula provides an unbreakable slick barrier for long-form exploration. Roman Numeral II marks the baseline of your arsenal.',
+    specs: [
+      'Roman Numeral II',
+      'Deep Forest Green Protocol',
+      'Waterproof',
+      'Discreet shipping',
+    ],
+    price: 48,
+    sku: 'LP-02-BSL',
+    stock: 100,
+    protocol: 'Deep Forest Green',
+  },
+  {
+    id: 'c-55',
+    slug: 'loop-iii-tension',
+    category: 'blue-dark-anal',
+    name: 'Loop III (Tension) — Heavy Sensation',
+    tagline: 'Engineered for Tension.',
+    material: 'Ultra-viscous silicone blend',
+    description:
+      'Maximum cushion for high-tension work. A cushion-heavy, ultra-viscous silicone designed for internal expansion and fisting territory. Roman Numeral III is for when the work requires absolute structural support.',
+    specs: [
+      'Roman Numeral III',
+      'Deep Forest Green Protocol',
+      'Cushion-heavy',
+      'Discreet shipping',
+    ],
+    price: 72,
+    sku: 'LP-03-TNS',
+    stock: 50,
+    protocol: 'Deep Forest Green',
+  },
+  {
+    id: 'c-56',
+    slug: 'loop-x-composite',
+    category: 'blue-dark-anal',
+    name: 'Loop X (Composite) — Hybrid',
+    tagline: 'The Composite Protocol.',
+    material: 'Water/Silicone Hybrid',
+    description:
+      'The tactical hybrid. A precision blend of water and silicone for those who demand the glide of the source with the endurance of the baseline. Roman Numeral X — the composite solution for the versatile practitioner.',
+    specs: [
+      'Roman Numeral X',
+      'Deep Forest Green Protocol',
+      'Versatile glide',
+      'Discreet shipping',
+    ],
+    price: 120,
+    sku: 'LP-10-CMP',
+    stock: 25,
+    protocol: 'Deep Forest Green',
+  },
 ];
+
+validateStorefrontRouteOwnership();
 
 // ─────────────────────────────────────────────────────────────────────────
 // SHELVED PRODUCTS — NOT PUBLIC

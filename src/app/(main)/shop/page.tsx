@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { CATEGORIES, PRODUCTS } from '@/lib/products';
+import { PRODUCTS, STOREFRONT_ROUTES, getProductsByStorefrontRoute } from '@/lib/products';
 import ProductCard from '@/components/ProductCard';
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function ShopPage() {
             The Shop
           </h1>
           <p className="text-sm font-mono text-zinc-500 leading-7 mt-2">
-            {PRODUCTS.length} products across {CATEGORIES.length} categories. Organized by
+            {PRODUCTS.length} products across {STOREFRONT_ROUTES.length} categories. Organized by
             structural, load-bearing, or metabolic function.
           </p>
         </div>
@@ -31,14 +31,14 @@ export default function ShopPage() {
       {/* Category jump nav */}
       <div className="border-b border-zinc-800 bg-zinc-950 px-6 py-4 sticky top-14 z-30">
         <div className="mx-auto max-w-7xl flex items-center gap-6 overflow-x-auto scrollbar-none">
-          {CATEGORIES.map(({ slug, tag, title }) => (
+          {STOREFRONT_ROUTES.map(({ slug, descriptor, title }) => (
             <a
               key={slug}
               href={`#${slug}`}
               className="flex items-center gap-2 shrink-0 group"
             >
               <span className="text-xs font-mono uppercase tracking-widest text-zinc-700 group-hover:text-zinc-500 transition-colors">
-                {tag}
+                {descriptor}
               </span>
               <span className="text-xs font-mono uppercase tracking-[0.15em] text-zinc-400 group-hover:text-white transition-colors">
                 {title}
@@ -50,41 +50,43 @@ export default function ShopPage() {
 
       {/* Category sections */}
       <div className="mx-auto w-full max-w-7xl px-6">
-        {CATEGORIES.map((cat) => {
-          const products = PRODUCTS.filter((p) => p.category === cat.slug);
+        {STOREFRONT_ROUTES.map((route) => {
+          const products = getProductsByStorefrontRoute(route.slug);
           return (
             <section
-              key={cat.slug}
-              id={cat.slug}
+              key={route.slug}
+              id={route.slug}
               className="py-20 border-b border-zinc-800 last:border-b-0 scroll-mt-28"
             >
               {/* Section header */}
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
                 <div className="flex flex-col gap-2">
-                  <p className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-600">
-                    {cat.tag} — {cat.subtitle}
+                  <p className={`text-xs tracking-[0.3em] font-mono uppercase ${route.color ?? 'text-zinc-600'}`}>
+                    {route.descriptor}
                   </p>
-                  <h2 className={`text-3xl font-black tracking-tight uppercase ${cat.color}`}>
-                    {cat.title}
+                  <h2 className={`text-3xl font-black tracking-tight uppercase ${route.color ?? 'text-white'}`}>
+                    {route.title}
                   </h2>
                   <p className="text-sm font-mono text-zinc-500 leading-7 max-w-lg mt-1">
-                    {cat.description}
+                    {route.description}
                   </p>
                 </div>
                 <Link
-                  href={`/shop/${cat.slug}`}
+                  href={`/shop/${route.slug}`}
                   className="shrink-0 text-xs font-mono font-bold tracking-[0.2em] uppercase text-zinc-500 hover:text-white transition-colors"
                 >
-                  View Category →
+                  {products.length > 0 ? 'View Category →' : 'Learn More →'}
                 </Link>
               </div>
 
               {/* Product grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              {products.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
+                  {products.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              )}
             </section>
           );
         })}
