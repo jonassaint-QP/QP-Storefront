@@ -8,7 +8,6 @@ const SHOP_LINKS = [
 ];
 
 const INFO_LINKS = [
-  { label: 'The Sovereign Kit', href: '/bundles' },
   { label: 'About', href: '/about' },
   { label: 'Terms of Service', href: '/terms' },
   { label: 'Privacy Policy', href: '/privacy' },

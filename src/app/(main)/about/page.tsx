@@ -146,10 +146,8 @@ export default function AboutPage() {
             </p>
             <p className="text-sm font-mono text-zinc-500 leading-7">
               The review system is pseudonymous by design. The navigation is
-              scannable to prevent choice paralysis. The Sovereign Kit bundles
-              are pre-assembled on a high-dopamine day to be ready on a
-              low-dopamine one. Every structural decision on this platform is
-              made in service of somatic sovereignty.
+              scannable to prevent choice paralysis. Every structural decision
+              on this platform is made in service of somatic sovereignty.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Link

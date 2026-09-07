@@ -2,6 +2,7 @@ import { after, NextResponse } from 'next/server';
 import { getDb } from '@/db';
 import { store_orders } from '@/db/schema';
 import { eq, gte, and, sql } from 'drizzle-orm';
+import { PRODUCTS } from '@/lib/products';
 
 // Hard cap negotiated with merchant processor
 const MONTHLY_VOLUME_LIMIT = 25000;
@@ -26,6 +27,14 @@ return NextResponse.json(
 { status: 400 }  
 );  
 }  
+
+    const productIds = new Set(PRODUCTS.map((product) => product.id));
+    if (cartItems.some((item) => !productIds.has(item?.id))) {
+      return NextResponse.json(
+        { error: 'Cart contains an unavailable product.' },
+        { status: 400 },
+      );
+    }
 
     // 1. Calculate final total server-side to prevent tampering
     const amount = calculateTotal(cartItems, currency);
@@ -151,4 +160,3 @@ function calculateTotal(
   // 1 USD = 1.38 CAD
   return (currency === 'CAD' ? baseUSD * 1.38 : baseUSD).toFixed(2);
 }
-

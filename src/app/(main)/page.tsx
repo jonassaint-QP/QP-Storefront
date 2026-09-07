@@ -46,15 +46,6 @@ const CATEGORIES = [
   },
 ];
 
-const KIT_ITEMS = [
-  'Tactical Containment Unit',
-  'Sensory Grounding Apparel',
-  'Frictionless Duo Pack',
-  'Metabolic Recovery Pack',
-  'Tactile Hygiene Essentials',
-  'Sovereign Body Harm-Reduction Guide',
-];
-
 export default function HomePage() {
   return (
     <div className="flex flex-col">
@@ -73,18 +64,12 @@ export default function HomePage() {
             neurodivergent kink communities. Built to externalize executive
             function and protect somatic sovereignty.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+          <div className="pt-2">
             <Link
               href="/shop"
               className="h-12 px-6 bg-white text-black text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center transition-colors hover:bg-zinc-100"
             >
               Enter the Shop
-            </Link>
-            <Link
-              href="/bundles"
-              className="h-12 px-6 border border-zinc-700 text-zinc-300 text-xs font-bold tracking-[0.2em] uppercase flex items-center justify-center transition-colors hover:border-zinc-400 hover:text-white"
-            >
-              View the Sovereign Kit
             </Link>
           </div>
         </div>
@@ -153,60 +138,6 @@ export default function HomePage() {
               </Link>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* ── Sovereign Kit Feature ── */}
-      <section className="border-b border-zinc-800 px-6 py-20 mx-auto w-full max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-
-          {/* Left: copy */}
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <p className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-600">
-                [ Primary Commercial Focus ]
-              </p>
-              <h2 className="text-4xl font-black tracking-tight uppercase leading-none text-white">
-                The Sovereign<br />Maintenance Kit
-              </h2>
-            </div>
-            <p className="text-sm font-mono text-zinc-400 leading-7">
-              Engineered to eliminate the ADHD Tax — the logistical and financial
-              cost of executive dysfunction during post-play transitions. Pre-packed
-              on a high-dopamine day. Ready when you need it most.
-            </p>
-            <div className="border-l-2 border-zinc-800 pl-4 flex flex-col gap-1">
-              <p className="text-xs font-mono uppercase tracking-widest text-zinc-700">
-                [ The Point of Performance ]
-              </p>
-              <p className="text-xs font-mono text-zinc-600 leading-6">
-                Pre-packaged hardware, built to cushion your post-play landing.
-              </p>
-            </div>
-            <Link
-              href="/bundles"
-              className="w-fit h-12 px-6 bg-white text-black text-xs font-bold tracking-[0.2em] uppercase flex items-center transition-colors hover:bg-zinc-100"
-            >
-              Build the Kit
-            </Link>
-          </div>
-
-          {/* Right: kit manifest */}
-          <div className="border border-zinc-800 p-8 flex flex-col gap-4">
-            <p className="text-xs tracking-[0.25em] font-mono uppercase text-zinc-600 mb-2">
-              Bundle Manifest
-            </p>
-            {KIT_ITEMS.map((item, i) => (
-              <div key={item} className="flex items-start gap-4 group">
-                <span className="text-xs font-mono text-zinc-700 mt-0.5 tabular-nums">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span className="text-sm font-mono text-zinc-400 group-hover:text-zinc-200 transition-colors leading-6">
-                  {item}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
