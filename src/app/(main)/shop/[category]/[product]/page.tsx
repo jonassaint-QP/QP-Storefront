@@ -90,7 +90,7 @@ export default async function ProductPage({ params }: PageProps) {
                   alt={product.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
@@ -117,7 +117,7 @@ export default async function ProductPage({ params }: PageProps) {
                       src={img}
                       alt={`${product.name} angle ${idx + 1}`}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                 ))}
