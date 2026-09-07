@@ -38,8 +38,8 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'black-sm',
     tag: 'Hanky: Black',
-    title: 'Black / S&M',
-    subtitle: 'Sadomasochism & Heavy Discipline',
+    title: 'Black',
+    subtitle: 'Heavy Impact & Discipline',
     description:
       'Heavy impact gear, whips, canes, and S&M hardware engineered for intense sensation and physical discipline.',
     color: 'text-zinc-100', // Black hanky
@@ -47,8 +47,8 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'blue-dark-anal',
     tag: 'Hanky: Dark Blue',
-    title: 'Blue (Dark) / Anal Sex',
-    subtitle: 'Anal Play & Specialized Lubes',
+    title: 'Blue (Dark)',
+    subtitle: 'Specialized Lubes & Deep Play',
     description:
       'Heavy-viscosity lubricants, plugs, probes, and specialized gear designed for safe anal exploration.',
     color: 'text-blue-700', // Dark Blue hanky
@@ -56,8 +56,8 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'blue-light-oral',
     tag: 'Hanky: Light Blue',
-    title: 'Blue (Light) / Oral Sex',
-    subtitle: 'Oral Play & Enhancement',
+    title: 'Blue (Light)',
+    subtitle: 'Flavored Play & Enhancement',
     description:
       'Flavored lubricants, oral stimulation tools, dams, and accessories for heightened oral play.',
     color: 'text-sky-400', // Light Blue hanky
@@ -65,8 +65,8 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'green-hustler-sugar',
     tag: 'Hanky: Green',
-    title: 'Green / Hustler / Sugar',
-    subtitle: 'Financial & Power Play',
+    title: 'Green',
+    subtitle: 'Commercial & Power Dynamics',
     description:
       'Gear, hardware, and accessories curated for commercial, hustler, and sugar dynamics.',
     color: 'text-emerald-500', // Green hanky
@@ -74,7 +74,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'grey-bondage',
     tag: 'Hanky: Grey',
-    title: 'Grey / Bondage',
+    title: 'Grey',
     subtitle: 'Restraint & Control',
     description:
       'Cuffs, ropes, harnesses, and body restraints engineered to secure the perimeter and anchor control.',
@@ -83,7 +83,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'red-fisting',
     tag: 'Hanky: Red',
-    title: 'Red / Fisting',
+    title: 'Red',
     subtitle: 'Heavy Sensation & Dilators',
     description:
       'High-viscosity sling lubes, heavy-capacity dilators, gloves, and expansion hardware.',
@@ -92,8 +92,8 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'yellow-watersports',
     tag: 'Hanky: Yellow',
-    title: 'Yellow / Watersports',
-    subtitle: 'Urolagnia & Waterproof Hardware',
+    title: 'Yellow',
+    subtitle: 'Waterproof & Specialty Hardware',
     description:
       'Waterproof sheets, catheters, play suits, and specialized hardware for watersports.',
     color: 'text-yellow-400', // Yellow hanky
@@ -115,7 +115,7 @@ export const PRODUCTS: Product[] = [
       '/images/products/ec720-3.jpg',
     ],
     description:
-      'Jasper does not choose gear to disappear inside it. He chooses gear that gives his boundaries a shape: black leather, deliberate straps, and hardware that lets him decide how much presence the moment can hold. Jasper\'s Leather Harness is the launch piece of the Jasper collection because it turns that instinct into something practical — direct, adjustable, and built for a wearer who wants the equipment to meet him where he is.\n\nThe harness uses an open-crotch, two-strap leather front with adjustable side and back straps. It fits waists up to 44 inches and includes three interchangeable O-rings, which is where the collection starts to become a system instead of a single purchase. Rather than one fixed answer, Jasper can choose the attachment that matches his body, his partner, and the intensity he wants that day. That is the heart of his big truck energy: not excess for its own sake, but capacity with a plan.\n\nThe First Rung: King Cock 6 Inch Uncut Light. This is the rung for learning the harness. The dual-density Slide Skin and retractable foreskin detail give it a lifelike, contained feel that is substantial enough to register as intentional without asking a newer wearer to start at full throttle. It pairs with the more intimate end of the ring system for a closer, more contained setup — the choice when the moment is about connection over force.\n\nThe Workhorse Rung: King Cock 8 Inch with Balls Brown. The attached balls add visual weight and physical presence, which makes this the rung that announces itself. It is the bold, grounded choice for the wearer who has moved past learning the straps and wants the gear to feel like gear — still manageable, but no longer timid.\n\nThe Command Rung: King Cock 9 Inch. Longer profile, added reach, a stronger sense of projection. This is the step up for someone who wants to feel the difference a few more inches make while staying inside a steady progression. It asks for a little more communication and a little more warm-up, which is exactly the point: the ladder rewards attention, not rushing.\n\nThe Monster Rung: King Cock 14 Inch with Balls Brown. The far end of the range, and it is not a requirement and not a dare. This is for experienced users who want a larger setup approached with patience, preparation, and real respect for limits. When the moment calls for it, nothing else in the collection delivers that kind of presence.\n\nAll four attachments sit on the ladder from six to fourteen inches, and all four are supplier-confirmed as compatible with the harness\'s O-ring system. Choose the attachment that matches the compatible ring, inspect the fit before use, and never force a toy into an opening that does not hold it securely. If you are starting fresh, the six-inch is your entry rung. If the harness is already on its way, the eight-inch is the natural next step. The ladder is built so every purchase is a progression, not a gamble.\n\nGear That Respects the Boundary. The harness is black leather, metal, and rubber, wipe-clean only. The attachment is sold separately, so the collection can grow at the wearer\'s pace. Clean each component per its own material requirements and store them so leather and toy surfaces stay protected. Fit and consent come before performance: agree on expectations, establish clear stop signals, and check in as the sensation or emotional temperature changes. A harness creates structure — it cannot replace communication.\n\nThe harness ships discreetly in a plain brown box. It is designed for adult, consensual exploration and personal sensory preference, not for proving masculinity or meeting someone else\'s expectations.\n\nThe Jasper Standard. Start at the intensity your body can actually hold, then let the experience develop from there. Jasper\'s Leather Harness: $94.95, with three interchangeable O-rings. Dildo sold separately.\n\nGear, Not Medicine: Jasper\'s Leather Harness is intended for personal somatic exploration and sensory scaffolding, not medical or therapeutic treatment.',
+      'An adjustable two-strap leather harness built for deliberate, present play. Open-crotch design with a snap-in O-ring system and three interchangeable rubber rings (1", 1.5", and 1.75"), so the fit and the attachment can meet you where you are. Fits waists up to 44 inches. Harness only — attachments sold separately and sized to the O-ring system.',
     specs: [
       'SKU: EC720',
       'UPC: 848518001542',
