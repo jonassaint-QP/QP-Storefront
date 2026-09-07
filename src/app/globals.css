@@ -1,44 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #020501;   /* Near-Black */
-  --foreground: #CBB26A;   /* Antique Gold */
-  --border: #153009;       /* Deep Green */
-  --muted: #CBB26A;
-  --muted-foreground: #A98C42;
+:root {  
+  --background: #020501;   /* Near-Black */  
+  --foreground: #CBB26A;   /* Antique Gold */  
+  --border: #153009;       /* Deep Green */  
+  --muted: #CBB26A;  
+  --muted-foreground: #A98C42;  
+  --gold: #D3B127;         /* Somatic Gold — single conversion beacon */  
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-border: var(--border);
-  --color-muted: var(--muted);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme inline {  
+  --color-background: var(--background);  
+  --color-foreground: var(--foreground);  
+  --color-border: var(--border);  
+  --color-muted: var(--muted);  
+  --color-muted-foreground: var(--muted-foreground);  
+  --color-gold: var(--gold);  
+  --color-deep-green: var(--border);  
+  --color-antique-gold: var(--foreground);  
+  --color-near-black: var(--background);  
+  --font-sans: var(--font-geist-sans);  
+  --font-mono: var(--font-geist-mono);  
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+body {  
+  background: var(--background);  
+  color: var(--foreground);  
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;  
 }
 
-/* Timer progress bar — native <progress> reset */
-.timer-progress {
-  appearance: none;
-  background: #153009;
-  border: none;
-  border-radius: 0;
-  overflow: hidden;
-}
-.timer-progress::-webkit-progress-bar {
-  background: #153009;
-}
-.timer-progress::-webkit-progress-value {
-  background: #D3B127;
-  transition: width 1s linear;
-}
-.timer-progress::-moz-progress-bar {
-  background: #D3B127;
-  transition: width 1s linear;
-}
+/* Timer progress bar — native <progress> reset */  
+.timer-progress {  
+  appearance: none;  
+  background: #153009;  
+  border: none;  
+  border-radius: 0;  
+  overflow: hidden;  
+}  
+.timer-progress::-webkit-progress-bar {  
+  background: #153009;  
+}  
+.timer-progress::-webkit-progress-value {  
+  background: #D3B127;  
+  transition: width 1s linear;  
+}  
+.timer-progress::-moz-progress-bar {  
+  background: #D3B127;  
+  transition: width 1s linear;  
+}  
