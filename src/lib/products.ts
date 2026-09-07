@@ -747,13 +747,13 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-49',
     slug: 'lovense-ridge-bumpy-anal-plug',
-    category: 'grey-bondage',
+    category: 'blue-dark-anal',
     name: 'Lovense Ridge Bumpy Anal Plug — Black',
     tagline: 'Tech-Enabled Depth.',
     material: 'Premium Silicone',
-    image: '/images/products/LOV0142___1694754140.jpg',
+    image: '/images/products/lovense-ridge-bumpy-anal-plug.jpg',
     images: [
-      '/images/products/LOV0142___1694754140.jpg',
+      '/images/products/lovense-ridge-bumpy-anal-plug.jpg',
       '/images/products/LOV0142a___1694754142.jpg',
       '/images/products/LOV0142b___1694754144.jpg',
       '/images/products/LOV0142c___1694754147.jpg',
