@@ -1021,7 +1021,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-77',
     slug: 'astroglide-strawberry-2-5oz',
-    category: 'blue-dark-anal',
+    category: 'blue-light-oral',
     name: 'Astroglide Strawberry 2.5 oz',
     tagline: 'Sweet strawberry flavor. Silky water-based glide.',
     material: 'Water-based lubricant — strawberry flavored',
@@ -1041,7 +1041,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'c-78',
     slug: 'astroglide-strawberry-8-5oz',
-    category: 'blue-dark-anal',
+    category: 'blue-light-oral',
     name: 'Astroglide Strawberry 8.5 oz',
     tagline: 'Sweet strawberry flavor in a generous size.',
     material: 'Water-based lubricant — strawberry flavored',
