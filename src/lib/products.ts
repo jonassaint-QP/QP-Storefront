@@ -206,7 +206,7 @@ export const STOREFRONT_ROUTES: StorefrontRoute[] = [
   },
   {
     slug: 'yellow-watersports',
-    descriptor: 'Watersports',
+    descriptor: 'Waterproof & Specialty Hardware',
     title: 'Waterproof & Specialty Hardware',
     description:
       'Waterproof sheets, catheters, play suits, and specialized hardware for watersports.',

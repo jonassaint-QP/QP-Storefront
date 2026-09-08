@@ -31,20 +31,33 @@ export default function ShopPage() {
       {/* Category jump nav */}
       <div className="border-b border-zinc-800 bg-zinc-950 px-6 py-4 sticky top-14 z-30">
         <div className="mx-auto max-w-7xl flex items-center gap-6 overflow-x-auto scrollbar-none">
-          {STOREFRONT_ROUTES.map(({ slug, descriptor, title }) => (
-            <a
-              key={slug}
-              href={`#${slug}`}
-              className="flex items-center gap-2 shrink-0 group"
-            >
-              <span className="text-xs font-mono uppercase tracking-widest text-zinc-700 group-hover:text-zinc-500 transition-colors">
-                {descriptor}
-              </span>
-              <span className="text-xs font-mono uppercase tracking-[0.15em] text-zinc-400 group-hover:text-white transition-colors">
-                {title}
-              </span>
-            </a>
-          ))}
+          {STOREFRONT_ROUTES.map((route) => {  
+            const { slug, descriptor, title, color } = route;  
+            return (  
+              <a  
+                key={slug}  
+                href={`#${slug}`}  
+                className="flex items-center gap-2 shrink-0 group"  
+              >  
+                {descriptor !== title && (  
+                  <span  
+                    className={`text-xs font-mono uppercase tracking-widest ${  
+                      color ?? 'text-zinc-700'  
+                    } transition-colors`}  
+                  >  
+                    {descriptor}  
+                  </span>  
+                )}  
+                <span  
+                  className={`text-xs font-mono uppercase tracking-[0.15em] ${  
+                    color ?? 'text-zinc-400'  
+                  } transition-colors`}  
+                >  
+                  {title}  
+                </span>  
+              </a>  
+            );  
+          })}
         </div>
       </div>
 
