@@ -1,10 +1,3 @@
-/**
- * Canonical manufacturer SKU registry.
- *
- * Product SKU values must remain exactly as supplied by the manufacturer.
- * Internal collection/vendor/lane metadata belongs on the product record,
- * never in the SKU string.
- */
 export const SKU_REGISTRY = {
   EC720: { vendor: 'Sex Toy Distributing', collection: 'Jasper', status: 'launch' },
   AJ098: { vendor: 'Sex Toy Distributing', collection: 'Big Ticket', status: 'shelved' },
@@ -35,7 +28,6 @@ export const SKU_REGISTRY = {
     tier: 'throne',
     availability: 'limited-preorder',
   },
-  // Existing public lube records confirmed for the launch lock
   KS12084: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   IE04960: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   WIC91205: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
@@ -62,14 +54,10 @@ export const SKU_REGISTRY = {
   'LP-03-TNS': { vendor: 'Queer Pathways', collection: 'Loop', status: 'review' },
   'LP-10-CMP': { vendor: 'Queer Pathways', collection: 'Loop', status: 'review' },
   XRAC323: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'review' },
-
-  // Registered 2026-09-07 — reconciliation: live catalog products confirmed launch
-  // King Cock / Jasper attachments (Eldorado)
   PD556021: { vendor: 'Eldorado Trading Company', collection: 'Jasper', status: 'launch' },
   PD550729: { vendor: 'Eldorado Trading Company', collection: 'Jasper', status: 'launch' },
   'PD5504-21': { vendor: 'Eldorado Trading Company', collection: 'Jasper', status: 'launch' },
   PD553429: { vendor: 'Eldorado Trading Company', collection: 'Jasper', status: 'launch' },
-  // Swiss Navy / Lube (Eldorado)
   SNSL1: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   SNSL4: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   SNSL8: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
@@ -79,7 +67,6 @@ export const SKU_REGISTRY = {
   SNWL16: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   SNSL1G: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   SNWB1G: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
-  // ID / Lube (Eldorado)
   IDGLD01: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   IDGLD02: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   IDGLD04: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
@@ -88,7 +75,6 @@ export const SKU_REGISTRY = {
   IDPLS02: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   IDMLL08: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   IDDGSB08C2: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
-  // Astroglide / Lube (Eldorado)
   AG71607: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   AG71605: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
   AG71604: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
