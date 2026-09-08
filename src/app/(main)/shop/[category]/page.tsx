@@ -10,7 +10,7 @@ import {
 } from '@/lib/products';
 import ProductCard from '@/components/ProductCard';
 import ReviewSection from '@/components/ReviewSection';
-import { SKU_REGISTRY } from '@/lib/sku-registry';
+import SubscriptionPanel from '@/components/SubscriptionPanel';
 
 interface PageProps {
   params: Promise<{ category: string }>;
@@ -137,70 +137,6 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </div>
 
-    </div>
-  );
-}
-
-// Dedicated, non-buyable membership panel for `loop-subscription`. No
-// ProductCard, no AddToCartButton/cart affordance, and no ReviewSection —
-// this route never carries `Product` records and is not orderable.
-// Enrollment/billing/renewal/cancellation terms and cadence are
-// intentionally not stated here; they are pending attorney review.
-function SubscriptionPanel() {
-  const tierLabels = {
-    'main-stage': 'Main Stage',
-    throne: 'Throne',
-  } as const;
-  const tiers = [
-    {
-      sku: 'SNSL16',
-      metadata: SKU_REGISTRY.SNSL16,
-    },
-    {
-      sku: 'SNSL32',
-      metadata: SKU_REGISTRY.SNSL32,
-    },
-  ].map(({ sku, metadata }) => ({
-    sku,
-    label: tierLabels[metadata.tier],
-    availability: 'availability' in metadata ? metadata.availability : undefined,
-  }));
-
-  return (
-    <div className="mx-auto w-full max-w-7xl px-6 py-16 flex flex-col gap-10">
-      <div className="border border-zinc-800 p-8 flex flex-col gap-4">
-        <p className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-600">
-          [ Checkout Unavailable ]
-        </p>
-        <p className="text-sm font-mono text-zinc-400 leading-7 max-w-2xl">
-          This is a preview of a planned membership track — not an active offer.
-          Enrollment, billing, renewal, and cancellation terms are pending attorney
-          review. Nothing on this page can be added to cart or purchased.
-        </p>
-      </div>
-
-      <div>
-        <p className="text-xs tracking-[0.3em] font-mono uppercase text-zinc-600 mb-4">
-          [ Planned Tiers ]
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-zinc-800">
-          {tiers.map((tier) => (
-            <div key={tier.sku} className="bg-black p-8 flex flex-col gap-3">
-              <p className="text-xs font-mono uppercase tracking-widest text-zinc-600">
-                SKU: {tier.sku}
-              </p>
-              <h3 className="text-xl font-black tracking-tight uppercase text-white">
-                {tier.label}
-              </h3>
-              {tier.availability === 'limited-preorder' && (
-                <p className="text-xs font-mono uppercase tracking-widest text-green-800">
-                  Limited preorder
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
