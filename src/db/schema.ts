@@ -39,22 +39,12 @@ export const subscriptions = pgTable(
     nextChargeDate: timestamp('next_charge_date').notNull(),
     lastChargeDate: timestamp('last_charge_date'),
     shippingAddress: jsonb('shipping_address'),
-    nmiVaultId: varchar('nmi_vault_id', { length: 128 }),  
+    nmiVaultId: varchar('nmi_vault_id', { length: 128 }),
     lastOrderId: integer('last_order_id').references(() => store_orders.id),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at'),
   },
 );
 
-export const estate_waitlist = pgTable(
-  'estate_waitlist',
-  {
-    id: serial('id').primaryKey(),
-    email: text('email').notNull(),
-    source: text('source').notNull().default('estate-coming-soon'),
-    createdAt: timestamp('created_at').notNull().defaultNow(),
-  },
-  (table) => ({
-    emailUnique: uniqueIndex('estate_waitlist_email_unique').on(table.email),
-  }),
-);
+// estate_waitlist table removed by SBLC copy sync (2026-09-08): the Estate tier
+// is live for checkout, so the waitlist route and table are no longer needed.
