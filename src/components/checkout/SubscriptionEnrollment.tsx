@@ -2,14 +2,17 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { SUBSCRIPTION_TIERS, INTERVAL_MONTHS, billingDate, type SubscriptionTier } from '@/lib/subscriptions';
+import { SUBSCRIPTION_TIERS, INTERVAL_MONTHS, LIVE_TIERS, billingDate, type SubscriptionTier } from '@/lib/subscriptions';
 import { foundingPrice } from '@/lib/subscriptionCheckout';
 
 const INPUT = 'h-10 bg-zinc-950 border border-zinc-800 px-4 text-sm font-mono text-white placeholder-zinc-700 focus:outline-none focus:border-zinc-500 transition-colors';
 const SELECT = 'h-10 bg-zinc-950 border border-zinc-800 px-4 text-sm font-mono text-white focus:outline-none focus:border-zinc-500 transition-colors appearance-none';
 
 export default function SubscriptionEnrollment({ initialTier = 'main-stage' as SubscriptionTier }) {
-  const [tier, setTier] = useState<SubscriptionTier>(initialTier);
+  const safeInitial: SubscriptionTier = (LIVE_TIERS as readonly string[]).includes(initialTier)
+    ? initialTier
+    : 'main-stage';
+  const [tier, setTier] = useState<SubscriptionTier>(safeInitial);
   const [billingDay, setBillingDay] = useState(1);
   const [intervalMonths, setIntervalMonths] = useState(1);
   const [email, setEmail] = useState('');
@@ -38,7 +41,7 @@ export default function SubscriptionEnrollment({ initialTier = 'main-stage' as S
         <label className="flex flex-col gap-2 text-xs font-mono uppercase tracking-widest text-zinc-600">
           Tier
           <select value={tier} onChange={(e) => setTier(e.target.value as SubscriptionTier)} className={SELECT}>
-            {(Object.keys(SUBSCRIPTION_TIERS) as SubscriptionTier[]).map((key) => (
+            {LIVE_TIERS.map((key) => (
               <option key={key} value={key}>{SUBSCRIPTION_TIERS[key].label} — ${SUBSCRIPTION_TIERS[key].price} per shipment</option>
             ))}
           </select>
