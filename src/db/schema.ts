@@ -39,6 +39,7 @@ export const subscriptions = pgTable(
     nextChargeDate: timestamp('next_charge_date').notNull(),
     lastChargeDate: timestamp('last_charge_date'),
     shippingAddress: jsonb('shipping_address'),
+    nmiVaultId: varchar('nmi_vault_id', { length: 128 }),  
     lastOrderId: integer('last_order_id').references(() => store_orders.id),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at'),
