@@ -11,6 +11,7 @@ const INFO_LINKS = [
   { label: 'About', href: '/about' },
   { label: 'Terms of Service', href: '/terms' },
   { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Support', href: '/support' },
 ];
 
 export default function SiteFooter() {
@@ -76,12 +77,6 @@ export default function SiteFooter() {
                 {label}
               </Link>
             ))}
-            <Link
-              href="/support"
-              className="text-xs font-mono text-zinc-500 hover:text-zinc-200 transition-colors"
-            >
-              Support
-            </Link>
           </nav>
         </div>
       </div>
