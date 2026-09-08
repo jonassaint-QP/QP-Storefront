@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { SKU_REGISTRY } from '@/lib/sku-registry';
+import { SUBSCRIPTION_TIERS } from '@/lib/subscriptions';
 
 type TierKey = 'main-stage' | 'throne' | 'estate';
 
@@ -61,9 +61,7 @@ export default function SubscriptionPanel() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-zinc-800 border border-zinc-800">
           {(Object.keys(TIER_COPY) as TierKey[]).map((key) => {
             const tier = TIER_COPY[key];
-            const registry = SKU_REGISTRY[tier.sku as keyof typeof SKU_REGISTRY];
-            const price =
-              'price' in registry && registry.price ? Number(registry.price).toFixed(2) : null;
+            const price = SUBSCRIPTION_TIERS[key].price;
             return (
               <div key={key} className="bg-black p-8 flex flex-col gap-4 min-h-full">
                 <div className="flex items-start justify-between gap-3">
@@ -93,12 +91,30 @@ export default function SubscriptionPanel() {
         </div>
         <p className="text-xs font-mono text-zinc-600 leading-6 mt-4">
           Every tier is one flat price per shipment. Choose a 1-, 2-, 3-, 4-, 6-, or 12-month interval
-          — the price stays the same.
+          — the price stays the same. Founding rates are locked for life once you join.
         </p>
       </div>
 
-      {/* Manage link */}
+      {/* Founding window */}
+      <div className="border border-[#D3B127]/40 bg-[#153009] p-8 flex flex-col gap-3 max-w-3xl">
+        <p className="text-xs tracking-[0.3em] font-mono uppercase text-[#D3B127]">
+          [ Founding Window — September 15 through October 15 ]
+        </p>
+        <p className="text-sm font-mono text-[#C0BFBC] leading-7">
+          Join with code <span className="text-[#D3B127] font-bold">QUEER-10</span> and that 10% is
+          yours for life — every shipment, every cadence, forever. This is the friends-and-family seed
+          of the club: the people who believed before the bottle was on the shelf.
+        </p>
+      </div>
+
+      {/* Notices */}
       <div className="border-t border-zinc-900 pt-8 flex flex-col gap-3 max-w-2xl">
+        <p className="text-xs font-mono text-zinc-600 leading-6">
+          Charges appear as <span className="text-zinc-400">QP LOGISTICS</span> on your statement.
+        </p>
+        <p className="text-xs font-mono text-zinc-600 leading-6">
+          The Sovereign Body Lube Club currently ships within the United States only.
+        </p>
         <p className="text-xs font-mono text-zinc-600 leading-6">
           Already a member? Manage your membership at{' '}
           <Link href="/membership/manage" className="text-zinc-400 underline hover:text-zinc-200 transition-colors">
