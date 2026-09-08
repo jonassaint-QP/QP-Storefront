@@ -30,8 +30,8 @@ export const SUBSCRIPTION_TIERS = {
 
 export type SubscriptionTier = keyof typeof SUBSCRIPTION_TIERS;
 
-/** Tiers available for live subscription checkout (Estate is Coming Soon). */
-export const LIVE_TIERS = ['main-stage', 'throne'] as const;
+/** Tiers available for live subscription checkout (all three tiers live). */
+export const LIVE_TIERS = ['main-stage', 'throne', 'estate'] as const;
 
 export const INTERVAL_MONTHS = [1, 2, 3, 4, 6, 12] as const;
 
