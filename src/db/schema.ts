@@ -1,4 +1,4 @@
-import { pgTable, serial, text, timestamp, integer, boolean, numeric, jsonb, varchar, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, timestamp, integer, boolean, numeric, jsonb, varchar } from 'drizzle-orm/pg-core';
 
 /**
  * store_orders — one row per checkout attempt / order.
@@ -44,17 +44,4 @@ export const subscriptions = pgTable(
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at'),
   },
-);
-
-export const estate_waitlist = pgTable(
-  'estate_waitlist',
-  {
-    id: serial('id').primaryKey(),
-    email: text('email').notNull(),
-    source: text('source').notNull().default('estate-coming-soon'),
-    createdAt: timestamp('created_at').notNull().defaultNow(),
-  },
-  (table) => ({
-    emailUnique: uniqueIndex('estate_waitlist_email_unique').on(table.email),
-  }),
 );
