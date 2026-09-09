@@ -161,7 +161,7 @@ export const STOREFRONT_ROUTES: StorefrontRoute[] = [
     descriptor: 'Lube Subscription',
     title: 'Sovereign Body Lube Club',
     description:
-      'A recurring lube resupply track for members who do not want to manage restocking manually. Enrollment, billing, renewal, and cancellation terms are pending attorney review — checkout is not yet available.',
+      'The Sovereign Body Lube Club is the membership behind the Loop — a recurring supply of Swiss Navy silicone, shipped on your chosen cadence, at a founding rate that stays yours. Main Stage, 16 ounces, .99 per shipment. Throne, 32 ounces, .99 per shipment — founding-member allocation, limited availability. The Estate, 128-ounce gallon, .99 per shipment — the lowest per-ounce rate in the club. All three tiers open together September 15, 2026. Join with founding code QUEER-10 and the 10% is yours for the life of your qualifying membership. Flat per-shipment pricing at every interval; you choose the billing day and the cadence. Charges appear as QUEER PATHWAYS LLC on your statement. Pay in full only. U.S. shipping at launch. Pause, skip, change, or cancel anytime online — no retention scripts, no required phone call. Gear, not medicine. Sovereignty, not shame.',
     color: 'text-green-800',
   },
   {
