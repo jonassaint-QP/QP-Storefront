@@ -35,12 +35,12 @@ export default function SiteFooter() {
           <p className="text-xs font-mono text-zinc-700">
             All shipments are 100% discrete.
           </p>
-          <a
-            href="mailto:support@queerpathways.com"
+          <Link
+            href="/support"
             className="text-xs font-mono text-zinc-600 hover:text-zinc-400 transition-colors"
           >
-            support@queerpathways.com
-          </a>
+            Customer Support
+          </Link>
         </div>
 
         {/* Shop */}
