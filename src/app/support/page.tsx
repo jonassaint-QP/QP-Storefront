@@ -13,7 +13,7 @@ const AREA =
 export default function SupportPage() {
   const [form, setForm] = useState({ name: '', email: '', topic: '', reference: '', message: '' });
   const [busy, setBusy] = useState(false);
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<{ ok: boolean; text: string } | null>(null);
 
   function setField(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
