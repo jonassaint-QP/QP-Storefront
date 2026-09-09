@@ -33,7 +33,7 @@ export const SKU_REGISTRY = {
     status: 'launch',
     club: 'sovereign-body-lube-club',
     tier: 'throne',
-    availability: 'limited-preorder',
+    availability: 'live',
   },
   // Existing public lube records confirmed for the launch lock
   KS12084: { vendor: 'Eldorado Trading Company', collection: 'Lube', status: 'launch' },
