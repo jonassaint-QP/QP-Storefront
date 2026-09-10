@@ -1,0 +1,6 @@
+# Bundles were retired from Queer Pathways — permanent Gone (410).
+# Netlify returns the 410 at the edge. Route handlers outside /api are not
+# wrapped as serverless functions by @netlify/plugin-nextjs, so the 410 must
+# be enforced here rather than in src/app/bundles/route.ts alone.
+/bundles  /.gone  410
+/bundles/*  /.gone  410
