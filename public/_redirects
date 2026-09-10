@@ -4,3 +4,21 @@
 # be enforced here rather than in src/app/bundles/route.ts alone.
 /bundles  /.gone  410
 /bundles/*  /.gone  410
+
+# ── Retired storefront routes (2026-09-10) ──────────────────────────────────
+# First match wins, so these sit above any broader /shop/* rule.
+#
+# /shop/blue-dark-anal was split into the public routes /shop/loop (the
+# in-house and partner lube line) and /shop/anal-sex (everything else). It
+# remains an internal catalog category but is no longer a customer-facing
+# route; the retired URL is permanently gone.
+/shop/blue-dark-anal      /  410
+/shop/blue-dark-anal/*    /  410
+
+# These four never existed in STOREFRONT_ROUTES — they were hard-coded footer
+# targets that returned 404 to customers and crawlers. Closed permanently
+# rather than redirected, since there is no one-to-one replacement route.
+/shop/slings-anchors      /  410
+/shop/technical-toys      /  410
+/shop/lubes               /  410
+/shop/metabolic           /  410
