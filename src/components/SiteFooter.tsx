@@ -1,11 +1,23 @@
 import Link from 'next/link';
+import { STOREFRONT_ROUTES } from '../lib/products';
 
-const SHOP_LINKS = [
-  { label: 'Slings & Anchors', href: '/shop/slings-anchors' },
-  { label: 'Technical Toys', href: '/shop/technical-toys' },
-  { label: 'The Frictionless Suite', href: '/shop/lubes' },
-  { label: 'Metabolic Recovery', href: '/shop/metabolic' },
-];
+// Shop links are derived from the shared storefront route registry
+// (STOREFRONT_ROUTES) rather than hard-coded, so a footer target can never
+// drift from a route that actually exists.
+//
+// Retired 2026-09-10: the previous hard-coded targets /shop/slings-anchors,
+// /shop/technical-toys, /shop/lubes, and /shop/metabolic never existed in
+// STOREFRONT_ROUTES and returned 404 to customers and crawlers. They are now
+// closed at the edge with 410 Gone in public/_redirects.
+//
+// `loop-subscription` is deliberately excluded — it is the non-buyable
+// membership panel, not a product-backed route.
+const SHOP_LINKS = STOREFRONT_ROUTES.filter(
+  (route) => route.slug !== 'loop-subscription'
+).map((route) => ({
+  label: route.descriptor,
+  href: `/shop/${route.slug}`,
+}));
 
 const INFO_LINKS = [
   { label: 'About', href: '/about' },
