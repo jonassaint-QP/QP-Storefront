@@ -41,3 +41,56 @@
 #
 # IMPORTANT: After setting NEXT_PUBLIC_SITE_URL, trigger a fresh deploy so the
 # Content-Security-Policy in next.config.ts is rebuilt with the real domain.
+
+# ── Retired storefront routes — permanent Gone (410) ───────────────────────────
+# These MUST live here rather than in public/_redirects. Rules in _redirects are
+# shadowed by content the site actually serves, and /shop/<slug> is served by the
+# dynamic [category] route for every slug — including ones that do not exist —
+# which returned HTTP 200 and swallowed the rules. `force = true` is Netlify's
+# documented override for exactly this case: it applies the rule even when
+# matching content exists.
+#
+# Order matters: the more specific /shop/blue-dark-anal/* rule sits above the
+# bare /shop/blue-dark-anal rule, and both sit above anything broader.
+
+# /shop/blue-dark-anal was split into the public routes /shop/loop (the in-house
+# and partner lube line) and /shop/anal-sex (everything else). It survives as an
+# internal catalog category only; the retired URL is permanently gone.
+[[redirects]]
+  from = "/shop/blue-dark-anal/*"
+  to = "/"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/shop/blue-dark-anal"
+  to = "/"
+  status = 410
+  force = true
+
+# These four were hard-coded footer targets that never existed in
+# STOREFRONT_ROUTES. Closed permanently rather than redirected — there is no
+# one-to-one replacement route. The footer now derives from the route registry.
+[[redirects]]
+  from = "/shop/slings-anchors"
+  to = "/"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/shop/technical-toys"
+  to = "/"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/shop/lubes"
+  to = "/"
+  status = 410
+  force = true
+
+[[redirects]]
+  from = "/shop/metabolic"
+  to = "/"
+  status = 410
+  force = true
