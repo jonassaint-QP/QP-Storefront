@@ -4,29 +4,29 @@ import { store_orders } from '@/db/schema';
 import { eq, gte, and, sql } from 'drizzle-orm';
 import { PRODUCTS } from '@/lib/products';
 
-// Hard cap negotiated with merchant processor
-const MONTHLY_VOLUME_LIMIT = 25000;
-const WARNING_THRESHOLD = MONTHLY_VOLUME_LIMIT * 0.85; // $21,250
+// Hard cap negotiated with merchant processor (Lane 1 mandate: $30,000 monthly volume)
+const MONTHLY_VOLUME_LIMIT = 30000;
+const WARNING_THRESHOLD = MONTHLY_VOLUME_LIMIT * 0.85; // $25,500
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { cartItems, customerInfo, shippingAddress, currency = 'USD' } = body;
-// Guard: customer identity is required before any pricing or persistence  
-if (!customerInfo?.name || !customerInfo?.email) {  
-return NextResponse.json(  
-{ error: 'Customer name and email are required.' },  
-{ status: 400 }  
-);  
-}
+    // Guard: customer identity is required before any pricing or persistence
+    if (!customerInfo?.name || !customerInfo?.email) {
+      return NextResponse.json(
+        { error: 'Customer name and email are required.' },
+        { status: 400 }
+      );
+    }
 
-// Guard: nothing to check out  
-if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {  
-return NextResponse.json(  
-{ error: 'Cart is empty.' },  
-{ status: 400 }  
-);  
-}  
+    // Guard: nothing to check out
+    if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
+      return NextResponse.json(
+        { error: 'Cart is empty.' },
+        { status: 400 }
+      );
+    }
 
     const productIds = new Set(PRODUCTS.map((product) => product.id));
     if (cartItems.some((item) => !productIds.has(item?.id))) {
@@ -142,7 +142,7 @@ async function triggerAdminAlert(projectedVolume: number): Promise<void> {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      text: `🚨 High Volume Alert: Rolling 30-day merchant volume is projected at $${projectedVolume.toFixed(2)}, exceeding the 85% threshold of your $25,000 limit. Consider requesting a limit increase from PaymentCloud.`,
+      text: `🚨 High Volume Alert: Rolling 30-day merchant volume is projected at $${projectedVolume.toFixed(2)}, exceeding the 85% threshold of your $30,000 limit. Consider requesting a limit increase from PaymentCloud.`,
     }),
   });
 }
